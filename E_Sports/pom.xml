@@ -13,5 +13,14 @@
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.oracle</groupId>
+            <artifactId>ojdbc</artifactId>
+            <version>12.2.0.1</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/lib/ojdbc8.jar</systemPath>
+        </dependency>
+    </dependencies>
 
 </project>

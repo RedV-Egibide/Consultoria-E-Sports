@@ -1,8 +1,9 @@
-package com.redv.com.Eric;
+package com.redv.com.ESports;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class VentanaLogin {
     private JTextField textoUsuario;
@@ -11,12 +12,23 @@ public class VentanaLogin {
     private JButton iniciarSesionButton;
     private JPanel VentanaLogin;
 
+    //Usuarios registrados
+    private ArrayList<Usuario> usuariosRegistrados = new ArrayList<>();
+    public ArrayList<Usuario> getUsuariosRegistrados() {
+        return usuariosRegistrados;
+    }
+
+    //REFERENCIA
+    VentanaSignUp ventanaSignUp;
+
+
+
 
     public VentanaLogin() {
+
         registrarseButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
             VentanaSignUp ventanaSignUp = new VentanaSignUp();
 
             }
@@ -30,6 +42,8 @@ public class VentanaLogin {
                 //PROVISIONAL!!!
                 if (textoUsuario.getText().equalsIgnoreCase("dueño") && textoContraseña.getText().equalsIgnoreCase("1234")){
                     VentanaDueño ventanaDueño = new VentanaDueño();
+                }else if(textoUsuario.getText().equalsIgnoreCase("admin") && textoContraseña.getText().equalsIgnoreCase("1234")){
+                    VentanaAdmin ventanaAdmin = new VentanaAdmin();
                 }
 
             }

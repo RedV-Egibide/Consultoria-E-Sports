@@ -1,4 +1,4 @@
-package com.redv.com.imejpul;
+package com.redv.com;
 
 import java.util.Objects;
 

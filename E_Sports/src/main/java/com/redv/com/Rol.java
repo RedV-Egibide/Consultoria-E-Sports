@@ -1,4 +1,4 @@
-package com.redv.com.imejpul;
+package com.redv.com;
 
 public enum Rol {
     USUARIO, ADMINISTRADOR, DUEÑO

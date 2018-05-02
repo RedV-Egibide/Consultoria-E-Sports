@@ -1,6 +1,4 @@
-package com.redv.com.Eric;
-
-import com.redv.com.Eric.Equipo;
+package com.redv.com;
 
 public class Partido {
 
@@ -8,7 +6,6 @@ public class Partido {
      * ESTA CLASE SIMPLEMENTE ALMACENA A LOS DOS CONTRINCANTES DE UN PARTIDO.
      * MUCHOS PARTIDOS FORMARÁN CALENDARIO
      */
-
 
     Equipo equipoA;
     Equipo equipoB;

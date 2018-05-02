@@ -1,4 +1,4 @@
-package com.redv.com.Eric;
+package com.redv.com;
 
 import javax.swing.*;
 
@@ -10,7 +10,6 @@ public class VentanaSignUp {
     private JPasswordField passwordField1;
     private JPasswordField passwordField2;
 
-
     public VentanaSignUp() {
         JFrame frame = new JFrame("VentanaSignUp");
         frame.setContentPane(VentanaSignUp);
@@ -18,9 +17,5 @@ public class VentanaSignUp {
         frame.pack();
         frame.setVisible(true);
     }
-
-
-
-
 
 }

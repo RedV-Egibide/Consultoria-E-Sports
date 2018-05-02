@@ -1,9 +1,10 @@
-package com.redv.com;
+package com.redv.com.Eric;
 
 import javax.swing.*;
 
 public class VentanaConfeccionEquipo {
     private JPanel VentanaConfeccionEquipo;
+
 
     public VentanaConfeccionEquipo() {
         JFrame frame = new JFrame("VentanaConfeccionEquipo");

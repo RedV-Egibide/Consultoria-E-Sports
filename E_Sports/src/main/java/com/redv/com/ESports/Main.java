@@ -1,7 +1,6 @@
-package com.redv;
+package com.redv.com.ESports;
 
-import com.redv.com.Eric.Equipo;
-import com.redv.com.Eric.Partido;
+import com.redv.com.ESports.Partido;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,6 +78,8 @@ public class Main {
         equipos.add(new Equipo("E"));
         equipos.add(new Equipo("F"));
         equipos.add(new Equipo("G"));
+
+
 
         System.out.println(OrdenarEnfrentamientos(equipos));
 

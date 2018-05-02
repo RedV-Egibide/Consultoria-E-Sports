@@ -1,23 +1,21 @@
-package com.redv.com.Eric;
-
-import com.redv.com.Eric.VentanaConfeccionEquipo;
+package com.redv.com.ESports;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class VentanaDueño {
-    private JTextArea textArea1;
-    private JTextArea textArea2;
     private JPanel VentanaDueño;
     private JButton confeccionarEquipoButton;
     private JButton salirButton;
+    private JList list1;
+    private JList list2;
 
 
     public VentanaDueño() {
         JFrame frame = new JFrame("VentanaDueño");
         frame.setContentPane(VentanaDueño);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
 
@@ -28,6 +26,16 @@ public class VentanaDueño {
             public void actionPerformed(ActionEvent e) {
 
                 VentanaConfeccionEquipo ventanaConfeccionEquipo = new VentanaConfeccionEquipo();
+
+            }
+        });
+
+
+        salirButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                frame.dispose();
 
             }
         });

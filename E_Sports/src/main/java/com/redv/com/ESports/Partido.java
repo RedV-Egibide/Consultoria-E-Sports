@@ -1,6 +1,4 @@
-package com.redv.com.Eric;
-
-import com.redv.com.Eric.Equipo;
+package com.redv.com.ESports;
 
 public class Partido {
 

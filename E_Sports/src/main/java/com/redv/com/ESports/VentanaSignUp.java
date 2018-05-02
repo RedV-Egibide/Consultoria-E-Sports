@@ -11,10 +11,19 @@ public class VentanaSignUp {
     private JTextField TextoUsuario;
     private JPasswordField TextoContraseña;
     private JPasswordField TextoConfirmarContraseña;
+    private JLabel textoInformativo;
 
-    private VentanaLogin ventanaLogin;
+
+    public boolean RegistrarUsuario(String usuario, String contraseña){
+        boolean nombreVálido=false;
+        //Si el nombre está disponible devolverá TRUE si no es el caso FALSE
+
+        //Aquí la parde de base de datos.
 
 
+
+        return nombreVálido;
+    }
 
 
 
@@ -30,12 +39,7 @@ public class VentanaSignUp {
         cancelarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-
                 frame.dispose();
-
-
-
             }
         });
 
@@ -45,18 +49,24 @@ public class VentanaSignUp {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                String a, b;
                 //SOLO SI LA CONTRASEÑA Y LA CONFIRMACIÓN DE LA CONTRASEÑA SON IGUALES PROSEGUIRÁ LA APLICACIÓN.
                 if (TextoContraseña.getText().equalsIgnoreCase(TextoConfirmarContraseña.getText())) {
                     String nombreUsuario = TextoUsuario.getText();
                     String contraseña = TextoContraseña.getText();
+                    boolean usuarioValido;
 
-                    Usuario usuario = new Usuario(nombreUsuario, contraseña);
-                    //FALTA CONECTAR CON LA PÁGINA DE LOGIN
+                    usuarioValido = RegistrarUsuario(nombreUsuario, contraseña);
 
-                    TextoUsuario.setText("");
-                    TextoContraseña.setText("");
-                    TextoConfirmarContraseña.setText("");
+                    if (usuarioValido == true){     //ESTE IF SE ENCARGA DE AVISAR DEL PROBLEMA O REGISTRO DEL USUARIO
+                        textoInformativo.setText("Usuario registrado correctamente");
+                        TextoUsuario.setText("");
+                        TextoContraseña.setText("");
+                        TextoConfirmarContraseña.setText("");
+                    }else{
+                        textoInformativo.setText("El nombre de usuario ya está en uso");
+                    }
+
+
                 }
 
             }

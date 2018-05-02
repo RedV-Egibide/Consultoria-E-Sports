@@ -3,7 +3,6 @@ package com.redv.com.ESports;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 public class VentanaLogin {
     private JTextField textoUsuario;
@@ -11,15 +10,25 @@ public class VentanaLogin {
     private JButton registrarseButton;
     private JButton iniciarSesionButton;
     private JPanel VentanaLogin;
+    private JLabel textoInformativo;
+    //ROL DEL USUARIO QUE INTENTA INICIAR SESIÓN.
+    public String rol;
 
-    //Usuarios registrados
-    private ArrayList<Usuario> usuariosRegistrados = new ArrayList<>();
-    public ArrayList<Usuario> getUsuariosRegistrados() {
-        return usuariosRegistrados;
+
+    public boolean VerificarCredenciales(String usuario, String contraseña){
+        boolean datosCorrectos = false;
+
+        //COMPROBAR CREDENCIALES (usuario, contraseña), DE SER CORRECTOS SE DEVOLVERÁ UN TRUE Y DE SER INCORRECTOS UN FALSE.
+
+
+
+
+
+        //EL ROL SE ALMACENARÁ EN LA VARIABLE "rol"
+
+        return datosCorrectos;
     }
 
-    //REFERENCIA
-    VentanaSignUp ventanaSignUp;
 
 
 
@@ -36,15 +45,27 @@ public class VentanaLogin {
 
 
 
+
+
         iniciarSesionButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //PROVISIONAL!!!
+                /*
                 if (textoUsuario.getText().equalsIgnoreCase("dueño") && textoContraseña.getText().equalsIgnoreCase("1234")){
                     VentanaDueño ventanaDueño = new VentanaDueño();
                 }else if(textoUsuario.getText().equalsIgnoreCase("admin") && textoContraseña.getText().equalsIgnoreCase("1234")){
                     VentanaAdmin ventanaAdmin = new VentanaAdmin();
                 }
+                */
+
+
+                if((VerificarCredenciales(textoUsuario.getText(), textoContraseña.getSelectedText())) == false){
+                    textoInformativo.setText("Datos incorrectos");
+                }else{
+                    textoInformativo.setText("Datos válidos");
+                }
+
 
             }
         });

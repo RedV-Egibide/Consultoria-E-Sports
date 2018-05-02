@@ -1,6 +1,5 @@
 package com.redv;
 
-import com.redv.com.Eric.Equipo;
 import com.redv.com.Partido;
 
 import java.util.ArrayList;

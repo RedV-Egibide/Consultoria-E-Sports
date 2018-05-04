@@ -6,18 +6,18 @@ import java.awt.event.ActionListener;
 
 public class VentanaAdmin {
     private JPanel VentanaAdmin;
-    private JList list1;
     private JRadioButton victoriaRadioButton;
     private JRadioButton derrotaRadioButton;
     private JRadioButton empateRadioButton;
     private JButton generarButton;
-    private JComboBox comboBox1;
+    private JComboBox comboBoxModificar;
     private JButton crearButton;
     private JButton modificarButton;
     private JButton eliminarButton;
     private JButton salirButton;
-    private JList list2;
     private JButton verButton;
+    private JTable table1;
+    private JTable table2;
 
     public VentanaAdmin() {
         JFrame frame = new JFrame("VentanaAdmin");
@@ -31,6 +31,28 @@ public class VentanaAdmin {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
+            }
+        });
+
+
+
+        crearButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                int eleccion;
+                if(comboBoxModificar.getSelectedIndex() == 0){
+                    VentanaCrearJugador ventanaCrearJugador = new VentanaCrearJugador();
+                }else if(comboBoxModificar.getSelectedIndex() == 1){
+                    VentanaCrearEquipo ventanaCrearEquipo = new VentanaCrearEquipo();
+                }else if(comboBoxModificar.getSelectedIndex() == 2){
+                    VentanaCrearDueño ventanaCrearDueño = new VentanaCrearDueño();
+                }else if(comboBoxModificar.getSelectedIndex() == 3){
+                       VentanaSignUp ventanaSignUp = new VentanaSignUp();
+                }
+
+
+
             }
         });
     }

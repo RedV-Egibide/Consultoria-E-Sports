@@ -18,7 +18,15 @@ public class VentanaSignUp {
         boolean nombreVálido=false;
         //Si el nombre está disponible devolverá TRUE si no es el caso FALSE
 
-        //Aquí la parde de base de datos.
+        //if(usuario != nombre){
+        //nombreValido = true;
+
+        //AQUI GUARDAR DATOS
+
+        //}else{
+        //nombreValido = false;
+        //}
+
 
 
 

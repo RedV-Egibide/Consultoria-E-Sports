@@ -8,8 +8,8 @@ public class VentanaDueño {
     private JPanel VentanaDueño;
     private JButton confeccionarEquipoButton;
     private JButton salirButton;
-    private JList list1;
-    private JList list2;
+    private JTable table1;
+    private JTable table2;
 
 
     public VentanaDueño() {

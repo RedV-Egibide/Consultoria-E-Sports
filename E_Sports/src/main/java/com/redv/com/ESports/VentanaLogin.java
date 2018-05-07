@@ -3,6 +3,8 @@ package com.redv.com.ESports;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class VentanaLogin {
     private JTextField textoUsuario;
@@ -57,10 +59,10 @@ public class VentanaLogin {
 
                 if (textoUsuario.getText().equalsIgnoreCase("dueño") && textoContraseña.getText().equalsIgnoreCase("1234")){
                     VentanaDueño ventanaDueño = new VentanaDueño();
+
                 }else if(textoUsuario.getText().equalsIgnoreCase("admin") && textoContraseña.getText().equalsIgnoreCase("1234")){
                     VentanaAdmin ventanaAdmin = new VentanaAdmin();
                 }
-
 
 
                 if((VerificarCredenciales(textoUsuario.getText(), textoContraseña.getSelectedText())) == false){
@@ -71,6 +73,8 @@ public class VentanaLogin {
 
             }
         });
+
+
     }
 
     public static void main(String[] args) {
@@ -78,6 +82,7 @@ public class VentanaLogin {
         frame.setContentPane(new VentanaLogin().VentanaLogin);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
 }

@@ -24,6 +24,7 @@ public class VentanaAdmin {
         frame.setContentPane(VentanaAdmin);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.pack();
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
 
@@ -40,7 +41,6 @@ public class VentanaAdmin {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                int eleccion;
                 if(comboBoxModificar.getSelectedIndex() == 0){
                     VentanaCrearJugador ventanaCrearJugador = new VentanaCrearJugador();
                 }else if(comboBoxModificar.getSelectedIndex() == 1){
@@ -51,6 +51,23 @@ public class VentanaAdmin {
                        VentanaSignUp ventanaSignUp = new VentanaSignUp();
                 }
 
+
+            }
+        });
+
+        verButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                if(comboBoxModificar.getSelectedIndex() == 0){
+                   VentanaVisualizarJugador ventanaVisualizarJugador = new VentanaVisualizarJugador();
+                }else if(comboBoxModificar.getSelectedIndex() == 1){
+                    VentanaVisualizarEquipo ventanaVisualizarEquipo = new VentanaVisualizarEquipo();
+                }else if(comboBoxModificar.getSelectedIndex() == 2){
+                    VentanaVisualizarDueño ventanaVisualizarDueño = new VentanaVisualizarDueño();
+                }else if(comboBoxModificar.getSelectedIndex() == 3){
+                    //usuario
+                }
 
 
             }

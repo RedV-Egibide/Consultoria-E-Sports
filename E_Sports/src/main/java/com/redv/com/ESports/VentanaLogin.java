@@ -1,4 +1,4 @@
-package com.redv.com.Eric;
+package com.redv.com.ESports;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -10,13 +10,34 @@ public class VentanaLogin {
     private JButton registrarseButton;
     private JButton iniciarSesionButton;
     private JPanel VentanaLogin;
+    private JLabel textoInformativo;
+    //ROL DEL USUARIO QUE INTENTA INICIAR SESIÓN.
+    public String rol;
+
+
+    public boolean VerificarCredenciales(String usuario, String contraseña){
+        boolean datosCorrectos = false;
+
+        //COMPROBAR CREDENCIALES (usuario, contraseña), DE SER CORRECTOS SE DEVOLVERÁ UN TRUE Y DE SER INCORRECTOS UN FALSE.
+
+
+
+
+
+        //EL ROL SE ALMACENARÁ EN LA VARIABLE "rol"
+
+        return datosCorrectos;
+    }
+
+
+
 
 
     public VentanaLogin() {
+
         registrarseButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
             VentanaSignUp ventanaSignUp = new VentanaSignUp();
 
             }
@@ -24,13 +45,27 @@ public class VentanaLogin {
 
 
 
+
+
         iniciarSesionButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //PROVISIONAL!!!
+                /*
                 if (textoUsuario.getText().equalsIgnoreCase("dueño") && textoContraseña.getText().equalsIgnoreCase("1234")){
                     VentanaDueño ventanaDueño = new VentanaDueño();
+                }else if(textoUsuario.getText().equalsIgnoreCase("admin") && textoContraseña.getText().equalsIgnoreCase("1234")){
+                    VentanaAdmin ventanaAdmin = new VentanaAdmin();
                 }
+                */
+
+
+                if((VerificarCredenciales(textoUsuario.getText(), textoContraseña.getSelectedText())) == false){
+                    textoInformativo.setText("Datos incorrectos");
+                }else{
+                    textoInformativo.setText("Datos válidos");
+                }
+
 
             }
         });

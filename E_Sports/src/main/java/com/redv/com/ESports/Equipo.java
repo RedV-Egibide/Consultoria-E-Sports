@@ -1,4 +1,4 @@
-package com.redv.com.imejpul;
+package com.redv.com.ESports;
 
 import java.util.List;
 import java.util.Objects;
@@ -11,6 +11,10 @@ public class Equipo {
     private List<Calendario> partidos;
 
     public Equipo() {
+    }
+
+    public Equipo(String nombre_equipo) {
+        this.nombre_equipo = nombre_equipo;
     }
 
     public Equipo(String nombre_equipo, Dueño dueñoEquipo) {

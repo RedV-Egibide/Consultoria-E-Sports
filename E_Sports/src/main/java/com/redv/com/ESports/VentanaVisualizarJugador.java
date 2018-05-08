@@ -15,6 +15,7 @@ public class VentanaVisualizarJugador {
         frame.setContentPane(VentanaVIsualizarJugador);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.pack();
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
 

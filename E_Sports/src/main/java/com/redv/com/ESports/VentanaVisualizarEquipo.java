@@ -15,6 +15,7 @@ public class VentanaVisualizarEquipo {
         frame.setContentPane(VentanaVisualizarEquipo);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.pack();
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
 

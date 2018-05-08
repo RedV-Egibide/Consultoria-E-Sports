@@ -62,12 +62,12 @@ public class VentanaSignUp {
                 if (TextoContraseña.getText().equalsIgnoreCase(TextoConfirmarContraseña.getText())) {
                     String nombreUsuario = TextoUsuario.getText();
                     String contraseña = TextoContraseña.getText();
-                    boolean usuarioValido;
 
-                    usuarioValido = RegistrarUsuario(nombreUsuario, contraseña);
 
-                    if (usuarioValido == true){     //ESTE IF SE ENCARGA DE AVISAR DEL PROBLEMA O REGISTRO DEL USUARIO
-                        textoInformativo.setText("Usuario registrado correctamente");
+
+
+                    if ((RegistrarUsuario(nombreUsuario, contraseña)) == true){
+                        textoInformativo.setText("Usuario registrado correctamente");//DE SALIR ESTA OPCIÓN, LA FUNCION REGISTRAR USUARIO YA HABRÁ GUARDADO LOS DATOS.
                         TextoUsuario.setText("");
                         TextoContraseña.setText("");
                         TextoConfirmarContraseña.setText("");

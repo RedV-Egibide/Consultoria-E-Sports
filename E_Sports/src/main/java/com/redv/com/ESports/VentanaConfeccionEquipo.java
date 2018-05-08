@@ -6,10 +6,9 @@ import java.awt.event.ActionListener;
 
 public class VentanaConfeccionEquipo {
     private JPanel VentanaConfeccionEquipo;
-    private JList list1;
     private JButton cancelarButton;
     private JButton crearButton;
-    private JTextField textField1;
+    private JTable table1;
 
 
     public VentanaConfeccionEquipo() {
@@ -17,6 +16,7 @@ public class VentanaConfeccionEquipo {
         frame.setContentPane(VentanaConfeccionEquipo);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.pack();
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
 

@@ -8,8 +8,8 @@ public class VentanaDueño {
     private JPanel VentanaDueño;
     private JButton confeccionarEquipoButton;
     private JButton salirButton;
-    private JList list1;
-    private JList list2;
+    private JTable table1;
+    private JTable table2;
 
 
     public VentanaDueño() {
@@ -17,6 +17,7 @@ public class VentanaDueño {
         frame.setContentPane(VentanaDueño);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.pack();
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
 
@@ -35,7 +36,7 @@ public class VentanaDueño {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                frame.dispose();
+                System.exit(0);
 
             }
         });

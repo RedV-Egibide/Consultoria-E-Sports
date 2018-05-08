@@ -18,7 +18,15 @@ public class VentanaSignUp {
         boolean nombreVálido=false;
         //Si el nombre está disponible devolverá TRUE si no es el caso FALSE
 
-        //Aquí la parde de base de datos.
+        //if(usuario != nombre){
+        //nombreValido = true;
+
+        //AQUI GUARDAR DATOS
+
+        //}else{
+        //nombreValido = false;
+        //}
+
 
 
 
@@ -32,6 +40,7 @@ public class VentanaSignUp {
         frame.setContentPane(VentanaSignUp);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.pack();
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
 

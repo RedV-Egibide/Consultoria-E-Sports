@@ -3,6 +3,8 @@ package com.redv.com.ESports;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class VentanaLogin {
     private JTextField textoUsuario;
@@ -12,17 +14,20 @@ public class VentanaLogin {
     private JPanel VentanaLogin;
     private JLabel textoInformativo;
     //ROL DEL USUARIO QUE INTENTA INICIAR SESIÓN.
-    public String rol;
+    private String rol;
 
 
-    public boolean VerificarCredenciales(String usuario, String contraseña){
+    public boolean VerificarCredenciales(String usuario, String contraseña) {
         boolean datosCorrectos = false;
 
         //COMPROBAR CREDENCIALES (usuario, contraseña), DE SER CORRECTOS SE DEVOLVERÁ UN TRUE Y DE SER INCORRECTOS UN FALSE.
 
+        //if(usuario == usuario){
 
-
-
+        //datosCorrectos = true;
+        //}else{
+        //datosCorrectos = false;
+        //}
 
         //EL ROL SE ALMACENARÁ EN LA VARIABLE "rol"
 
@@ -51,13 +56,13 @@ public class VentanaLogin {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //PROVISIONAL!!!
-                /*
+
                 if (textoUsuario.getText().equalsIgnoreCase("dueño") && textoContraseña.getText().equalsIgnoreCase("1234")){
                     VentanaDueño ventanaDueño = new VentanaDueño();
+
                 }else if(textoUsuario.getText().equalsIgnoreCase("admin") && textoContraseña.getText().equalsIgnoreCase("1234")){
                     VentanaAdmin ventanaAdmin = new VentanaAdmin();
                 }
-                */
 
 
                 if((VerificarCredenciales(textoUsuario.getText(), textoContraseña.getSelectedText())) == false){
@@ -66,9 +71,10 @@ public class VentanaLogin {
                     textoInformativo.setText("Datos válidos");
                 }
 
-
             }
         });
+
+
     }
 
     public static void main(String[] args) {
@@ -76,6 +82,7 @@ public class VentanaLogin {
         frame.setContentPane(new VentanaLogin().VentanaLogin);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
 }

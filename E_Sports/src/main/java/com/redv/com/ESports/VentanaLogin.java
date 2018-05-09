@@ -28,19 +28,23 @@ public class VentanaLogin {
         iniciarSesionButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //PROVISIONAL!!!
 
-                if (textoUsuario.getText().equalsIgnoreCase("dueño") && textoContraseña.getText().equalsIgnoreCase("1234")) {
-                    VentanaDueño ventanaDueño = new VentanaDueño();
-
-                } else if (textoUsuario.getText().equalsIgnoreCase("admin") && textoContraseña.getText().equalsIgnoreCase("1234")) {
-                    VentanaAdmin ventanaAdmin = new VentanaAdmin();
-                }
-
-                if (!(usuarioBD.comprobar_credenciales(textoUsuario.getText(), textoContraseña.getSelectedText()))) {
-                    textoInformativo.setText("Datos incorrectos");
+                if (!(usuarioBD.comprobar_credenciales(textoUsuario.getText(), textoContraseña.getText()))) {
+                    textoInformativo.setText("Usuario o contraseña erroneos");
                 } else {
-                    textoInformativo.setText("Datos válidos");
+                    rol = usuarioBD.getRol();
+
+                    if (rol.equalsIgnoreCase(Rol.ADMINISTRADOR.name())) {
+                        VentanaAdmin ventanaAdmin = new VentanaAdmin();
+                    }
+
+                    if (rol.equalsIgnoreCase(Rol.DUEÑO.name())) {
+                        VentanaDueño ventanaDueño = new VentanaDueño();
+                    }
+
+                    /*if(rol.equalsIgnoreCase(Rol.USUARIO.name())){
+                        VentanaUsuario ventanaUsuario = new VentanaUsuario();
+                    }*/
                 }
 
             }

@@ -3,8 +3,6 @@ package com.redv.com.ESports;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class ConexionBD {
 
@@ -19,21 +17,17 @@ public class ConexionBD {
             DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
 
             // Cadena de conexión: driver@machineName:port:SID, userid, password
-            conn = DriverManager.getConnection("jdbc:oracle:thin:@10.10.10.9:1521:db12102", "scott", "oracle");
+            conn = DriverManager.getConnection("jdbc:oracle:thin:@10.10.10.9:1521:db12102", "system", "oracle");
             System.out.println("INFO: Conexión abierta");
 
         } catch (SQLException ex) {
-            Logger.getLogger(ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ConexionBD.class.getName() + " .conectar() " + ex);
         }
-
-        /*// Si hay conexión
-        if (conn != null) {
-        }*/
 
         return conn;
     }
 
-    public void desconectar(Connection conn){
+    public void desconectar(Connection conn) {
 
         // Cerrar la conexión
         System.out.println("--- Desconexión de Oracle ----------------------");
@@ -41,7 +35,7 @@ public class ConexionBD {
             conn.close();
             System.out.println("INFO: Conexión cerrada");
         } catch (SQLException ex) {
-            Logger.getLogger(ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ConexionBD.class.getName() + " .desconectar() " + ex);
         }
         System.out.println("------------------------------------------------");
     }

@@ -7,15 +7,16 @@ import java.sql.Statement;
 
 public class UsuarioBD {
 
-    public UsuarioBD(ConexionBD conexionBD, Connection conexion) {
-        this.conexionBD = conexionBD;
-        this.conexion = conexion;
+    public UsuarioBD() {
     }
 
     private ConexionBD conexionBD = new ConexionBD();
     private Connection conexion = conexionBD.conectar();
 
-    public void comprobar_credenciales(String usuario, String pass) {
+    public boolean comprobar_credenciales(String usuario, String pass) {
+
+        String contraseña = null;
+
         if (conexion != null) {
             try {
                 Statement st = conexion.createStatement();
@@ -24,17 +25,25 @@ public class UsuarioBD {
                         "WHERE NOMBRE = " + usuario);
 
                 while (rs.next()) {
-                    System.out.println(rs.getString(1));
+                    contraseña = rs.getString(1);
+                }
+
+                if (pass != null && pass.equalsIgnoreCase(contraseña)) {
+                    return true;
                 }
                 st.close();
                 rs.close();
                 conexionBD.desconectar(conexion);
 
             } catch (SQLException e) {
-                e.printStackTrace();
+                System.out.println(UsuarioBD.class.getName() + " .comprobarCredenciales() " + e);
             }
 
-
         }
+        return false;
+    }
+
+    public String obtener_rol() {
+        return " ";
     }
 }

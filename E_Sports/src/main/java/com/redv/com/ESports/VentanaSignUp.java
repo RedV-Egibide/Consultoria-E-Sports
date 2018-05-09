@@ -13,27 +13,7 @@ public class VentanaSignUp {
     private JPasswordField TextoConfirmarContraseña;
     private JLabel textoInformativo;
 
-
-    public boolean RegistrarUsuario(String usuario, String contraseña){
-        boolean nombreVálido=false;
-        //Si el nombre está disponible devolverá TRUE si no es el caso FALSE
-
-        //if(usuario != nombre){
-        //nombreValido = true;
-
-        //AQUI GUARDAR DATOS
-
-        //}else{
-        //nombreValido = false;
-        //}
-
-
-
-
-        return nombreVálido;
-    }
-
-
+    private UsuarioBD usuarioBD = new UsuarioBD();
 
     public VentanaSignUp() {
         JFrame frame = new JFrame("VentanaSignUp");
@@ -43,16 +23,12 @@ public class VentanaSignUp {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
-
-
         cancelarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
             }
         });
-
-
 
         registrarseButton.addActionListener(new ActionListener() {
             @Override
@@ -64,27 +40,22 @@ public class VentanaSignUp {
                     String contraseña = TextoContraseña.getText();
                     boolean usuarioValido;
 
-                    usuarioValido = RegistrarUsuario(nombreUsuario, contraseña);
+                    usuarioValido = usuarioBD.resgistrarUsuario(nombreUsuario, contraseña);
 
-                    if (usuarioValido == true){     //ESTE IF SE ENCARGA DE AVISAR DEL PROBLEMA O REGISTRO DEL USUARIO
+                    if (usuarioValido) {     //ESTE IF SE ENCARGA DE AVISAR DEL PROBLEMA O REGISTRO DEL USUARIO
                         textoInformativo.setText("Usuario registrado correctamente");
                         TextoUsuario.setText("");
                         TextoContraseña.setText("");
                         TextoConfirmarContraseña.setText("");
-                    }else{
+                    } else {
                         textoInformativo.setText("El nombre de usuario ya está en uso");
+                        TextoUsuario.setText("");
                     }
-
 
                 }
 
             }
         });
     }
-
-
-
-
-
 
 }

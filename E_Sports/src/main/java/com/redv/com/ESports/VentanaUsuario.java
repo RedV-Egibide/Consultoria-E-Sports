@@ -4,25 +4,26 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class VentanaVisualizarJugador {
-    private JPanel VentanaVIsualizarJugador;
-    private JComboBox comboBox1;
+public class VentanaUsuario {
+    private JPanel VentanaUsuario;
+    private JTable table1;
+    private JTable table2;
     private JButton salirButton;
 
 
-    public VentanaVisualizarJugador() {
-        JFrame frame = new JFrame("VentanaVisualizarJugador");
-        frame.setContentPane(VentanaVIsualizarJugador);
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.pack();
+    public VentanaUsuario() {
+        JFrame frame = new JFrame("VentanaUsuario");
+        frame.setContentPane(VentanaUsuario);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
+        frame.pack();
         frame.setVisible(true);
 
 
         salirButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               frame.dispose();
+                System.exit(0);
             }
         });
     }

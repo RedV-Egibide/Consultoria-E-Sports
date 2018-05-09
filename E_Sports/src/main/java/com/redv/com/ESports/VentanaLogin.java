@@ -62,6 +62,8 @@ public class VentanaLogin {
 
                 }else if(textoUsuario.getText().equalsIgnoreCase("admin") && textoContraseña.getText().equalsIgnoreCase("1234")){
                     VentanaAdmin ventanaAdmin = new VentanaAdmin();
+                }else if(textoUsuario.getText().equalsIgnoreCase("usuario") && textoContraseña.getText().equalsIgnoreCase("1234")) {
+                    VentanaUsuario ventanaUsuario = new VentanaUsuario();
                 }
 
 

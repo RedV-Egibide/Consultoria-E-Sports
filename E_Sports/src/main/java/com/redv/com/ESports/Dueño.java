@@ -15,6 +15,12 @@ public class Dueño extends Usuario {
         this.equipoDueño = equipoDueño;
     }
 
+    public Dueño(String usuario, String contraseña, String nombre_dueño, String apellido_dueño) {
+        super(usuario, contraseña);
+        this.nombre_dueño = nombre_dueño;
+        this.apellido_dueño = apellido_dueño;
+    }
+
     public String getNombre_dueño() {
         return nombre_dueño;
     }

@@ -3,6 +3,7 @@ package com.redv.com.ESports;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 
 public class VentanaCrearDueño {
@@ -11,28 +12,34 @@ public class VentanaCrearDueño {
     private JTextField TextoNombre;
     private JButton cancelarButton;
     private JButton crearButton;
-    private JComboBox comboBox1;
     private JTextField TextoApellido;
     private JTextField TextoUsuario;
     private JLabel TextoInformativo;
+    private JButton BotonBuscar;
+    private JButton modificarDatosButton;
+    private JButton eliminarButton;
 
 
-    public boolean RegistrarDueño(String nombre, String Apellido, String contraseña, String Usuario){
-        boolean registroCorrecto = false;
+    public boolean ComprobarDisponibilidad(String nombreUsuario){
+        boolean datosCorrectos = false;//ESTA VARIABLE POR DEFECTO FALSE SERÁ LA RESPONSABLE DE ACTIVAR EL GUARDADO DE INFORMACION.
+        //SI SE DEVUELVE FALSE SE LE COMUNICARÁ AL USUARIO, QUE EL USUARIO NO ESTÁ DISPONIBLE
+        //MIENTRAS QUE SI DEVUELVE TRUE, PROSEGUIRÁ EL CÓDIGO DE ACTIONLISENER "CREAREQUIPO" Y ALMACENARÁ LOS DEMÁS DATOS DE LA INTERFAZ
 
-        //AQUI ESTARÁ LA LLAMADA A LA BASE DE DATOS, SI ALGÚN DATO NO ESTUVIERA EN REGLA (USUARIO YA COGIDO O ALGO ASÍ) SE DEVOLVERÍA UN FALSE, PERO DE IR CORRECTO UN TRUE.
+
+        //AQUÍ COMPROBAR QUE EL NOMBRE NO ESTÁ REPETIDO
 
 
-
-        return registroCorrecto;
+        return  datosCorrectos;
     }
+
+
 
 
 
     public VentanaCrearDueño() {
         JFrame frame = new JFrame("VentanaCrearDueño");
         frame.setContentPane(VentanaCrearDueño);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
@@ -49,21 +56,56 @@ public class VentanaCrearDueño {
                 String usuario = TextoUsuario.getText();
                 String contraseña = TextoContraseña.getText();
 
-                if((RegistrarDueño(nombre, apellido, contraseña, usuario) == true)){
-                    TextoInformativo.setText("Dueño registrado correctamente");//DE SALIR ESTA OPCIÓN LA FUNCION "REGISTRAR USUARIO" YA HABRÍA GUARDADO LOS DATOS CORRECTAMENTE
+
+
+                if(ComprobarDisponibilidad(usuario)){//YA QUE EL ÚNICO ERROR POSIBLE ES LA DISPONIBILIDAD DEL NOMBRE
+                                  // ESTA FUNCION (UBICADA ARRIBA) SE ENCARGARÁ DE COMPROBAR QUE ESTÁ CORRECTO
+
+                    Dueño dueño = new Dueño(usuario, contraseña, nombre, apellido);//ESTE ES EL OBJETO A ALMACENAR EN LA BASE DE DATOS
+
+
+
+                    TextoInformativo.setText("Dueño registrado correctamente");
                     TextoNombre.setText("");
                     TextoApellido.setText("");
                     TextoUsuario.setText("");
                     TextoContraseña.setText("");
 
                 }else{
-                    TextoInformativo.setText("Datos no válidos");
+                    TextoInformativo.setText("El nickname introducido ya está en uso");//LOS DATOS NO HAN PODIDO SER GUARDADOS EN LA BASE DE DATOS
                 }
 
 
 
 
 
+            }
+        });
+
+
+
+
+
+
+        BotonBuscar.addActionListener(new ActionListener() {//BOTON PARA BUSCAR DATOS DE DUEÑO YA REGISTRADO
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String usuario = TextoUsuario.getText();//USUARIO DEL DUEÑO A MOSTRAR DATOS
+
+               /* DATOS A RELLENAR DESDE LA BASE DE DATOS
+                TextoNombre.setText();
+                TextoApellido.setText();
+                TextoContraseña.setText();
+                */
+            }
+        });
+
+
+
+        cancelarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
             }
         });
     }

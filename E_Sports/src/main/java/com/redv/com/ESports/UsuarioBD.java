@@ -7,11 +7,12 @@ public class UsuarioBD {
     public UsuarioBD() {
     }
 
-    private ConexionBD conexionBD = new ConexionBD();
-    private Connection conexion = conexionBD.conectar();
+    private Connection conexion = null;
     private String rol;
 
     public boolean comprobar_credenciales(String usuario, String pass) {
+
+        conexion = ConexionBD.conectar();
 
         String contraseña = null;
 
@@ -30,7 +31,7 @@ public class UsuarioBD {
                 if (pass.equalsIgnoreCase(contraseña)) {
                     st.close();
                     rs.close();
-                    conexionBD.desconectar(conexion);
+                    ConexionBD.desconectar(conexion);
                     return true;
                 }
 
@@ -46,26 +47,26 @@ public class UsuarioBD {
 
     public boolean resgistrarUsuario(String usuario, String pass) {
 
+        conexion = ConexionBD.conectar();
+
         if (conexion != null) {
 
             try {
                 //Creamos el statement
-                String sqla1 = "{ call INSERTAR_USUARIO(?,?) }";
+                String sqla1 = "{ call CRUD_USUARIO.INSERTAR_USUARIO(?,?,?) }";
                 CallableStatement csa1 = conexion.prepareCall(sqla1);
 
                 // Cargamos los parametros de entrada IN
-                csa1.setString(1, usuario);
-                csa1.setString(2, pass);
-                csa1.setInt(3, Rol.USUARIO.ordinal());
+                csa1.setString("P_USUARIO", usuario);
+                csa1.setString("P_PASS", pass);
+                csa1.setInt("P_ROL", 1);
 
                 // Ejecutamos la llamada
                 csa1.execute();
 
                 System.out.println("INFO: Procedimiento INSERTAR_USUARIO ejecutado");
 
-                conexionBD.desconectar(conexion);
-
-                // TODO: Pregunta
+                ConexionBD.desconectar(conexion);
 
                 return true;
 

@@ -33,4 +33,17 @@ public class ConexionBD {
         return conn;
     }
 
+    public void desconectar(Connection conn){
+
+        // Cerrar la conexión
+        System.out.println("--- Desconexión de Oracle ----------------------");
+        try {
+            conn.close();
+            System.out.println("INFO: Conexión cerrada");
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println("------------------------------------------------");
+    }
+
 }

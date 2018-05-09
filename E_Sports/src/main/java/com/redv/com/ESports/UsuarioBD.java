@@ -7,8 +7,12 @@ import java.sql.Statement;
 
 public class UsuarioBD {
 
-    ConexionBD conexionBD = new ConexionBD();
+    public UsuarioBD(ConexionBD conexionBD, Connection conexion) {
+        this.conexionBD = conexionBD;
+        this.conexion = conexion;
+    }
 
+    private ConexionBD conexionBD = new ConexionBD();
     private Connection conexion = conexionBD.conectar();
 
     public void comprobar_credenciales(String usuario, String pass) {
@@ -23,10 +27,14 @@ public class UsuarioBD {
                     System.out.println(rs.getString(1));
                 }
                 st.close();
+                rs.close();
+                conexionBD.desconectar(conexion);
 
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+
+
         }
     }
 }

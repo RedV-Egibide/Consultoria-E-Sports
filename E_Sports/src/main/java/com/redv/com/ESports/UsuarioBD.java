@@ -8,40 +8,58 @@ public class UsuarioBD {
     }
 
     private Connection conexion = null;
+    private VentanaLogin ventanaLogin = null;
     private String rol;
 
     public boolean comprobar_credenciales(String usuario, String pass) {
 
         conexion = ConexionBD.conectar();
+        ventanaLogin = new VentanaLogin();
 
         String contraseña = null;
 
-        if (conexion != null) {
-            try {
-                Statement st = conexion.createStatement();
-                ResultSet rs = st.executeQuery("SELECT PASS, ROL " +
-                        "FROM USUARIO" +
-                        "WHERE NOMBRE = " + usuario);
+        if (pass != null) {
+            if (conexion != null) {
+                try {
+                    Statement st = conexion.createStatement();
 
-                while (rs.next()) {
-                    contraseña = rs.getString(1);
-                    rol = rs.getString(2);  //número columna correcto según query???
+                    System.out.println("SELECT PASS, ROL " +
+                            "FROM USUARIO " +
+                            "WHERE USUARIO = '" + usuario + "'");
+
+                    ResultSet rs = st.executeQuery("SELECT PASS, ROL " +
+                            "FROM USUARIO" +
+                            "WHERE USUARIO = '" + usuario + "'");
+
+                    while (rs.next()) {
+                        contraseña = rs.getString(1);
+                        rol = rs.getString(2);
+                    }
+
+                    if (pass.equalsIgnoreCase(contraseña)) {
+                        st.close();
+                        rs.close();
+                        ConexionBD.desconectar(conexion);
+                        return true;
+                    }
+
+                } catch (SQLException e) {
+                    if (e.getErrorCode() == 01403) {
+                        System.out.println(UsuarioBD.class.getName() + " .comprobarCredenciales() " + e);
+                        ventanaLogin.setMensaje(true);
+                    }
+                    System.out.println(UsuarioBD.class.getName() + " .comprobarCredenciales() " + e);
+                    return false;
                 }
 
-                if (pass.equalsIgnoreCase(contraseña)) {
-                    st.close();
-                    rs.close();
-                    ConexionBD.desconectar(conexion);
-                    return true;
-                }
-
-            } catch (SQLException e) {
-                System.out.println(UsuarioBD.class.getName() + " .comprobarCredenciales() " + e);
+            } else {
+                System.out.println(UsuarioBD.class.getName() + " sin conexión a BD en .comprobarCredenciales()");
             }
-
         } else {
-            System.out.println(UsuarioBD.class.getName() + " sin conexión a BD en .comprobarCredenciales()");
+            ventanaLogin.setMensaje(true);
+            return false;
         }
+        ventanaLogin.setMensaje(true);
         return false;
     }
 
@@ -72,7 +90,12 @@ public class UsuarioBD {
 
             } catch (SQLException e) {
                 //gestion RAISE_APLICATION_ERROR
-                System.out.println(UsuarioBD.class.getName() + " .registrarUsuario() " + e);
+                if (e.getErrorCode() == 20000) {
+                    System.out.println(UsuarioBD.class.getName() + " .registrarUsuario() " + e.getMessage());
+                } else if (e.getErrorCode() == 20001) {
+                    System.out.println(UsuarioBD.class.getName() + " .registrarUsuario() " + e.getMessage());
+                }
+
             }
 
         } else {

@@ -13,27 +13,7 @@ public class VentanaSignUp {
     private JPasswordField TextoConfirmarContraseña;
     private JLabel textoInformativo;
 
-
-    public boolean RegistrarUsuario(String usuario, String contraseña){
-        boolean nombreVálido=false;
-        //Si el nombre está disponible devolverá TRUE si no es el caso FALSE
-
-        //if(usuario != nombre){
-        //nombreValido = true;
-
-        //AQUI GUARDAR DATOS
-
-        //}else{
-        //nombreValido = false;
-        //}
-
-
-
-
-        return nombreVálido;
-    }
-
-
+    private UsuarioBD usuarioBD = new UsuarioBD();
 
     public VentanaSignUp() {
         JFrame frame = new JFrame("VentanaSignUp");
@@ -43,16 +23,12 @@ public class VentanaSignUp {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
-
-
         cancelarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
             }
         });
-
-
 
         registrarseButton.addActionListener(new ActionListener() {
             @Override
@@ -65,26 +41,26 @@ public class VentanaSignUp {
 
 
 
-
                     if ((RegistrarUsuario(nombreUsuario, contraseña)) == true){
                         textoInformativo.setText("Usuario registrado correctamente");//DE SALIR ESTA OPCIÓN, LA FUNCION REGISTRAR USUARIO YA HABRÁ GUARDADO LOS DATOS.
+
+                    usuarioValido = usuarioBD.resgistrarUsuario(nombreUsuario, contraseña);
+
+                    if (usuarioValido) {     //ESTE IF SE ENCARGA DE AVISAR DEL PROBLEMA O REGISTRO DEL USUARIO
+                        textoInformativo.setText("Usuario registrado correctamente");
+
                         TextoUsuario.setText("");
                         TextoContraseña.setText("");
                         TextoConfirmarContraseña.setText("");
-                    }else{
+                    } else {
                         textoInformativo.setText("El nombre de usuario ya está en uso");
+                        TextoUsuario.setText("");
                     }
-
 
                 }
 
             }
         });
     }
-
-
-
-
-
 
 }

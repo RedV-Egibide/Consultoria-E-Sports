@@ -19,8 +19,8 @@ public class VentanaCrearEquipo {
     private JComboBox Dueño;
     private JLabel TextoInformativo;
     private JButton BotonBuscar;
-    private JButton confirmarDatosButton;
     private JButton eliminarButton;
+    private JButton modificarDatosButton;
 
 
     public boolean ComprobarDisponibilidad(String nombreEquipo){
@@ -48,18 +48,28 @@ public class VentanaCrearEquipo {
 
 
 
-        //ESTOS SON LOS ARRAYS NECESARIOS PARA QUE EL USUARIO PUEDA ELEGIR LOS DATOS EN LA INTERFAZ. (BASE DE DATOS)
+        //ESTOS SON LOS ARRAYS QUE DEBES DE CONECTAR A LA BASE DE DATOS PARA PODER CREAR EL EQUIPO. (BASE DE DATOS)
 
         ArrayList<Jugador> jugadoresDisponibles = new ArrayList<>();//ESTA ES LA LISTA DE JUGADORES DISPONIBLES PARA ELEGIR EN EL NUEVO EQUIPO. (CARGARÁ DESDE LA BASE DE DATOS)
         ArrayList<Dueño> dueñosDisponibles = new ArrayList<>();//DUEÑOS DISPONIBLES PARA SER PROPIETARIOS DEL EQUIPO. (CARGARÁ DESDE LA BASE DE DATOS)
-        //FALTA EL CÓDIGO QUE MUESTRE LOS JUGADORES EN LOS COMBOBOX, PERO LA SELECCION DE LOS MISMOS YA ESTÁ IMPLEMENTADA.
+
         //ESTOS SON LOS NOMBRES DE LOS COMBOBOX
-        //JUGADOR1
-        //JUGADOR2
-        //JUGADOR3
-        //JUGADOR4
-        //JUGADOR5
-        //JUGADOR6
+        //Jugador1
+        //Jugador2
+        //Jugador3
+        //Jugador4
+        //Jugador5
+        //Jugador6
+
+        for (int i = 0; i < jugadoresDisponibles.size(); i++) {//ESTE BUCLE SE ENCARGA DE MOSTRAR AL USUARIO LOS JUGADORES DISPONIBLES.
+            Jugador1.addItem(jugadoresDisponibles.get(i).getNickname());
+            Jugador2.addItem(jugadoresDisponibles.get(i).getNickname());
+            Jugador3.addItem(jugadoresDisponibles.get(i).getNickname());
+            Jugador4.addItem(jugadoresDisponibles.get(i).getNickname());
+            Jugador5.addItem(jugadoresDisponibles.get(i).getNickname());
+            Jugador6.addItem(jugadoresDisponibles.get(i).getNickname());
+        }
+
 
 
 
@@ -118,7 +128,7 @@ public class VentanaCrearEquipo {
         BotonBuscar.addActionListener(new ActionListener() {//BOTON PARA BUSCAR DATOS DE EQUIPO YA REGISTRADO
             @Override
             public void actionPerformed(ActionEvent e) {
-                String nombreEquipo = TextoNombreEquipo.getText();//NOMBRE DEL EQUIPO A MOSTRAR DATOS
+                String nombreEquipo = TextoNombreEquipo.getText().toUpperCase().trim();//NOMBRE DEL EQUIPO A MOSTRAR DATOS
 
 
 
@@ -133,6 +143,42 @@ public class VentanaCrearEquipo {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
+            }
+        });
+
+
+
+
+        //LOS NOMBRES DE LOS JTEXT y LOS COMBOBOX SON LOS SIGUIENTES
+        //TextoNombreEquipo (PK: LA BUSQUEDA DE DATOS SE HARÁ EN BASE A ESTE TEXTO)
+        //Jugador1
+        //Jugador2
+        //Jugador3
+        //Jugador4
+        //Jugador5
+        //Jugador6
+
+        modificarDatosButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //MODIFICAR (ACTUALIZAR LOS CAMPOS CON LA NUEVA INFO DE LOS JTEXT)
+
+            }
+        });
+
+        eliminarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //ELIMINAR (ELIMINAR EL EQUIPO SELECCIONADO ("TextoNombreEquipo"))
+
+            }
+        });
+
+        BotonBuscar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //RELLENAR LOS CAMPOS DEl "EQUIPO" ESCRITO EN EL JTEXT ("TextoNombreEquipo")
+
             }
         });
     }

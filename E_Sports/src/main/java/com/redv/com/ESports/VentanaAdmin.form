@@ -18,22 +18,22 @@
           <font size="14" style="1"/>
         </border>
         <children>
-          <component id="1755d" class="javax.swing.JRadioButton" binding="victoriaRadioButton" default-binding="true">
+          <component id="1755d" class="javax.swing.JRadioButton" binding="victoriaDerrotaRadioButton" default-binding="true">
             <constraints>
               <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <font size="14"/>
-              <text value="Victoria"/>
+              <text value="Victoria/Derrota"/>
             </properties>
           </component>
-          <component id="a87f4" class="javax.swing.JRadioButton" binding="derrotaRadioButton" default-binding="true">
+          <component id="a87f4" class="javax.swing.JRadioButton" binding="derrotaVictoriaRadioButton" default-binding="true">
             <constraints>
               <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <font size="14"/>
-              <text value="Derrota"/>
+              <text value="Derrota/Victoria"/>
             </properties>
           </component>
           <component id="78f17" class="javax.swing.JRadioButton" binding="empateRadioButton" default-binding="true">

@@ -51,10 +51,10 @@ public class VentanaCrearDueño {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                String nombre = TextoNombre.getText();
-                String apellido = TextoApellido.getText();
-                String usuario = TextoUsuario.getText();
-                String contraseña = TextoContraseña.getText();
+                String nombre = TextoNombre.getText().toUpperCase().trim();
+                String apellido = TextoApellido.getText().toUpperCase().trim();
+                String usuario = TextoUsuario.getText().toUpperCase().trim();
+                String contraseña = TextoContraseña.getText().trim();
 
 
 
@@ -74,8 +74,6 @@ public class VentanaCrearDueño {
                 }else{
                     TextoInformativo.setText("El nickname introducido ya está en uso");//LOS DATOS NO HAN PODIDO SER GUARDADOS EN LA BASE DE DATOS
                 }
-
-
 
 
 
@@ -106,6 +104,40 @@ public class VentanaCrearDueño {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
+            }
+        });
+
+
+
+
+        //LOS NOMBRES DE LOS JTEXT SON LOS SIGUIENTES
+        //TextoNombre
+        //TextoApellido
+        //TextoUsuario (PK: LA BUSQUEDA DE DATOS SE HARÁ EN BASE A ESTE TEXTO)
+        //TextoContraseña
+
+        modificarDatosButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //RELLENAR LOS CAMPOS DEl "Dueño" ESCRITO EN EL JTEXT ("TextoUsuario")
+
+            }
+        });
+
+
+        eliminarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //ELIMINAR (ELIMINAR EL DUEÑO SELECCIONADO ("TextoUsuario"))
+
+            }
+        });
+
+        BotonBuscar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //RELLENAR LOS CAMPOS DEl "DUEÑO" ESCRITO EN EL JTEXT ("TextoUsuario")
+
             }
         });
     }

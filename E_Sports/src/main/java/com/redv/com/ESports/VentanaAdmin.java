@@ -6,8 +6,8 @@ import java.awt.event.ActionListener;
 
 public class VentanaAdmin {
     private JPanel VentanaAdmin;
-    private JRadioButton victoriaRadioButton;
-    private JRadioButton derrotaRadioButton;
+    private JRadioButton victoriaDerrotaRadioButton;
+    private JRadioButton derrotaVictoriaRadioButton;
     private JRadioButton empateRadioButton;
     private JButton generarButton;
     private JComboBox comboBoxModificar;

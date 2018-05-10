@@ -48,9 +48,9 @@ public class VentanaCrearJugador {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //RECOLECTAMOS TODOS LOS DATOS DE LA INTERFAZ Y LOS GUARDAMOS EN VARIABLES.
-                String nombre = TextoNombre.getText();
-                String apellido = TextoApellido.getText();
-                String nickname = TextoNickname.getText();
+                String nombre = TextoNombre.getText().toUpperCase().trim();
+                String apellido = TextoApellido.getText().toUpperCase().trim();
+                String nickname = TextoNickname.getText().toUpperCase().trim();
                 int salario = Integer.parseInt(TextoSalario.getText());
 
                 if(ComprobarDisponibilidad(nickname)){//YA QUE EL ÚNICO ERROR POSIBLE ES LA DISPONIBILIDAD DEL NOMBRE
@@ -91,6 +91,42 @@ public class VentanaCrearJugador {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
+            }
+        });
+
+
+
+        //LOS NOMBRES DE LOS JTEXT SON LOS SIGUIENTES
+        //TextoNombre
+        //TextoApellido
+        //TextoNickname (PK: LA BUSQUEDA DE DATOS SE HARÁ EN BASE A ESTE TEXTO)
+        //TextoSalario
+
+        //AQUI ESTÁN LAS TRES POSIBILIDADES
+
+        modificarDatosButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //MODIFICAR (ACTUALIZAR LOS CAMPOS CON LA NUEVA INFO DE LOS JTEXT)
+
+            }
+        });
+
+        eliminarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //ELIMINAR (ELIMINAR EL JUGADOR SELECCIONADO ("TextoNickname"))
+
+            }
+        });
+
+
+
+        BotonBuscar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //RELLENAR LOS CAMPOS DEl "JUGADOR" ESCRITO EN EL JTEXT "TextoNickname"
+
             }
         });
     }

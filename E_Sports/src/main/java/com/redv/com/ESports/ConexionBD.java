@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class ConexionBD {
 
-    public Connection conectar() {
+    public static Connection conectar() {
 
         Connection conn = null;
 
@@ -17,7 +17,7 @@ public class ConexionBD {
             DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
 
             // Cadena de conexión: driver@machineName:port:SID, userid, password
-            conn = DriverManager.getConnection("jdbc:oracle:thin:@10.10.10.9:1521:db12102", "system", "oracle");
+            conn = DriverManager.getConnection("jdbc:oracle:thin:@srvoracle:1521:orcl", "eqdam05", "eqdam05");
             System.out.println("INFO: Conexión abierta");
 
         } catch (SQLException ex) {
@@ -27,7 +27,7 @@ public class ConexionBD {
         return conn;
     }
 
-    public void desconectar(Connection conn) {
+    public static void desconectar(Connection conn) {
 
         // Cerrar la conexión
         System.out.println("--- Desconexión de Oracle ----------------------");

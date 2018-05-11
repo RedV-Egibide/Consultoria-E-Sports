@@ -36,14 +36,11 @@ public class VentanaSignUp {
 
                 //SOLO SI LA CONTRASEÑA Y LA CONFIRMACIÓN DE LA CONTRASEÑA SON IGUALES PROSEGUIRÁ LA APLICACIÓN.
                 if (TextoContraseña.getText().equalsIgnoreCase(TextoConfirmarContraseña.getText())) {
-                    String nombreUsuario = TextoUsuario.getText();
-                    String contraseña = TextoContraseña.getText();
-
-
-
-                    if ((RegistrarUsuario(nombreUsuario, contraseña)) == true){
-                        textoInformativo.setText("Usuario registrado correctamente");//DE SALIR ESTA OPCIÓN, LA FUNCION REGISTRAR USUARIO YA HABRÁ GUARDADO LOS DATOS.
-
+                  
+                    String nombreUsuario = TextoUsuario.getText().toUpperCase().trim();
+                    String contraseña = TextoContraseña.getText().trim();
+                    boolean usuarioValido;
+                  
                     usuarioValido = usuarioBD.resgistrarUsuario(nombreUsuario, contraseña);
 
                     if (usuarioValido) {     //ESTE IF SE ENCARGA DE AVISAR DEL PROBLEMA O REGISTRO DEL USUARIO
@@ -57,6 +54,10 @@ public class VentanaSignUp {
                         TextoUsuario.setText("");
                     }
 
+                } else {
+                    textoInformativo.setText("Contraseñas no coinciden ");
+                    TextoContraseña.setText("");
+                    TextoConfirmarContraseña.setText("");
                 }
 
             }

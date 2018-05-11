@@ -26,7 +26,7 @@ public class VentanaDueño {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                VentanaConfeccionEquipo ventanaConfeccionEquipo = new VentanaConfeccionEquipo();
+                VentanaConfeccionarEquipo ventanaConfeccionarEquipo = new VentanaConfeccionarEquipo();
 
             }
         });

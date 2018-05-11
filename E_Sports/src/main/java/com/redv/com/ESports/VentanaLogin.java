@@ -14,7 +14,7 @@ public class VentanaLogin {
 
     private String rol;
     private UsuarioBD usuarioBD = new UsuarioBD();
-    private boolean mensaje;
+    private boolean mensaje = false;
 
     public VentanaLogin() {
 
@@ -30,9 +30,11 @@ public class VentanaLogin {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                if (!(usuarioBD.comprobar_credenciales(textoUsuario.getText().toUpperCase().toUpperCase(), textoContraseña.getText().trim()))) {
-                    if (mensaje)
+                if (!(usuarioBD.comprobar_credenciales(textoUsuario.getText().toUpperCase().toUpperCase(), textoContraseña.getText().trim(), VentanaLogin.this))) {
+                    if (mensaje) {
                         textoInformativo.setText("Usuario o contraseña erroneos");
+                    }
+
                 } else {
                     rol = usuarioBD.getRol();
 

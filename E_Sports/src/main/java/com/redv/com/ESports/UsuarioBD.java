@@ -11,56 +11,60 @@ public class UsuarioBD {
     private VentanaLogin ventanaLogin = null;
     private String rol;
 
-    public boolean comprobar_credenciales(String usuario, String pass) {
+    public String convertirRolNumber(int rolNumber) {
+
+        switch (rolNumber) {
+            case 1:
+                rol = Rol.USUARIO.name();
+            case 2:
+                rol = Rol.ADMINISTRADOR.name();
+                break;
+            case 3:
+                rol = Rol.DUEÑO.name();
+                break;
+        }
+
+        return rol;
+    }
+
+    public boolean comprobar_credenciales(String usuario, String pass, VentanaLogin ventanaLogin) {
 
         conexion = ConexionBD.conectar();
-        ventanaLogin = new VentanaLogin();
 
-        String contraseña = null;
+        String contraseña;
 
-        if (pass != null) {
-            if (conexion != null) {
-                try {
-                    Statement st = conexion.createStatement();
+        if (conexion != null) {
+            try {
+                PreparedStatement st = conexion.prepareStatement("SELECT PASS, ROL FROM USUARIO WHERE USUARIO = (?)");
 
-                    System.out.println("SELECT PASS, ROL " +
-                            "FROM USUARIO " +
-                            "WHERE USUARIO = '" + usuario + "'");
+                st.setString(1, usuario);
 
-                    ResultSet rs = st.executeQuery("SELECT PASS, ROL " +
-                            "FROM USUARIO" +
-                            "WHERE USUARIO = '" + usuario + "'");
-
-                    while (rs.next()) {
-                        contraseña = rs.getString(1);
-                        rol = rs.getString(2);
-                    }
+                ResultSet rs = st.executeQuery();
+                while (rs.next()) {
+                    contraseña = rs.getString(1);
 
                     if (pass.equalsIgnoreCase(contraseña)) {
-                        st.close();
+                        convertirRolNumber(rs.getInt(2));
                         rs.close();
+                        st.close();
                         ConexionBD.desconectar(conexion);
                         return true;
                     }
-
-                } catch (SQLException e) {
-                    if (e.getErrorCode() == 01403) {
-                        System.out.println(UsuarioBD.class.getName() + " .comprobarCredenciales() " + e);
-                        ventanaLogin.setMensaje(true);
-                    }
-                    System.out.println(UsuarioBD.class.getName() + " .comprobarCredenciales() " + e);
+                    ventanaLogin.setMensaje(true);
+                    System.out.println("Contraseña erronea");
                     return false;
                 }
+                ventanaLogin.setMensaje(true);
+                System.out.println("Usuario no existe");
+                return false;
 
-            } else {
-                System.out.println(UsuarioBD.class.getName() + " sin conexión a BD en .comprobarCredenciales()");
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+                return false;
             }
         } else {
-            ventanaLogin.setMensaje(true);
             return false;
         }
-        ventanaLogin.setMensaje(true);
-        return false;
     }
 
     public boolean resgistrarUsuario(String usuario, String pass) {

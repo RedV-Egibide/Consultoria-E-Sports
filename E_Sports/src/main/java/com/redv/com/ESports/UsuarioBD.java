@@ -11,6 +11,13 @@ public class UsuarioBD {
     private VentanaLogin ventanaLogin = null;
     private String rol;
 
+    /**
+     * Convierte el número de rol que viene de BD en un String con el correspondiente nombre.
+     *
+     * @param rolNumber parámetro a comparar para conversión
+     * @return rol  variable clase para almacenar el tipo de usuario
+     * @author imejpul
+     */
     public String convertirRolNumber(int rolNumber) {
 
         switch (rolNumber) {
@@ -27,6 +34,17 @@ public class UsuarioBD {
         return rol;
     }
 
+    /**
+     * Comprueba que el nombre de usuario y contraseña introducido por el usuario es correcto
+     * y llama a la función convertirRolNumber() para determinar el tipo de usuario según el número de rol devuelto
+     * por BD.
+     *
+     * @param usuario      nombre de usuario introducido por el usuario..
+     * @param pass         contraseña introducida por el usuario.
+     * @param ventanaLogin objeto que direcciona a la ventana en la que se está intentando hacer login.
+     * @return
+     * @author imejpul
+     */
     public boolean comprobar_credenciales(String usuario, String pass, VentanaLogin ventanaLogin) {
 
         conexion = ConexionBD.conectar();
@@ -50,12 +68,20 @@ public class UsuarioBD {
                         ConexionBD.desconectar(conexion);
                         return true;
                     }
-                    ventanaLogin.setMensaje(true);
                     System.out.println("Contraseña erronea");
+                    ventanaLogin.setMensaje(true);
+                    rs.close();
+                    st.close();
+                    ConexionBD.desconectar(conexion);
+
                     return false;
                 }
-                ventanaLogin.setMensaje(true);
                 System.out.println("Usuario no existe");
+                ventanaLogin.setMensaje(true);
+                rs.close();
+                st.close();
+                ConexionBD.desconectar(conexion);
+
                 return false;
 
             } catch (SQLException e) {
@@ -67,6 +93,11 @@ public class UsuarioBD {
         }
     }
 
+    /**
+     * @param usuario nombre de usuario que se quiere registrar.
+     * @param pass    contraseña que se quiere establecer para el usuario a registrar.
+     * @return devuelve true si el proceso de registro ha sido satisfactorio.
+     */
     public boolean resgistrarUsuario(String usuario, String pass) {
 
         conexion = ConexionBD.conectar();

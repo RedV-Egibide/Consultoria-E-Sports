@@ -3,6 +3,7 @@ package com.redv.com.ESports;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class VentanaConfeccionarEquipo {
     private JButton cancelarButton;
@@ -16,6 +17,7 @@ public class VentanaConfeccionarEquipo {
     private JLabel TextoNombreEquipo;
     private JPanel VentanaConfeccionarEquipo;
 
+    private EquipoBD equipoBD = new EquipoBD();
 
     public VentanaConfeccionarEquipo() {
         JFrame frame = new JFrame("VentanaConfeccionarEquipo");
@@ -25,15 +27,16 @@ public class VentanaConfeccionarEquipo {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
-
+        //cargar lista jugadores aquí
 
         confeccionarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+                equipoBD.confeccionarEquipo((Jugador) Jugador1.getSelectedItem());
+
             }
         });
-
 
         cancelarButton.addActionListener(new ActionListener() {
             @Override
@@ -43,8 +46,11 @@ public class VentanaConfeccionarEquipo {
         });
     }
 
+    public void cargarCombos(List<Jugador> jugadores) {
+        DefaultComboBoxModel<Jugador> jug = new DefaultComboBoxModel<>();
 
+        for (Jugador j : jugadores) {
 
-
-
+        }
+    }
 }

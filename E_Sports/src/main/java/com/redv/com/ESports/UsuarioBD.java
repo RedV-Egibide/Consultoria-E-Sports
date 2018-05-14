@@ -23,6 +23,7 @@ public class UsuarioBD {
         switch (rolNumber) {
             case 1:
                 rol = Rol.USUARIO.name();
+                break;
             case 2:
                 rol = Rol.ADMINISTRADOR.name();
                 break;

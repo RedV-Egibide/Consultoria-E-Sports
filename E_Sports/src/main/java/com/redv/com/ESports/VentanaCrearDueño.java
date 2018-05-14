@@ -40,6 +40,7 @@ public class VentanaCrearDueño {
         JFrame frame = new JFrame("VentanaCrearDueño");
         frame.setContentPane(VentanaCrearDueño);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setResizable(false);
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);

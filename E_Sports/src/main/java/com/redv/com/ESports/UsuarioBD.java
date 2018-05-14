@@ -8,12 +8,13 @@ public class UsuarioBD {
     }
 
     private ConexionBD conexionBD = new ConexionBD();
-    private Connection conexion = conexionBD.conectar();
+    private Connection conexion = null;
     private String rol;
 
     public boolean comprobar_credenciales(String usuario, String pass) {
 
         String contraseña = null;
+        conexion = conexionBD.conectar();
 
         if (conexion != null) {
             try {

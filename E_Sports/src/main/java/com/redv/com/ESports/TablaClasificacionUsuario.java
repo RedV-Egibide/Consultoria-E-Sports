@@ -25,3 +25,5 @@ public class TablaClasificacionUsuario extends AbstractTableModel {
         return columnas[column];
     }
 }
+
+

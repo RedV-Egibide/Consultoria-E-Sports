@@ -20,6 +20,7 @@ public class VentanaAdmin {
         JFrame frame = new JFrame("VentanaAdmin");
         frame.setContentPane(VentanaAdmin);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setResizable(false);
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);

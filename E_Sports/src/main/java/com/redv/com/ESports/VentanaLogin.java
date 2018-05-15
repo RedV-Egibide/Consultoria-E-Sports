@@ -18,6 +18,9 @@ public class VentanaLogin {
 
     public VentanaLogin() {
 
+        /**
+         *
+         */
         registrarseButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -26,6 +29,9 @@ public class VentanaLogin {
             }
         });
 
+        /**
+         *
+         */
         iniciarSesionButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -46,9 +52,9 @@ public class VentanaLogin {
                         VentanaDueño ventanaDueño = new VentanaDueño();
                     }
 
-                    /*if(rol.equalsIgnoreCase(Rol.USUARIO.name())){
+                    if (rol.equalsIgnoreCase(Rol.USUARIO.name())) {
                         VentanaUsuario ventanaUsuario = new VentanaUsuario();
-                    }*/
+                    }
                 }
 
             }

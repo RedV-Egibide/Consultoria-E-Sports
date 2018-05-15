@@ -1,14 +1,12 @@
 package com.redv.com.ESports;
 
-import com.redv.com.ESports.Partido;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class Main {
 
-    public static ArrayList<Partido> OrdenarEnfrentamientos(ArrayList<Equipo> equipos){
+    public static ArrayList<Partido> OrdenarEnfrentamientos(ArrayList<Equipo> equipos) {
 
         //GENERADOR DE NÚMEROS ALEATORIOS.
         Random r = new Random();
@@ -17,7 +15,7 @@ public class Main {
         List<Equipo> torneo = new ArrayList<>();
 
         //TAMAÑO ARRAY (NO PODEMOS UTILIZAR EL .SIZE  PORQUE VAMOS BORRANDO LOS DATOS SEGÚN LOS COPIAMOS PARA AHORRAR ESPACIO)
-        int tamañoArrays=0;
+        int tamañoArrays = 0;
 
         /**
          * ESTE BUCLE REPASA TODAS LAS POSICIONES DEL ARRAY PARA SABER LA CANTIDAD DE DATOS ALMACENADOS.
@@ -46,13 +44,13 @@ public class Main {
         for (int i = 0; i < torneo.size(); i++) {
 
             tamañoArrays = i;
-            for (tamañoArrays = i+1; tamañoArrays < torneo.size(); tamañoArrays++) {
+            for (tamañoArrays = i + 1; tamañoArrays < torneo.size(); tamañoArrays++) {
                 calendarioSinAleatorizar.add(new Partido(torneo.get(i), torneo.get(tamañoArrays)));
             }
         }
 
         //INICIALIZAMOS TAMAÑOARRAYS A CERO PARA PODER REUTILIZARLO PARA LA MISMA FUNCION DE ARRIBA CON EQUIPOS.
-        tamañoArrays=0;
+        tamañoArrays = 0;
         for (int numeroEquipos = 0; numeroEquipos < calendarioSinAleatorizar.size(); numeroEquipos++) {
             tamañoArrays++;
         }
@@ -79,10 +77,7 @@ public class Main {
         equipos.add(new Equipo("F"));
         equipos.add(new Equipo("G"));
 
-
-
         System.out.println(OrdenarEnfrentamientos(equipos));
-
 
     }
 }

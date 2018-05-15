@@ -57,8 +57,7 @@ public class EquipoBD {
 
                 st.setString(1, equipo);
 
-                int filas = st.executeUpdate();
-                System.out.println("Filas afectadas: " + filas);
+                st.executeUpdate();
 
             } catch (SQLException e) {
                 System.out.println("ERROR: " + e.getMessage());
@@ -75,7 +74,7 @@ public class EquipoBD {
                 csa1.setString("P_NUEVO_NICK", null);
                 csa1.setString("P_NOM", null);
                 csa1.setString("P_APE", null);
-                csa1.setDouble("P_SAL", Double.parseDouble(null)); //TODO: PREGUNTAR A ION SI VALIDO
+                //csa1.setDouble("P_SAL", Double.parseDouble("null")); //TODO: PREGUNTAR COMO PASAR A BD
                 csa1.setString("P_EQU", equipo);
 
                 // Ejecutamos la llamada
@@ -99,6 +98,8 @@ public class EquipoBD {
     public void rollBack(Jugador jugador) {
 
         connection = ConexionBD.conectar();
+
+        //ROLLBACK DEL INSERT EN EQUIPO
 
         if (connection != null) {
             //llamada a metodo "ACTUALIZAR_JUGADOR en paquete "CRUD_JUGADOR"

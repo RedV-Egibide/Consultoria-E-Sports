@@ -5,9 +5,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.TreeSet;
 
 public class VentanaConfeccionarEquipo {
     private JButton cancelarButton;
@@ -34,9 +34,6 @@ public class VentanaConfeccionarEquipo {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
-        //Nombre Equipo aquí
-        nombreEquipo = nomEquipo.getText().toUpperCase().trim();
-
         //cargar lista jugadores aquí
         List<Jugador> jugadoresDisp = equipoBD.cargarJugadoresDisponibles();
         cargarCombos(jugadoresDisp);
@@ -48,8 +45,11 @@ public class VentanaConfeccionarEquipo {
                 int contador = 0;
                 boolean creado;
 
+                //Nombre Equipo aquí
+                nombreEquipo = nomEquipo.getText().toUpperCase().trim();
+
                 //gestionar nombre de equipo no introducido
-                if (nomEquipo.getText().trim().equalsIgnoreCase("")) {
+                if (nombreEquipo.equalsIgnoreCase("")) {
                     System.out.println("Equipo no introducido");
                     TextoNombreEquipo.setForeground(Color.RED);
 
@@ -81,7 +81,7 @@ public class VentanaConfeccionarEquipo {
                         jugadoresEleg.add((Jugador) jugador6.getSelectedItem());
                     }
 
-                    Set<Jugador> jugNoRep = new TreeSet<>();
+                    Set<Jugador> jugNoRep = new HashSet<>();
 
                     for (Jugador j : jugadoresEleg) {
                         if (jugNoRep.contains(j)) {
@@ -96,7 +96,7 @@ public class VentanaConfeccionarEquipo {
                     double salTotal = 0;
                     for (Jugador j : jugNoRep) {
                         salTotal += j.getSalario();
-                        salarioTotal.setText("Salario Total: " + String.valueOf(salTotal)); //TODO: LISTENER PARA CALCULAR SALARIO CADA VEZ QUE SE ELIJE UN JUGADOR
+                        salarioTotal.setText("Salario Total: " + String.valueOf(salTotal)); //TODO: LISTENER??? PARA CALCULAR SALARIO CADA VEZ QUE SE ELIJE UN JUGADOR
                     }
 
                     if (salTotal <= 200000) {
@@ -133,18 +133,28 @@ public class VentanaConfeccionarEquipo {
     }
 
     public void cargarCombos(List<Jugador> jugadoresDisp) {
-        DefaultComboBoxModel<Jugador> modelo = new DefaultComboBoxModel<>();
+        DefaultComboBoxModel<Jugador> modelo1 = new DefaultComboBoxModel<>();
+        DefaultComboBoxModel<Jugador> modelo2 = new DefaultComboBoxModel<>();
+        DefaultComboBoxModel<Jugador> modelo3 = new DefaultComboBoxModel<>();
+        DefaultComboBoxModel<Jugador> modelo4 = new DefaultComboBoxModel<>();
+        DefaultComboBoxModel<Jugador> modelo5 = new DefaultComboBoxModel<>();
+        DefaultComboBoxModel<Jugador> modelo6 = new DefaultComboBoxModel<>();
 
         for (Jugador j : jugadoresDisp) {
-            modelo.addElement(j);
+            modelo1.addElement(j);
+            modelo2.addElement(j);
+            modelo3.addElement(j);
+            modelo4.addElement(j);
+            modelo5.addElement(j);
+            modelo6.addElement(j);
         }
 
-        jugador1.setModel(modelo); //TODO: PREGUNTAR A ION FALLO UNCHECKED CALL
-        jugador2.setModel(modelo);
-        jugador3.setModel(modelo);
-        jugador4.setModel(modelo);
-        jugador5.setModel(modelo);
-        jugador6.setModel(modelo);
+        jugador1.setModel(modelo1); //TODO: PREGUNTAR A ION FALLO UNCHECKED CALL
+        jugador2.setModel(modelo2);
+        jugador3.setModel(modelo3);
+        jugador4.setModel(modelo4);
+        jugador5.setModel(modelo5);
+        jugador6.setModel(modelo6);
 
     }
 }

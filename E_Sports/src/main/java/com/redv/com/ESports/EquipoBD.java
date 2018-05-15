@@ -17,10 +17,9 @@ public class EquipoBD {
         if (connection != null) {
             // Consulta simple
             try {
-                PreparedStatement stmt = connection.prepareStatement("SELECT NICKNAME, NOMBRE, APELLIDO, SALARIO FROM JUGADOR WHERE EQUIPO = (?)");
-                stmt.setString(1, null);
+                Statement stmt = connection.createStatement();
 
-                ResultSet rset = stmt.executeQuery();
+                ResultSet rset = stmt.executeQuery("SELECT NICKNAME, NOMBRE, APELLIDO, SALARIO FROM JUGADOR WHERE EQUIPO IS NULL");
 
                 while (rset.next()) {
                     String nick = rset.getString("NICKNAME");

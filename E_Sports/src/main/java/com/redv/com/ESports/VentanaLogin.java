@@ -14,6 +14,7 @@ public class VentanaLogin {
 
     private String rol;
     private UsuarioBD usuarioBD = new UsuarioBD();
+    private boolean mensaje = false;
 
     public VentanaLogin() {
 
@@ -28,8 +29,11 @@ public class VentanaLogin {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                if (!(usuarioBD.comprobar_credenciales(textoUsuario.getText(), textoContraseña.getText()))) {
-                    textoInformativo.setText("Usuario o contraseña erroneos");
+                if (!(usuarioBD.comprobar_credenciales(textoUsuario.getText().toUpperCase().toUpperCase(), textoContraseña.getText().trim(), VentanaLogin.this))) {
+                    if (mensaje) {
+                        textoInformativo.setText("Usuario o contraseña erroneos");
+                    }
+
                 } else {
                     rol = usuarioBD.getRol();
 
@@ -49,6 +53,22 @@ public class VentanaLogin {
             }
         });
 
+    }
+
+    public boolean isMensaje() {
+        return mensaje;
+    }
+
+    public void setMensaje(boolean mensaje) {
+        this.mensaje = mensaje;
+    }
+
+    public JLabel getTextoInformativo() {
+        return textoInformativo;
+    }
+
+    public void setTextoInformativo(JLabel textoInformativo) {
+        this.textoInformativo = textoInformativo;
     }
 
     public static void main(String[] args) {

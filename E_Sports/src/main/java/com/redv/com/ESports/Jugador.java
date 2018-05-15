@@ -70,13 +70,7 @@ public class Jugador {
 
     @Override
     public String toString() {
-        return "Jugador{" +
-                "nickname='" + nickname + '\'' +
-                ", nombre_jugador='" + nombre_jugador + '\'' +
-                ", apellido_jugador='" + apellido_jugador + '\'' +
-                ", salario=" + salario +
-                ", equipoJugador=" + equipoJugador +
-                '}';
+        return nickname;
     }
 
     @Override

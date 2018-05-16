@@ -16,6 +16,7 @@ public class VentanaDueño {
         JFrame frame = new JFrame("VentanaDueño");
         frame.setContentPane(VentanaDueño);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setResizable(false);
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);

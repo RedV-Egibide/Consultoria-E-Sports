@@ -9,6 +9,7 @@ public class Equipo {
     private List<Jugador> jugadores;
     private Dueño dueñoEquipo;
     private List<Calendario> partidos;
+    private int puntuación;//ESTA VARIABLE ALMACENARÁ LA POSICIÓN DEL EQUIPO EN LAS TABLAS DE CLASIFICACIÓN
 
     public Equipo() {
     }
@@ -26,6 +27,14 @@ public class Equipo {
         this.nombre_equipo = nombre_equipo;
         this.jugadores = jugadores;
         this.dueñoEquipo = dueñoEquipo;
+    }
+
+    public int getPuntuación() {
+        return puntuación;
+    }
+
+    public void setPuntuación(int puntuación) {
+        this.puntuación = puntuación;
     }
 
     public String getNombre_equipo() {

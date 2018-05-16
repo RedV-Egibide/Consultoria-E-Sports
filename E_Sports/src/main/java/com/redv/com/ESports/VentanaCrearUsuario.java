@@ -21,6 +21,7 @@ public class VentanaCrearUsuario {
         JFrame frame = new JFrame("VentanaCrearUsuario");
         frame.setContentPane(VentanaCrearUsuario);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setResizable(false);
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);

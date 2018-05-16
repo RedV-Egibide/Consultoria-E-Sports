@@ -42,6 +42,7 @@ public class VentanaCrearEquipo {
         JFrame frame = new JFrame("VentanaCrearEquipo");
         frame.setContentPane(VentanaCrearEquipo);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setResizable(false);
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);

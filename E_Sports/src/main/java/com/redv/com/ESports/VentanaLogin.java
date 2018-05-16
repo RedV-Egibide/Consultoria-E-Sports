@@ -24,8 +24,10 @@ public class VentanaLogin {
         registrarseButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                VentanaSignUp ventanaSignUp = new VentanaSignUp();
-
+                //BORRAR
+                VentanaUsuario ventanaUsuario = new VentanaUsuario();
+                //BORRAR
+                //VentanaSignUp ventanaSignUp = new VentanaSignUp();
             }
         });
 
@@ -82,6 +84,7 @@ public class VentanaLogin {
         JFrame frame = new JFrame("VentanaLogin");
         frame.setContentPane(new VentanaLogin().VentanaLogin);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setResizable(false);
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);

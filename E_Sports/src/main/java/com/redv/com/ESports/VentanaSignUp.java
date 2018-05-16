@@ -19,6 +19,7 @@ public class VentanaSignUp {
         JFrame frame = new JFrame("VentanaSignUp");
         frame.setContentPane(VentanaSignUp);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setResizable(false);
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
@@ -43,25 +44,25 @@ public class VentanaSignUp {
                   
                     usuarioValido = usuarioBD.resgistrarUsuario(nombreUsuario, contraseña);
 
-                    if (usuarioValido) {     //ESTE IF SE ENCARGA DE AVISAR DEL PROBLEMA O REGISTRO DEL USUARIO
-                        textoInformativo.setText("Usuario registrado correctamente");
+                        if (usuarioValido) {     //ESTE IF SE ENCARGA DE AVISAR DEL PROBLEMA O REGISTRO DEL USUARIO
+                            textoInformativo.setText("Usuario registrado correctamente");
 
-                        TextoUsuario.setText("");
-                        TextoContraseña.setText("");
-                        TextoConfirmarContraseña.setText("");
-                    } else {
-                        textoInformativo.setText("El nombre de usuario ya está en uso");
-                        TextoUsuario.setText("");
-                    }
+                            TextoUsuario.setText("");
+                            TextoContraseña.setText("");
+                            TextoConfirmarContraseña.setText("");
+                        } else {
+                            textoInformativo.setText("El nombre de usuario ya está en uso");
+                            TextoUsuario.setText("");
+                        }
 
                 } else {
                     textoInformativo.setText("Contraseñas no coinciden ");
                     TextoContraseña.setText("");
                     TextoConfirmarContraseña.setText("");
                 }
-
             }
         });
     }
 
 }
+

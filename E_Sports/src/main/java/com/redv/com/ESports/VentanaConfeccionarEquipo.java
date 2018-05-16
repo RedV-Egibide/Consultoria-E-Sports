@@ -1,7 +1,6 @@
 package com.redv.com.ESports;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -10,7 +9,7 @@ import java.util.List;
 import java.util.Set;
 
 public class VentanaConfeccionarEquipo {
-    private JButton cancelarButton;
+    private JButton atrasButton;
     private JButton confeccionarButton;
     private JComboBox jugador1;
     private JComboBox jugador3;
@@ -21,10 +20,11 @@ public class VentanaConfeccionarEquipo {
     private JLabel TextoNombreEquipo;
     private JPanel VentanaConfeccionarEquipo;
     private JTextField nomEquipo;
-    private JLabel salarioTotal;
+    private JLabel info;
 
-    private EquipoBD equipoBD = new EquipoBD();
+    private EquipoBD equipoBD;
     private String nombreEquipo;
+    private boolean confeccionarEjecutado;
 
     public VentanaConfeccionarEquipo() {
         JFrame frame = new JFrame("VentanaConfeccionarEquipo");
@@ -35,6 +35,9 @@ public class VentanaConfeccionarEquipo {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
+        equipoBD = new EquipoBD();
+        confeccionarEjecutado = false;
+
         //cargar lista jugadores aquí
         List<Jugador> jugadoresDisp = equipoBD.cargarJugadoresDisponibles();
         cargarCombos(jugadoresDisp);
@@ -44,7 +47,10 @@ public class VentanaConfeccionarEquipo {
             public void actionPerformed(ActionEvent e) {
 
                 int contador = 0;
-                boolean creado;
+                boolean asignado;
+                boolean equipoCreado = false;
+                boolean repetido = false;
+                double salTotal = 0;
 
                 //Nombre Equipo aquí
                 nombreEquipo = nomEquipo.getText().toUpperCase().trim();
@@ -52,34 +58,83 @@ public class VentanaConfeccionarEquipo {
                 //gestionar nombre de equipo no introducido
                 if (nombreEquipo.equalsIgnoreCase("")) {
                     System.out.println("Equipo no introducido");
-                    TextoNombreEquipo.setForeground(Color.RED);
+                    info.setText("Equipo no introducido");
 
                 } else {
 
                     List<Jugador> jugadoresEleg = new ArrayList<>();
 
-                    if (jugador1.getSelectedItem() != null) {    //TODO: SI NO SELECCIONA NADA DEVUELVE NULL??
-                        jugadoresEleg.add((Jugador) jugador1.getSelectedItem());
+                    Jugador jug_1 = (Jugador) jugador1.getSelectedItem();
+                    Jugador jug_2 = (Jugador) jugador2.getSelectedItem();
+                    Jugador jug_3 = (Jugador) jugador3.getSelectedItem();
+                    Jugador jug_4 = (Jugador) jugador4.getSelectedItem();
+                    Jugador jug_5 = (Jugador) jugador5.getSelectedItem();
+                    Jugador jug_6 = (Jugador) jugador6.getSelectedItem();
+
+                    if (jug_1 != null) {
+
+                        if (!(jug_1.getNickname().equalsIgnoreCase(" "))) {
+                            jugadoresEleg.add(jug_1);
+                        } else {
+                            System.out.println(jug_1 + " no añadido");
+                        }
+                    } else {
+                        System.out.println(jug_1 + " null");
+                    }
+                    //----------------
+                    if (jug_2 != null) {
+
+                        if (!(jug_2.getNickname().equalsIgnoreCase(" "))) {
+                            jugadoresEleg.add(jug_2);
+                        } else {
+                            System.out.println(jug_2 + " no añadido");
+                        }
+                    } else {
+                        System.out.println(jug_2 + " null");
+                    }
+                    //-----------------
+                    if (jug_3 != null) {
+
+                        if (!(jug_3.getNickname().equalsIgnoreCase(" "))) {
+                            jugadoresEleg.add(jug_3);
+                        } else {
+                            System.out.println(jug_3 + " no añadido");
+                        }
+                    } else {
+                        System.out.println(jug_3 + " null");
+                    }
+                    //----------------
+                    if (jug_4 != null) {
+
+                        if (!(jug_4.getNickname().equalsIgnoreCase(" "))) {
+                            jugadoresEleg.add(jug_4);
+                        } else {
+                            System.out.println(jug_4 + " no añadido");
+                        }
+                    } else {
+                        System.out.println(jug_4 + " null");
+                    }
+                    //----------------
+                    if (jug_5 != null) {
+
+                        if (!(jug_5.getNickname().equalsIgnoreCase(" "))) {
+                            jugadoresEleg.add(jug_5);
+                        } else {
+                            System.out.println(jug_5 + " no añadido");
+                        }
+                    } else {
+                        System.out.println(jug_5 + " null");
                     }
 
-                    if (jugador2.getSelectedItem() != null) {
-                        jugadoresEleg.add((Jugador) jugador2.getSelectedItem());
-                    }
+                    if (jug_6 != null) {
 
-                    if (jugador3.getSelectedItem() != null) {
-                        jugadoresEleg.add((Jugador) jugador3.getSelectedItem());
-                    }
-
-                    if (jugador4.getSelectedItem() != null) {
-                        jugadoresEleg.add((Jugador) jugador4.getSelectedItem());
-                    }
-
-                    if (jugador5.getSelectedItem() != null) {
-                        jugadoresEleg.add((Jugador) jugador5.getSelectedItem());
-                    }
-
-                    if (jugador6.getSelectedItem() != null) {
-                        jugadoresEleg.add((Jugador) jugador6.getSelectedItem());
+                        if (!(jug_6.getNickname().equalsIgnoreCase(" "))) {
+                            jugadoresEleg.add(jug_6);
+                        } else {
+                            System.out.println(jug_6 + " no añadido");
+                        }
+                    } else {
+                        System.out.println(jug_6 + " null");
                     }
 
                     Set<Jugador> jugNoRep = new HashSet<>();
@@ -88,36 +143,48 @@ public class VentanaConfeccionarEquipo {
                         if (jugNoRep.contains(j)) {
                             System.out.println("Error: Jugador repetido");
                             JOptionPane.showMessageDialog(VentanaConfeccionarEquipo, "No es posible elegir al mismo jugador más de una vez: " + j.getNickname(), "¡Jugador Repetido!", JOptionPane.ERROR_MESSAGE);
+                            repetido = true;
                         } else {
                             jugNoRep.add(j);
+                            salTotal += j.getSalario();
+                            info.setText("Salario Total: " + String.valueOf(salTotal));
                         }
                     }
 
                     //gestión salario máximo
-                    double salTotal = 0;
-                    for (Jugador j : jugNoRep) {
-                        salTotal += j.getSalario();
-                        salarioTotal.setText("Salario Total: " + String.valueOf(salTotal)); //TODO: LISTENER??? PARA CALCULAR SALARIO CADA VEZ QUE SE ELIJE UN JUGADOR
-                    }
 
                     if (salTotal <= 200000) {
-                        //actualizar el campo equipo de los jugadoresEleg en BD
-                        for (Jugador j : jugNoRep) {
-                            creado = equipoBD.confeccionarEquipo(j, nombreEquipo);
-                            if (creado) {
-                                contador++;
-                            }
-                        }
-                        if (contador == jugNoRep.size()) {
-                            JOptionPane.showMessageDialog(VentanaConfeccionarEquipo, "¡Equipo creado! + \n" + nombreEquipo, "Resultado", JOptionPane.INFORMATION_MESSAGE);
-                        } else {
+                        if (!repetido) {
+                            //actualizar el campo equipo de los jugadoresEleg en BD
                             for (Jugador j : jugNoRep) {
-                                equipoBD.rollBack(j);   //deshacemos los cambios si todos los jugadores elegidos no han sido actualizados correctamente en BD
+                                asignado = equipoBD.confeccionarEquipo(j, nombreEquipo, equipoCreado);
+                                if (asignado) {
+                                    contador++;
+                                }
+                                if (contador == 1) {
+                                    equipoCreado = true;
+                                }
                             }
-                            JOptionPane.showMessageDialog(VentanaConfeccionarEquipo, "¡Equipo NO creado! + \n" + nombreEquipo + "\n" + "Consulte con Administrador", "Resultado", JOptionPane.ERROR_MESSAGE);
+                            if (contador == jugNoRep.size()) {
+                                if (contador == 0) {
+                                    JOptionPane.showMessageDialog(VentanaConfeccionarEquipo, "¡Error: Debe elegir al menos un jugador!", "Resultado", JOptionPane.ERROR_MESSAGE);
+                                } else {
+                                    JOptionPane.showMessageDialog(VentanaConfeccionarEquipo, "¡Equipo creado!" + "\n" + nombreEquipo, "Resultado", JOptionPane.INFORMATION_MESSAGE);
+                                    confeccionarEjecutado = true;
+                                }
+                            } else {
+                                if (!confeccionarEjecutado) {
+                                    for (Jugador j : jugNoRep) {
+                                        equipoBD.rollBack(j, nombreEquipo);   //deshacemos los cambios si todos los jugadores elegidos no han sido actualizados correctamente en BD
+                                    }
+                                    JOptionPane.showMessageDialog(VentanaConfeccionarEquipo, "¡Equipo NO creado!" + "\n" + nombreEquipo, "Resultado", JOptionPane.ERROR_MESSAGE);
+
+                                } else {
+                                    JOptionPane.showMessageDialog(VentanaConfeccionarEquipo, "¡No es posible crear equipos más de una vez!" + "\n" + "Contacte con administrador", "Resultado", JOptionPane.ERROR_MESSAGE);
+                                }
+                            }
                         }
                     } else {
-                        salarioTotal.setForeground(Color.RED);
                         JOptionPane.showMessageDialog(VentanaConfeccionarEquipo, "¡Presupuesto para salarios superado en: " + nombreEquipo + "!", "Resultado", JOptionPane.ERROR_MESSAGE);
                     }
                 }
@@ -125,7 +192,7 @@ public class VentanaConfeccionarEquipo {
             }
         });
 
-        cancelarButton.addActionListener(new ActionListener() {
+        atrasButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();

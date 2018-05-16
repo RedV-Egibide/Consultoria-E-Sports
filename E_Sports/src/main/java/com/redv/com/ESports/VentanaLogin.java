@@ -24,7 +24,10 @@ public class VentanaLogin {
         registrarseButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                VentanaSignUp ventanaSignUp = new VentanaSignUp();
+                //BORRAR
+                VentanaUsuario ventanaUsuario = new VentanaUsuario();
+                //BORRAR
+                //VentanaSignUp ventanaSignUp = new VentanaSignUp();
             }
         });
 

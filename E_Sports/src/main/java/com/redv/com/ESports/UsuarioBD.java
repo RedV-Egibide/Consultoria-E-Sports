@@ -1,5 +1,6 @@
 package com.redv.com.ESports;
 
+import javax.swing.*;
 import java.sql.*;
 
 public class UsuarioBD {
@@ -8,7 +9,6 @@ public class UsuarioBD {
     }
 
     private Connection conexion = null;
-    private VentanaLogin ventanaLogin = null;
     private String rol;
 
     /**
@@ -43,7 +43,7 @@ public class UsuarioBD {
      * @param usuario      nombre de usuario introducido por el usuario..
      * @param pass         contraseña introducida por el usuario.
      * @param ventanaLogin objeto que direcciona a la ventana en la que se está intentando hacer login.
-     * @return
+     * @return devuelve true si las credenciales introducidas por el usuario son válidas.
      * @author imejpul
      */
     public boolean comprobar_credenciales(String usuario, String pass, VentanaLogin ventanaLogin) {
@@ -120,6 +120,7 @@ public class UsuarioBD {
 
                 System.out.println("INFO: Procedimiento INSERTAR_USUARIO ejecutado");
 
+                csa1.close();
                 ConexionBD.desconectar(conexion);
 
                 return true;
@@ -136,6 +137,115 @@ public class UsuarioBD {
 
         } else {
             System.out.println(UsuarioBD.class.getName() + " sin conexión a BD en .registrarUsuario()");
+        }
+        return false;
+    }
+
+    public boolean eliminarUsuario(String nom_usuario) {
+
+        conexion = ConexionBD.conectar();
+
+        if (conexion != null) {
+
+            try {
+                //Creamos el statement
+                String sqla1 = "{ call CRUD_USUARIO.BORRAR_USUARIO(?) }";
+                CallableStatement csa1 = conexion.prepareCall(sqla1);
+
+                // Cargamos los parametros de entrada IN
+                csa1.setString("P_USUARIO", nom_usuario);
+
+                // Ejecutamos la llamada
+                csa1.execute();
+
+                System.out.println("INFO: Procedimiento BORRAR_USUARIO ejecutado");
+
+                csa1.close();
+                ConexionBD.desconectar(conexion);
+
+                return true;
+
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+                return false;
+            }
+
+        } else {
+            System.out.println(UsuarioBD.class.getName() + " sin conexión a BD en .eliminarUsuario()");
+        }
+        return false;
+    }
+
+    public Usuario buscarUsuario(String nom_usuario, JLabel textoInfo) {
+
+        conexion = ConexionBD.conectar();
+
+        String contraseña = null;
+        int rolnumber = -1;
+
+        if (conexion != null) {
+            try {
+                PreparedStatement st = conexion.prepareStatement("SELECT PASS, ROL FROM USUARIO WHERE USUARIO = (?)");
+
+                st.setString(1, nom_usuario);
+
+                ResultSet rs = st.executeQuery();
+                while (rs.next()) {
+                    contraseña = rs.getString(1);
+                    rolnumber = rs.getInt(2);
+
+                }
+                if (contraseña == null && rolnumber == -1) {
+                    System.out.println("usuario no existe");
+                    textoInfo.setText("Usuario no existe");
+                }
+                rs.close();
+                st.close();
+                ConexionBD.desconectar(conexion);
+
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        } else {
+            System.out.println("sin conexión con BD");
+        }
+
+        return new Usuario(nom_usuario, contraseña, Rol.valueOf(convertirRolNumber(rolnumber)));
+    }
+
+    public boolean actualizarUsuario(String usuario, String nuevo_nom_usuario, String pass) {
+
+        conexion = ConexionBD.conectar();
+
+        if (conexion != null) {
+
+            try {
+                //Creamos el statement
+                String sqla1 = "{ call CRUD_USUARIO.ACTUALIZAR_USUARIO(?,?,?) }";
+                CallableStatement csa1 = conexion.prepareCall(sqla1);
+
+                // Cargamos los parametros de entrada IN
+                csa1.setString("P_USUARIO", usuario);
+                csa1.setString("P_NUEVO_USUARIO", nuevo_nom_usuario);
+                csa1.setString("P_PASS", pass);
+
+                // Ejecutamos la llamada
+                csa1.execute();
+
+                System.out.println("INFO: Procedimiento ACTUALIZAR_USUARIO ejecutado");
+
+                csa1.close();
+                ConexionBD.desconectar(conexion);
+
+                return true;
+
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+                return false;
+            }
+
+        } else {
+            System.out.println(UsuarioBD.class.getName() + " sin conexión a BD en .eliminarUsuario()");
         }
         return false;
     }

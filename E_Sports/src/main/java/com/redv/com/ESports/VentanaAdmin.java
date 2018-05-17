@@ -52,13 +52,12 @@ public class VentanaAdmin {
                         break;
 
                     case 3:
-                        VentanaUsuario ventanaUsuario = new VentanaUsuario();
+                        VentanaCrearUsuario ventanaCrearUsuario = new VentanaCrearUsuario();
                         break;
 
                 }
             }
         });
-
 
         insertarButton.addActionListener(new ActionListener() {
             @Override
@@ -66,12 +65,11 @@ public class VentanaAdmin {
                 int filaSeleccionada;
                 filaSeleccionada = ResultadosTemporada.getSelectedRow();
 
-
-                if(victoriaDerrotaRadioButton.isSelected()){
+                if (victoriaDerrotaRadioButton.isSelected()) {
                     //CAMBIAR EN EL ARRAY TEMPORADA (El generado por el nucleo) EL VALOR RESULTADO DEL PARTIDO "filaSeleccionada" a 1 (Victoria / Derrota)
-                }else if(derrotaVictoriaRadioButton.isSelected()){
+                } else if (derrotaVictoriaRadioButton.isSelected()) {
                     //CAMBIAR EN EL ARRAY TEMPORADA (El generado por el nucleo) EL VALOR RESULTADO DEL PARTIDO "filaSeleccionada" a 2 (Derrota / Victoria)
-                }else{
+                } else {
                     //CAMBIAR EN EL ARRAY TEMPORADA (El generado por el nucleo) EL VALOR RESULTADO DEL PARTIDO "filaSeleccionada" a 0 (Empate)
                 }
             }

@@ -1,60 +1,42 @@
 package com.redv.com.ESports;
 
-import java.util.List;
+import java.util.Date;
 import java.util.Objects;
 
 public class Calendario {
 
     private int jornada;
-    private List<Equipo> equipos;
-    private String fecha;
-    private Equipo ganador;
+    private Date fecha;
+    private Equipo equipo1;
+    private Equipo equipo2;
+    private Resultado resultado;
 
     public Calendario() {
     }
 
-    public Calendario(int jornada, List<Equipo> equipos, String fecha, Equipo ganador) {
+    public Calendario(int jornada, Date fecha, Equipo equipo1, Equipo equipo2, Resultado resultado) {
         this.jornada = jornada;
-        this.equipos = equipos;
         this.fecha = fecha;
-        this.ganador = ganador;
+        this.equipo1 = equipo1;
+        this.equipo2 = equipo2;
+        this.resultado = resultado;
     }
 
-    public int getJornada() {
-        return jornada;
-    }
-
-    public void setJornada(int jornada) {
+    public Calendario(int jornada, Date fecha, Equipo equipo1, Equipo equipo2) {
         this.jornada = jornada;
-    }
-
-    public String getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(String fecha) {
         this.fecha = fecha;
-    }
-
-    public Equipo getGanador() {
-        return ganador;
-    }
-
-    public void setGanador(Equipo ganador) {
-        this.ganador = ganador;
-    }
-
-    public List<Equipo> getEquipos() {
-        return equipos;
+        this.equipo1 = equipo1;
+        this.equipo2 = equipo2;
     }
 
     @Override
     public String toString() {
         return "Calendario{" +
                 "jornada=" + jornada +
-                ", equipos=" + equipos +
-                ", fecha='" + fecha + '\'' +
-                ", ganador=" + ganador +
+                ", fecha=" + fecha +
+                ", equipo1=" + equipo1 +
+                ", equipo2=" + equipo2 +
+                ", resultado=" + resultado +
                 '}';
     }
 
@@ -70,5 +52,45 @@ public class Calendario {
     public int hashCode() {
 
         return Objects.hash(jornada);
+    }
+
+    public int getJornada() {
+        return jornada;
+    }
+
+    public void setJornada(int jornada) {
+        this.jornada = jornada;
+    }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
+
+    public Equipo getEquipo1() {
+        return equipo1;
+    }
+
+    public void setEquipo1(Equipo equipo1) {
+        this.equipo1 = equipo1;
+    }
+
+    public Equipo getEquipo2() {
+        return equipo2;
+    }
+
+    public void setEquipo2(Equipo equipo2) {
+        this.equipo2 = equipo2;
+    }
+
+    public Resultado getResultado() {
+        return resultado;
+    }
+
+    public void setResultado(Resultado resultado) {
+        this.resultado = resultado;
     }
 }

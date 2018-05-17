@@ -46,36 +46,33 @@ public class EquipoBD {
         return disponibles;
     }
 
-    public boolean confeccionarEquipo(Jugador jugador, String equipo) {
+    public boolean confeccionarEquipo(Jugador jugador, String equipo, boolean equipoCreado) {
 
         connection = ConexionBD.conectar();
 
         if (connection != null) {
-            //crear equipo en tabla Equipo (insert)
-            try {
-                PreparedStatement st = connection.prepareStatement("INSERT INTO EQUIPO VALUES (?)");
+            if (!equipoCreado) {
+                //crear equipo en tabla Equipo (insert)
+                try {
+                    PreparedStatement st = connection.prepareStatement("INSERT INTO EQUIPO VALUES (?)");
 
-                st.setString(1, equipo);
+                    st.setString(1, equipo);
 
-                int filas = st.executeUpdate();
-                System.out.println("Filas afectadas: " + filas);
+                    st.executeUpdate();
 
-            } catch (SQLException e) {
-                System.out.println("ERROR: " + e.getMessage());
-                return false;
+                } catch (SQLException e) {
+                    System.out.println("ERROR: " + e.getMessage());
+                    return false;
+                }
             }
             //llamada a metodo "ACTUALIZAR_JUGADOR en paquete "CRUD_JUGADOR"
             try {
                 //Creamos el statement
-                String sqla1 = "{ call CRUD_JUGADOR.ACTUALIZAR_JUGADOR(?,?,?,?,?,?) }";
+                String sqla1 = "{ call CRUD_JUGADOR.ASIGNAR_EQUIPO(?,?) }";
                 CallableStatement csa1 = connection.prepareCall(sqla1);
 
                 // Cargamos los parametros de entrada IN
                 csa1.setString("P_NICK", jugador.getNickname());
-                csa1.setString("P_NUEVO_NICK", null);
-                csa1.setString("P_NOM", null);
-                csa1.setString("P_APE", null);
-                csa1.setDouble("P_SAL", Double.parseDouble(null)); //TODO: PREGUNTAR A ION SI VALIDO
                 csa1.setString("P_EQU", equipo);
 
                 // Ejecutamos la llamada
@@ -96,23 +93,34 @@ public class EquipoBD {
         return false;
     }
 
-    public void rollBack(Jugador jugador) {
+    public void rollBack(Jugador jugador, String equipo) {
 
         connection = ConexionBD.conectar();
 
+        //ROLLBACK DEL INSERT EN EQUIPO
+
         if (connection != null) {
+
+            //rollback creación equipo
+            //crear equipo en tabla Equipo (insert)
+            try {
+                PreparedStatement st = connection.prepareStatement("DELETE FROM EQUIPO WHERE NOMBRE = (?)");
+
+                st.setString(1, equipo);
+
+                st.executeUpdate();
+
+            } catch (SQLException e) {
+                System.out.println("ERROR: " + e.getMessage());
+            }
             //llamada a metodo "ACTUALIZAR_JUGADOR en paquete "CRUD_JUGADOR"
             try {
                 //Creamos el statement
-                String sqla1 = "{ call CRUD_JUGADOR.ACTUALIZAR_JUGADOR(?,?,?,?,?,?) }";
+                String sqla1 = "{ call CRUD_JUGADOR.ASIGNAR_EQUIPO(?,?) }";
                 CallableStatement csa1 = connection.prepareCall(sqla1);
 
                 // Cargamos los parametros de entrada IN
                 csa1.setString("P_NICK", jugador.getNickname());
-                csa1.setString("P_NUEVO_NICK", null);
-                csa1.setString("P_NOM", null);
-                csa1.setString("P_APE", null);
-                csa1.setDouble("P_SAL", Double.parseDouble(null)); //TODO: PREGUNTAR A ION SI VALIDO
                 csa1.setString("P_EQU", null);
 
                 // Ejecutamos la llamada

@@ -28,7 +28,6 @@ public class VentanaAdmin {
 
         ResultadosTemporada.setModel(new TablaResultadosUsuario());
 
-
         salirButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -36,11 +35,10 @@ public class VentanaAdmin {
             }
         });
 
-
         BotonModificar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                switch (comboBoxModificar.getSelectedIndex()){
+                switch (comboBoxModificar.getSelectedIndex()) {
                     case 0:
                         VentanaCrearJugador ventanaCrearJugador = new VentanaCrearJugador();
                         break;
@@ -54,8 +52,8 @@ public class VentanaAdmin {
                         break;
 
                     case 3:
+                        VentanaUsuario ventanaUsuario = new VentanaUsuario();
                         break;
-
 
                 }
             }
@@ -79,8 +77,5 @@ public class VentanaAdmin {
             }
         });
     }
-
-
-
 
 }

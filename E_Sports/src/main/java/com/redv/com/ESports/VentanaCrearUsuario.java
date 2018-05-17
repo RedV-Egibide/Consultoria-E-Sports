@@ -16,6 +16,8 @@ public class VentanaCrearUsuario {
     private JButton crearButton;
     private JButton BotonBuscar;
 
+    private UsuarioBD usuarioBD;
+    String usuarioBuscado;
 
     public VentanaCrearUsuario() {
         JFrame frame = new JFrame("VentanaCrearUsuario");
@@ -26,7 +28,7 @@ public class VentanaCrearUsuario {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
-
+        usuarioBD = new UsuarioBD();
 
         cancelarButton.addActionListener(new ActionListener() {
             @Override
@@ -34,8 +36,6 @@ public class VentanaCrearUsuario {
                 frame.dispose();
             }
         });
-
-
 
         //LOS NOMBRES DE LOS JTEXT SON LOS SIGUIENTES
         //TextoUsuario (PK: LA BUSQUEDA DE DATOS SE HARÁ EN BASE A ESTE TEXTO)
@@ -47,19 +47,62 @@ public class VentanaCrearUsuario {
         crearButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //ESTE BLOQUE DE JTEXT ESTÁ DIRECTAMENTE EXTRAIDO DE LA VENTANA "SIGN IN", POR LO QUE PODRÁS REUTILIZAR EL CÓDIGO PARA EL MISMO.
 
+                //SOLO SI LA CONTRASEÑA Y LA CONFIRMACIÓN DE LA CONTRASEÑA SON IGUALES PROSEGUIRÁ LA APLICACIÓN.
+                if (TextoContraseña.getText().trim().equals(TextoConfirmarContraseña.getText().trim())) {
+
+                    String nombreUsuario = TextoUsuario.getText().toUpperCase().trim();
+                    String contraseña = TextoContraseña.getText().trim();
+                    boolean usuarioValido;
+
+                    usuarioValido = usuarioBD.resgistrarUsuario(nombreUsuario, contraseña);
+
+                    if (usuarioValido) {     //ESTE IF SE ENCARGA DE AVISAR DEL PROBLEMA O REGISTRO DEL USUARIO
+                        textoInformativo.setText("Usuario registrado correctamente");
+
+                        TextoUsuario.setText("");
+                        TextoContraseña.setText("");
+                        TextoConfirmarContraseña.setText("");
+                    } else {
+                        textoInformativo.setText("El nombre de usuario ya está en uso");
+                        TextoUsuario.setText("");
+                    }
+
+                } else {
+                    textoInformativo.setText("Contraseñas no coinciden ");
+                    TextoContraseña.setText("");
+                    TextoConfirmarContraseña.setText("");
+                }
             }
         });
-
-
-
-
 
         modificarDatosButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //MODIFICAR (ACTUALIZAR LOS CAMPOS CON LA NUEVA INFO DE LOS JTEXT)
+                String nueva_pass = TextoContraseña.getText().trim();
+                String nuevo_usuario = TextoUsuario.getText().toUpperCase().trim();
+                boolean actualizado = false;
+
+                if (nueva_pass.equals(TextoConfirmarContraseña.getText().trim()) && !(nueva_pass.equals(""))) {
+                    if (usuarioBuscado.equalsIgnoreCase(nuevo_usuario)) {
+                        actualizado = usuarioBD.actualizarUsuario(usuarioBuscado, usuarioBuscado, nueva_pass);
+                        if (actualizado) {
+                            textoInformativo.setText("Usuario Actualizado");
+                        } else {
+                            textoInformativo.setText("Error: Usuario no actualizado");
+                        }
+                    } else {
+                        actualizado = usuarioBD.actualizarUsuario(usuarioBuscado, nuevo_usuario, nueva_pass);
+                        if (actualizado) {
+                            textoInformativo.setText("Usuario Actualizado");
+                        } else {
+                            textoInformativo.setText("Error: Usuario no actualizado");
+                        }
+                    }
+
+                } else {
+                    textoInformativo.setText("¡Contraseñas no coinciden o no válida!");
+                }
 
             }
         });
@@ -67,22 +110,41 @@ public class VentanaCrearUsuario {
         eliminarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //ELIMINAR (ELIMINAR EL USUARIO SELECCIONADO ("TextoUsuario"))
+                boolean eliminado = usuarioBD.eliminarUsuario(TextoUsuario.getText().toUpperCase().trim());
+                if (eliminado) {
+                    textoInformativo.setText("Usuario eliminado: " + TextoUsuario.getText().toUpperCase().trim());
+                } else {
+                    textoInformativo.setText("Error: usuario no eliminado");
+                }
 
             }
         });
-
-
 
         BotonBuscar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //RELLENAR LOS CAMPOS DEl "USUARIO" ESCRITO EN EL JTEXT "TextoUsuario"
+                Usuario u = usuarioBD.buscarUsuario(TextoUsuario.getText().toUpperCase().trim(), textoInformativo);
+                TextoContraseña.setText(u.getContraseña());
+                TextoConfirmarContraseña.setText(u.getContraseña());
+                textoInformativo.setText("ROL: " + u.getRol().name());
+                usuarioBuscado = u.getUsuario();
             }
         });
     }
 
+    public JLabel getTextoInformativo() {
+        return textoInformativo;
+    }
 
+    public void setTextoInformativo(JLabel textoInformativo) {
+        this.textoInformativo = textoInformativo;
+    }
 
+    public String getUsuarioBuscado() {
+        return usuarioBuscado;
+    }
 
+    public void setUsuarioBuscado(String usuarioBuscado) {
+        this.usuarioBuscado = usuarioBuscado;
+    }
 }

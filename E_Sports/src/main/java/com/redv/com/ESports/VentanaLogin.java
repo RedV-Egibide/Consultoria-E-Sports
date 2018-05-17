@@ -48,6 +48,7 @@ public class VentanaLogin {
 
                         textoContraseña.setText("");
                         textoUsuario.setText("");
+
                     }
 
                     if (rol.equalsIgnoreCase(Rol.DUEÑO.name())) {

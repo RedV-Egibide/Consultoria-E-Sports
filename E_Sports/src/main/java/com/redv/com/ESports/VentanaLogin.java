@@ -24,10 +24,7 @@ public class VentanaLogin {
         registrarseButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //BORRAR
-                VentanaUsuario ventanaUsuario = new VentanaUsuario();
-                //BORRAR
-                //VentanaSignUp ventanaSignUp = new VentanaSignUp();
+                VentanaSignUp ventanaSignUp = new VentanaSignUp();
             }
         });
 
@@ -48,14 +45,23 @@ public class VentanaLogin {
 
                     if (rol.equalsIgnoreCase(Rol.ADMINISTRADOR.name())) {
                         VentanaAdmin ventanaAdmin = new VentanaAdmin();
+
+                        textoContraseña.setText("");
+                        textoUsuario.setText("");
                     }
 
                     if (rol.equalsIgnoreCase(Rol.DUEÑO.name())) {
                         VentanaDueño ventanaDueño = new VentanaDueño();
+
+                        textoContraseña.setText("");
+                        textoUsuario.setText("");
                     }
 
                     if (rol.equalsIgnoreCase(Rol.USUARIO.name())) {
                         VentanaUsuario ventanaUsuario = new VentanaUsuario();
+
+                        textoContraseña.setText("");
+                        textoUsuario.setText("");
                     }
                 }
 

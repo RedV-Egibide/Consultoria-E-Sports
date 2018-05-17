@@ -7,7 +7,7 @@ public class TablaResultadosUsuario extends AbstractTableModel {
 
     private String[] columnas = {"Equipo 1", "Equipo 2", "Resultado"};
 
-    private ArrayList<Partido> partidos;//HAY QUE CONECTAR ESTE ARRAY CON EL ARRAY  QUE GENERA LA TEMPORADA.
+    private ArrayList<Partido> partidos;//HAY QUE CONECTAR ESTE ARRAY CON EL ARRAY QUE GENERA LA TEMPORADA.
 
 
     @Override

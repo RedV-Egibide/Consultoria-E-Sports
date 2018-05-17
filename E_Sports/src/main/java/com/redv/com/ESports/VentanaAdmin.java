@@ -13,8 +13,9 @@ public class VentanaAdmin {
     private JComboBox comboBoxModificar;
     private JButton BotonModificar;
     private JButton salirButton;
-    private JTable table1;
+    private JTable ResultadosTemporada;
     private JTable table2;
+    private JButton insertarButton;
 
     public VentanaAdmin() {
         JFrame frame = new JFrame("VentanaAdmin");
@@ -24,6 +25,8 @@ public class VentanaAdmin {
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+
+        ResultadosTemporada.setModel(new TablaResultadosUsuario());
 
         salirButton.addActionListener(new ActionListener() {
             @Override
@@ -52,6 +55,24 @@ public class VentanaAdmin {
                         VentanaUsuario ventanaUsuario = new VentanaUsuario();
                         break;
 
+                }
+            }
+        });
+
+
+        insertarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int filaSeleccionada;
+                filaSeleccionada = ResultadosTemporada.getSelectedRow();
+
+
+                if(victoriaDerrotaRadioButton.isSelected()){
+                    //CAMBIAR EN EL ARRAY TEMPORADA (El generado por el nucleo) EL VALOR RESULTADO DEL PARTIDO "filaSeleccionada" a 1 (Victoria / Derrota)
+                }else if(derrotaVictoriaRadioButton.isSelected()){
+                    //CAMBIAR EN EL ARRAY TEMPORADA (El generado por el nucleo) EL VALOR RESULTADO DEL PARTIDO "filaSeleccionada" a 2 (Derrota / Victoria)
+                }else{
+                    //CAMBIAR EN EL ARRAY TEMPORADA (El generado por el nucleo) EL VALOR RESULTADO DEL PARTIDO "filaSeleccionada" a 0 (Empate)
                 }
             }
         });

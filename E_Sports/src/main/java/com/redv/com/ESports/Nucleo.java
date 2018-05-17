@@ -16,18 +16,18 @@ public class Nucleo {
         //TAMAÑO ARRAY (NO PODEMOS UTILIZAR EL .SIZE  PORQUE VAMOS BORRANDO LOS DATOS SEGÚN LOS COPIAMOS PARA AHORRAR ESPACIO)
         int tamañoArrays = 0;
 
-        /**
-         * ESTE BUCLE REPASA TODAS LAS POSICIONES DEL ARRAY PARA SABER LA CANTIDAD DE DATOS ALMACENADOS.
-         * COMO YA DIJE EN EL ANTERIOR COMENTARIO EN ESTE CÓDIGO NO PODEMOS EMPLEAR EL ".SIZE"
+        /*
+          ESTE BUCLE REPASA TODAS LAS POSICIONES DEL ARRAY PARA SABER LA CANTIDAD DE DATOS ALMACENADOS.
+          COMO YA DIJE EN EL ANTERIOR COMENTARIO EN ESTE CÓDIGO NO PODEMOS EMPLEAR EL ".SIZE"
          */
 
         for (int numeroEquipos = 0; numeroEquipos < equipos.size(); numeroEquipos++) {
             tamañoArrays++;
         }
 
-        /**
-         * ESTA ES LA PARTE DEL CODIGO QUE ALEATORIZA LOS DATOS DEL ARRAY EQUIPOS Y LOS VA INTRODUCIENDO EN EL ARRAY TORNEO.
-         * AL MISMO TIEMPO LOS VA BORRANDO DEL ARRAY EQUIPOS DE FORMA QUE NO DUPLICAMOS LOS DATOS.
+        /*
+          ESTA ES LA PARTE DEL CODIGO QUE ALEATORIZA LOS DATOS DEL ARRAY EQUIPOS Y LOS VA INTRODUCIENDO EN EL ARRAY TORNEO.
+          AL MISMO TIEMPO LOS VA BORRANDO DEL ARRAY EQUIPOS DE FORMA QUE NO DUPLICAMOS LOS DATOS.
          */
         for (int i = 0; i < tamañoArrays; i++) {
             int aleatorio = r.nextInt(equipos.size());
@@ -64,27 +64,49 @@ public class Nucleo {
         return calendario;
     }//Genera la temporada.
 
-    public static void RecalcularPuntuaciones (ArrayList<Partido> temporada){//Temporadas debe de salir de la última generación de "OrdenarEnfrentamientos"
-        //Poner las puntuaciones de los equipos a 0;
 
-        for (int i = 0; i < temporada.size(); i++) {
 
-        }
 
-        for (int i = 0; i < temporada.size(); i++) {
+    /*
+    Analisis de PuntuarEquipos
+    Utilidad: Una vez guardadas las victorias/derrotas en el Array de Partidos, si llamamos a esta funcion actualizará el Array de Equipos añadiendole los puntos.
 
-            switch (temporada.get(i).getResultado()){
+    ArrayList<Partido> "enfrentamientos" debe de salir de la última generación de "OrdenarEnfrentamientos" (Es decir la última temporada generada aleatoriamente)
+    ArrayList<Equipo> "equiposParticipantes" debe de salir del mismo Array que se introduce a "OrdenarEnfrentamientos" con el orden de Equipo (Es decir la lista con todos los equipos que participarán en la temporada)
+
+    RETURN: ArrayList<Equipos> Devolverá un ArrayList de equipos como el introducido al llamar a la función, pero con los datos de puntuación guardados.
+     */
+
+    public static ArrayList<Equipo> PuntuarEquipos (ArrayList<Partido> enfrentamientos, ArrayList<Equipo> equiposParticipantes){
+
+
+        for (int i = 0; i < enfrentamientos.size(); i++) {
+
+            switch (enfrentamientos.get(i).getResultado()){
                 case 1:
-                    temporada.get(i).getEquipoA().setPuntuación(+1);
-                    temporada.get(i).getEquipoA().setPuntuación(-1);
+
+                    for (int j = 0; j < equiposParticipantes.size(); j++) {
+
+                        if (equiposParticipantes.get(j).getNombre_equipo() == enfrentamientos.get(i).getEquipoA().getNombre_equipo()){
+                            equiposParticipantes.get(j).setPuntuación(+1);
+                        }else if(equiposParticipantes.get(j).getNombre_equipo() == enfrentamientos.get(i).getEquipoB().getNombre_equipo()){
+                            equiposParticipantes.get(j).setPuntuación(-1);
+                        }
+                    }
                     break;
                 case 2:
-                    temporada.get(i).getEquipoA().setPuntuación(-1);
-                    temporada.get(i).getEquipoA().setPuntuación(+1);
+                    for (int j = 0; j < equiposParticipantes.size(); j++) {
+
+                        if (equiposParticipantes.get(j).getNombre_equipo() == enfrentamientos.get(i).getEquipoA().getNombre_equipo()){
+                            equiposParticipantes.get(j).setPuntuación(-1);
+                        }else if(equiposParticipantes.get(j).getNombre_equipo() == enfrentamientos.get(i).getEquipoB().getNombre_equipo()){
+                            equiposParticipantes.get(j).setPuntuación(+1);
+                        }
+                    }
             }
 
         }
 
-
+        return  equiposParticipantes;
     }
 }

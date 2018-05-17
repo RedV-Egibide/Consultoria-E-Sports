@@ -8,8 +8,8 @@ public class VentanaDueño {
     private JPanel VentanaDueño;
     private JButton confeccionarEquipoButton;
     private JButton salirButton;
-    private JTable table1;
-    private JTable table2;
+    private JTable ResultadosUltimaTemporada;
+    private JTable Clasificacion;
 
 
     public VentanaDueño() {
@@ -21,6 +21,8 @@ public class VentanaDueño {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
+        ResultadosUltimaTemporada.setModel(new TablaResultadosUsuario());
+        Clasificacion.setModel(new TablaClasificacionUsuario());
 
 
         confeccionarEquipoButton.addActionListener(new ActionListener() {

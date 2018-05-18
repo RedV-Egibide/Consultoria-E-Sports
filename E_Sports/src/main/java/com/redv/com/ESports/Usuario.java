@@ -22,6 +22,10 @@ public class Usuario {
         this.rol = rol;
     }
 
+    public Usuario(String usuario) {
+        this.usuario = usuario;
+    }
+
     public String getUsuario() {
         return usuario;
     }

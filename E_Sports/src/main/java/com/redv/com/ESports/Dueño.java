@@ -24,6 +24,12 @@ public class Dueño extends Usuario {
         this.apellido_dueño = apellido_dueño;
     }
 
+    public Dueño(String usuario, String nombre_dueño, String apellido_dueño) {
+        super(usuario);
+        this.nombre_dueño = nombre_dueño;
+        this.apellido_dueño = apellido_dueño;
+    }
+
     public String getNombre_dueño() {
         return nombre_dueño;
     }

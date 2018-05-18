@@ -15,7 +15,7 @@ public class JugadorBD {
 
             try {
                 //Creamos el statement
-                String sqla1 = "{ call CRUD_JUGADOR.INSERTAR_JUGADOR(?,?,?,?,) }";
+                String sqla1 = "{ call CRUD_JUGADOR.INSERTAR_JUGADOR(?,?,?,?) }";
                 CallableStatement csa1 = conexion.prepareCall(sqla1);
 
                 // Cargamos los parametros de entrada IN
@@ -39,8 +39,13 @@ public class JugadorBD {
                 if (e.getErrorCode() == 20000) {
                     textoInfo.setText("Error: Nick no disponible");
                 } else {
-                    textoInfo.setText("Error: Jugador NO registrado");
-                    System.out.println(DueñoBD.class.getName() + " .registrarJugador() " + e.getMessage());
+                    if (e.getErrorCode() == 2290) {
+                        textoInfo.setText("Salario inferior a SMI");
+                    } else {
+                        textoInfo.setText("Error: Jugador NO registrado");
+                        System.out.println(DueñoBD.class.getName() + " .registrarJugador() " + e.getMessage() + "\n");
+                    }
+
                 }
 
             }
@@ -56,10 +61,11 @@ public class JugadorBD {
 
         String nombre = null;
         String apellido = null;
+        double salario = 0.0;
 
         if (conexion != null) {
             try {
-                PreparedStatement st = conexion.prepareStatement("SELECT NOMBRE, APELLIDO, EQUIPO FROM JUGADOR WHERE NICKNAME = (?)");
+                PreparedStatement st = conexion.prepareStatement("SELECT NOMBRE, APELLIDO, SALARIO, EQUIPO FROM JUGADOR WHERE NICKNAME = (?)");
 
                 st.setString(1, nick);
 
@@ -67,11 +73,16 @@ public class JugadorBD {
                 while (rs.next()) {
                     nombre = rs.getString(1);
                     apellido = rs.getString(2);
-                    equipo = rs.getString(3);
+                    salario = rs.getDouble(3);
+                    equipo = rs.getString(4);
 
                 }
-                if (nombre == null && apellido == null) {
+                if (salario < 10302.60) {
                     textoInfo.setText("Usuario no existe");
+                } else if (!(equipo == null)) {
+                    textoInfo.setText("Equipo: " + equipo);
+                } else {
+                    textoInfo.setText("Equipo: N/D");
                 }
                 rs.close();
                 st.close();
@@ -83,12 +94,8 @@ public class JugadorBD {
         } else {
             System.out.println(JugadorBD.class.getName() + " sin conexión a BD en .buscarJugador()");
         }
-        if (!(equipo == null)) {
-            textoInfo.setText("Equipo: " + equipo);
-        } else {
-            textoInfo.setText("Equipo: N/D");
-        }
-        return new Jugador();
+
+        return new Jugador(nick, nombre, apellido, salario);
     }
 
     public boolean eliminarJugador(String nick) {
@@ -132,7 +139,7 @@ public class JugadorBD {
 
             try {
                 //Creamos el statement
-                String sqla1 = "{ call CRUD_JUGADOR.ACTUALIZAR_JUGADOR(?,?,?,?) }";
+                String sqla1 = "{ call CRUD_JUGADOR.ACTUALIZAR_JUGADOR(?,?,?,?,?) }";
                 CallableStatement csa1 = conexion.prepareCall(sqla1);
 
                 // Cargamos los parametros de entrada IN

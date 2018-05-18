@@ -28,6 +28,9 @@ public class VentanaUsuario {
         //BASE DE DATOS
 
 
+
+
+
         //Esto hay que borrarlo hasta el próximo "BORRAR" (Provisional para el error de las JTable)
         ArrayList<Equipo> equipos = new ArrayList<>();
 
@@ -51,7 +54,7 @@ public class VentanaUsuario {
 
 
 
-        //Esto hay que quitarlo de texto (Provisional para el error de las JTable)
+                    //Esto hay que quitarlo de modo texto (Provisional para el error de las JTable)
         //TablaResultadosTemporada.setModel(new TablaResultadosUsuario(calendarioTemporada));//CREACION DE LA TABLA
         TablaClasificacion.setModel(new TablaClasificacionUsuario(calendarioTemporada, equiposParticipantes));//CREACION DE LA TABLA
 

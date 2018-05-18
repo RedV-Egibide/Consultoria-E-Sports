@@ -18,19 +18,21 @@ public class VentanaLogin {
 
     public VentanaLogin() {
 
-        /**
-         *
-         */
+
         registrarseButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                VentanaSignUp ventanaSignUp = new VentanaSignUp();
+                //Borrar
+                VentanaUsuario ventanaUsuario = new VentanaUsuario();
+                //Borrar
+
+
+                
+                //VentanaSignUp ventanaSignUp = new VentanaSignUp();
             }
         });
 
-        /**
-         *
-         */
+
         iniciarSesionButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

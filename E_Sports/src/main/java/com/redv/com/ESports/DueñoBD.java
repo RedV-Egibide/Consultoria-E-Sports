@@ -47,7 +47,7 @@ public class DueñoBD {
             }
 
         } else {
-            System.out.println(UsuarioBD.class.getName() + " sin conexión a BD en .crearDueño()");
+            System.out.println(DueñoBD.class.getName() + " sin conexión a BD en .crearDueño()");
         }
         return false;
     }
@@ -82,7 +82,7 @@ public class DueñoBD {
                 System.out.println(e.getMessage());
             }
         } else {
-            System.out.println("sin conexión con BD");
+            System.out.println(DueñoBD.class.getName() + " sin conexión a BD en buscarDueño()");
         }
         if (!(equipo == null)) {
             textoInfo.setText("Equipo: " + equipo);
@@ -122,7 +122,7 @@ public class DueñoBD {
             }
 
         } else {
-            System.out.println(UsuarioBD.class.getName() + " sin conexión a BD en .eliminarDueño()");
+            System.out.println(DueñoBD.class.getName() + " sin conexión a BD en .eliminarDueño()");
         }
         return false;
     }
@@ -158,7 +158,7 @@ public class DueñoBD {
             }
 
         } else {
-            System.out.println(UsuarioBD.class.getName() + " sin conexión a BD en .actualizarDueño()");
+            System.out.println(DueñoBD.class.getName() + " sin conexión a BD en .actualizarDueño()");
         }
         return false;
     }

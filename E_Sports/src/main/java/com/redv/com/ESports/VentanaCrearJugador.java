@@ -17,21 +17,8 @@ public class VentanaCrearJugador {
     private JButton modificarDatosButton;
     private JButton eliminarButton;
 
-
-    public boolean ComprobarDisponibilidad(String nickname){
-        boolean datosCorrectos = false;//ESTA VARIABLE POR DEFECTO FALSE SERÁ LA RESPONSABLE DE ACTIVAR EL GUARDADO DE INFORMACION.
-        //SI SE DEVUELVE FALSE SE LE COMUNICARÁ AL USUARIO, QUE EL NICKNAME NO ESTÁ DISPONIBLE
-        //MIENTRAS QUE SI DEVUELVE TRUE, PROSEGUIRÁ EL CÓDIGO DE ACTIONLISENER "CREAREQUIPO" Y ALMACENARÁ LOS DEMÁS DATOS DE LA INTERFAZ
-
-
-        //AQUÍ COMPROBAR QUE EL NOMBRE NO ESTÁ REPETIDO
-
-
-
-
-        return  datosCorrectos;
-    }
-
+    private JugadorBD jugadorBD;
+    private Jugador jugador;
 
     public VentanaCrearJugador() {
         JFrame frame = new JFrame("VentanaCrearJugador");
@@ -42,8 +29,8 @@ public class VentanaCrearJugador {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
-
-
+        jugadorBD = new JugadorBD();
+        jugador = new Jugador();
 
         crearButton.addActionListener(new ActionListener() {
             @Override
@@ -52,41 +39,36 @@ public class VentanaCrearJugador {
                 String nombre = TextoNombre.getText().toUpperCase().trim();
                 String apellido = TextoApellido.getText().toUpperCase().trim();
                 String nickname = TextoNickname.getText().toUpperCase().trim();
-                int salario = Integer.parseInt(TextoSalario.getText());
+                double salario = Double.parseDouble(TextoSalario.getText());
 
-                if(ComprobarDisponibilidad(nickname)){//YA QUE EL ÚNICO ERROR POSIBLE ES LA DISPONIBILIDAD DEL NOMBRE
-                                                            // ESTA FUNCION (UBICADA ARRIBA) SE ENCARGARÁ DE COMPROBAR QUE ESTÁ CORRECTO
+                boolean creado = jugadorBD.registrarJugador(nickname, nombre, apellido, salario, TextoInformativo);
 
-                    Jugador nuevoJugador = new Jugador(nickname, nombre, apellido, salario);//ESTE ES EL OBJETO A GUARDAR
+                if (creado) {
                     TextoInformativo.setText("Jugador registrado correctamente");
-                }else{
-                    TextoInformativo.setText("El nickname introducido ya está en uso");
+                    TextoNombre.setText("");
+                    TextoApellido.setText("");
+                    TextoNickname.setText("");
+                    TextoSalario.setText("");
+                } else {
                     TextoNickname.setText("");
                 }
 
-
             }
         });
-
-
-
-
 
         BotonBuscar.addActionListener(new ActionListener() {//BOTON PARA BUSCAR DATOS DE JUGADOR YA REGISTRADO
             @Override
             public void actionPerformed(ActionEvent e) {
                 String nickname = TextoNickname.getText();//NICKNAME DE JUGADOR A MOSTRAR DATOS
 
+                jugador = jugadorBD.buscarJugador(nickname, TextoInformativo);
 
-                /*DATOS A RELLENAR DESDE LA BASE DE DATOS
-                TextoNombre.setText();
-                TextoApellido.setText();
-                TextoSalario.setText();
-                */
-
+                //DATOS A RELLENAR DESDE LA BASE DE DATOS
+                TextoNombre.setText(jugador.getNombre_jugador());
+                TextoApellido.setText(jugador.getApellido_jugador());
+                TextoSalario.setText(String.valueOf(jugador.getSalario()));
             }
         });
-
 
         cancelarButton.addActionListener(new ActionListener() {
             @Override
@@ -95,20 +77,37 @@ public class VentanaCrearJugador {
             }
         });
 
-
-
-        //LOS NOMBRES DE LOS JTEXT SON LOS SIGUIENTES
-        //TextoNombre
-        //TextoApellido
-        //TextoNickname (PK: LA BUSQUEDA DE DATOS SE HARÁ EN BASE A ESTE TEXTO)
-        //TextoSalario
-
-        //AQUI ESTÁN LAS TRES POSIBILIDADES
-
         modificarDatosButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //MODIFICAR (ACTUALIZAR LOS CAMPOS CON LA NUEVA INFO DE LOS JTEXT)
+                String nuevoNick = TextoNickname.getText().toUpperCase().trim();
+                String nombre = TextoNombre.getText().toUpperCase().trim();
+                String apellido = TextoApellido.getText().toUpperCase().trim();
+                double salario;
+
+                if (TextoSalario.getText().trim().equalsIgnoreCase("")) {
+                    salario = 1.0;
+                } else {
+                    salario = Double.parseDouble(TextoSalario.getText().trim());
+                }
+
+                if (nuevoNick.equalsIgnoreCase(jugador.getNickname()) || nuevoNick.equalsIgnoreCase("")) {
+                    TextoInformativo.setText("Error: Campo Nickname vacío");
+                } else if (nombre.equalsIgnoreCase(jugador.getNombre_jugador()) && apellido.equalsIgnoreCase(jugador.getApellido_jugador()) && salario == jugador.getSalario()) {
+                    TextoInformativo.setText("Error: Nada que modificar");
+                } else if (nombre.equalsIgnoreCase("") && apellido.equalsIgnoreCase("") && TextoSalario.getText().trim().equalsIgnoreCase("")) {
+                    TextoInformativo.setText("Error: Campos vacíos");
+                } else if (salario < 10302.60) {
+                    TextoInformativo.setText("Error: Salario menor a SMI");
+                } else {
+                    boolean modificado = jugadorBD.actualizarJugador(jugador.getNickname(), nuevoNick, nombre, apellido, salario);
+
+                    if (modificado) {
+                        TextoInformativo.setText("Jugador modificado correctamente");
+                    } else {
+                        TextoInformativo.setText("Error: Jugador no modificado");
+                    }
+                }
 
             }
         });
@@ -116,24 +115,23 @@ public class VentanaCrearJugador {
         eliminarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //ELIMINAR (ELIMINAR EL JUGADOR SELECCIONADO ("TextoNickname"))
+                String nick = TextoNickname.getText().toUpperCase().trim();
 
-            }
-        });
+                boolean elminado = jugadorBD.eliminarJugador(nick);
 
-
-
-        BotonBuscar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //RELLENAR LOS CAMPOS DEl "JUGADOR" ESCRITO EN EL JTEXT "TextoNickname"
+                if (elminado) {
+                    TextoInformativo.setText("Jugador eliminado correctamente");
+                    TextoNickname.setText("");
+                    TextoNombre.setText("");
+                    TextoApellido.setText("");
+                    TextoSalario.setText("");
+                } else {
+                    TextoInformativo.setText("Error: Jugador NO eliminado");
+                }
 
             }
         });
     }
-
-
-
 
 }
 

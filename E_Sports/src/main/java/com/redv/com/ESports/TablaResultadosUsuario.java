@@ -7,7 +7,15 @@ public class TablaResultadosUsuario extends AbstractTableModel {
 
     private String[] columnas = {"Equipo 1", "Equipo 2", "Resultado"};
 
-    private ArrayList<Partido> partidos;//HAY QUE CONECTAR ESTE ARRAY CON EL ARRAY QUE GENERA LA TEMPORADA.
+
+
+    public TablaResultadosUsuario(ArrayList<Calendario> partidosTemporada) {
+        this.partidosTemporada = partidosTemporada;
+        System.out.println("ME EJECUTO: CONSTRUCTOR");;
+    }
+
+
+    private ArrayList<Calendario> partidosTemporada;
 
 
     @Override
@@ -22,17 +30,19 @@ public class TablaResultadosUsuario extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
+        System.out.println("ME EJECUTO: MOSTRAR LINEAS");
 
-        Partido partido = partidos.get(rowIndex);
-
+        Calendario calendario = partidosTemporada.get(rowIndex);
 
         switch (columnIndex){
+
             case 0:
-                return partido.getEquipoA();
+                return calendario.getEquipo1();
+
             case 1:
-                return partido.getEquipoB();
+                return calendario.getEquipo2();
             case 2:
-                switch (partido.getResultado()){
+                switch (calendario.getResultado()){
                     case 0:
                         return "Empate";
                     case 1:

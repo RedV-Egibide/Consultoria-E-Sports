@@ -29,7 +29,7 @@ public class EquipoBD {
 
                     Jugador jugador = new Jugador(nick, nombre, apellido, salario);
                     disponibles.add(jugador);
-                    System.out.println(nick + "añadido a lista disponibles");
+                    System.out.println(nick + " añadido a lista disponibles");
                 }
 
                 rset.close();
@@ -65,7 +65,7 @@ public class EquipoBD {
                     return false;
                 }
             }
-            //llamada a metodo "ACTUALIZAR_JUGADOR en paquete "CRUD_JUGADOR"
+            //llamada a metodo "ASIGNAR_EQUIPO en paquete "CRUD_JUGADOR"
             try {
                 //Creamos el statement
                 String sqla1 = "{ call CRUD_JUGADOR.ASIGNAR_EQUIPO(?,?) }";
@@ -78,7 +78,7 @@ public class EquipoBD {
                 // Ejecutamos la llamada
                 csa1.execute();
 
-                System.out.println("INFO: Procedimiento CRUD_JUGADOR.ACTUALIZAR_JUGADOR ejecutado");
+                System.out.println("INFO: Procedimiento CRUD_JUGADOR.ASIGNAR_EQUIPO ejecutado");
                 csa1.close();
                 ConexionBD.desconectar(connection);
                 return true;

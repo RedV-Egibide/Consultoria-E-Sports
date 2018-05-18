@@ -8,6 +8,9 @@ public class Dueño extends Usuario {
     private String apellido_dueño;
     private Equipo equipoDueño;
 
+    public Dueño() {
+    }
+
     public Dueño(String usuario, String contraseña, Rol rol, String nombre_dueño, String apellido_dueño, Equipo equipoDueño) {
         super(usuario, contraseña, rol);
         this.nombre_dueño = nombre_dueño;
@@ -17,6 +20,12 @@ public class Dueño extends Usuario {
 
     public Dueño(String usuario, String contraseña, String nombre_dueño, String apellido_dueño) {
         super(usuario, contraseña);
+        this.nombre_dueño = nombre_dueño;
+        this.apellido_dueño = apellido_dueño;
+    }
+
+    public Dueño(String usuario, String nombre_dueño, String apellido_dueño) {
+        super(usuario);
         this.nombre_dueño = nombre_dueño;
         this.apellido_dueño = apellido_dueño;
     }

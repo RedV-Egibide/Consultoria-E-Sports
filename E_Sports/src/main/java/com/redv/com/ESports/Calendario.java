@@ -9,12 +9,17 @@ public class Calendario {
     private Date fecha;
     private Equipo equipo1;
     private Equipo equipo2;
-    private Resultado resultado;
+    private int resultado;//ESTE RESULTADO LO DEJASTE UNIDO A LA CLASE "RESULTADO", LO CAMBIÉ POR LAS FUNCIONES DEL NÚCLEO.
 
     public Calendario() {
     }
 
-    public Calendario(int jornada, Date fecha, Equipo equipo1, Equipo equipo2, Resultado resultado) {
+    public Calendario(Equipo equipo1, Equipo equipo2) {
+        this.equipo1 = equipo1;
+        this.equipo2 = equipo2;
+    }
+
+    public Calendario(int jornada, Date fecha, Equipo equipo1, Equipo equipo2, int resultado) {
         this.jornada = jornada;
         this.fecha = fecha;
         this.equipo1 = equipo1;
@@ -86,11 +91,11 @@ public class Calendario {
         this.equipo2 = equipo2;
     }
 
-    public Resultado getResultado() {
+    public int getResultado() {
         return resultado;
     }
 
-    public void setResultado(Resultado resultado) {
+    public void setResultado(int resultado) {
         this.resultado = resultado;
     }
 }

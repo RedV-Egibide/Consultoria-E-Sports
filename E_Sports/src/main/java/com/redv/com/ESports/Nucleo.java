@@ -5,7 +5,12 @@ import java.util.List;
 import java.util.Random;
 
 public class Nucleo {
-    public static ArrayList<Partido> OrdenarEnfrentamientos(ArrayList<Equipo> equipos) {
+    /**
+     * author: Eric Mtz
+     * @param equipos
+     * @return ArrayList<Calendario></> //Devuelve un array con todos los partidos que se jugarán en la temporada (En el orden en el que serán jugados)
+     */
+    public static ArrayList<Calendario> OrdenarEnfrentamientos(ArrayList<Equipo> equipos) {
 
         //GENERADOR DE NÚMEROS ALEATORIOS.
         Random r = new Random();
@@ -35,16 +40,15 @@ public class Nucleo {
             equipos.remove(aleatorio);
         }
 
-        ArrayList<Partido> calendario = new ArrayList<>();
-        List<Partido> calendarioSinAleatorizar = new ArrayList<>();
+        ArrayList<Calendario> calendario = new ArrayList<>();
+        List<Calendario> calendarioSinAleatorizar = new ArrayList<>();
 
         tamañoArrays = 0;
 
         for (int i = 0; i < torneo.size(); i++) {
-
             tamañoArrays = i;
             for (tamañoArrays = i + 1; tamañoArrays < torneo.size(); tamañoArrays++) {
-                calendarioSinAleatorizar.add(new Partido(torneo.get(i), torneo.get(tamañoArrays)));
+                calendarioSinAleatorizar.add(new Calendario(torneo.get(i), torneo.get(tamañoArrays)));
             }
         }
 
@@ -57,6 +61,8 @@ public class Nucleo {
         //AL IGUAL QUE AL DESORDENAR EQUIPOS, TRANSFERIMOS LOS DATOS DE CALENDARIOSINALEATORIZAR A CALENDARIO, EN DESORDEN TOTAL.
         for (int i = 0; i < tamañoArrays; i++) {
             int aleatorio = r.nextInt(calendarioSinAleatorizar.size());
+            calendarioSinAleatorizar.get(aleatorio).setJornada(i+1);
+            //calendarioSinAleatorizar.get(aleatorio).setFecha();DE AÑADIR LA FECHA SE AÑADIRÁ EN ESTA LÍNEA Y BAJO EL VALOR ALEATORIO COMO ESTÁ ESCRITO
             calendario.add(calendarioSinAleatorizar.get(aleatorio));
             calendarioSinAleatorizar.remove(aleatorio);
         }
@@ -77,7 +83,7 @@ public class Nucleo {
     RETURN: ArrayList<Equipos> Devolverá un ArrayList de equipos como el introducido al llamar a la función, pero con los datos de puntuación guardados.
      */
 
-    public static ArrayList<Equipo> PuntuarEquipos (ArrayList<Partido> enfrentamientos, ArrayList<Equipo> equiposParticipantes){
+    public static ArrayList<Equipo> PuntuarEquipos (ArrayList<Calendario> enfrentamientos, ArrayList<Equipo> equiposParticipantes){
 
 
         for (int i = 0; i < enfrentamientos.size(); i++) {
@@ -87,9 +93,9 @@ public class Nucleo {
 
                     for (int j = 0; j < equiposParticipantes.size(); j++) {
 
-                        if (equiposParticipantes.get(j).getNombre_equipo() == enfrentamientos.get(i).getEquipoA().getNombre_equipo()){
+                        if (equiposParticipantes.get(j).getNombre_equipo().equalsIgnoreCase(enfrentamientos.get(i).getEquipo1().getNombre_equipo())){
                             equiposParticipantes.get(j).setPuntuación(+1);
-                        }else if(equiposParticipantes.get(j).getNombre_equipo() == enfrentamientos.get(i).getEquipoB().getNombre_equipo()){
+                        }else if(equiposParticipantes.get(j).getNombre_equipo().equalsIgnoreCase(enfrentamientos.get(i).getEquipo2().getNombre_equipo())){
                             equiposParticipantes.get(j).setPuntuación(-1);
                         }
                     }
@@ -97,9 +103,9 @@ public class Nucleo {
                 case 2:
                     for (int j = 0; j < equiposParticipantes.size(); j++) {
 
-                        if (equiposParticipantes.get(j).getNombre_equipo() == enfrentamientos.get(i).getEquipoA().getNombre_equipo()){
+                        if (equiposParticipantes.get(j).getNombre_equipo().equalsIgnoreCase(enfrentamientos.get(i).getEquipo1().getNombre_equipo())){
                             equiposParticipantes.get(j).setPuntuación(-1);
-                        }else if(equiposParticipantes.get(j).getNombre_equipo() == enfrentamientos.get(i).getEquipoB().getNombre_equipo()){
+                        }else if(equiposParticipantes.get(j).getNombre_equipo().equalsIgnoreCase(enfrentamientos.get(i).getEquipo2().getNombre_equipo())){
                             equiposParticipantes.get(j).setPuntuación(+1);
                         }
                     }

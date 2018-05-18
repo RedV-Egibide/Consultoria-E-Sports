@@ -3,6 +3,7 @@ package com.redv.com.ESports;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class VentanaAdmin {
     private JPanel VentanaAdmin;
@@ -26,7 +27,11 @@ public class VentanaAdmin {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
-        ResultadosTemporada.setModel(new TablaResultadosUsuario());
+        //BASE DE DATOS
+        ArrayList<Calendario> calendarioTemporada = new ArrayList<>();//ÚLTIMA TEMPORADA GENERADA POR EL NÚCLEO
+        //BASE DE DATOS
+
+        ResultadosTemporada.setModel(new TablaResultadosUsuario(calendarioTemporada));//CREACION DE LA TABLA
 
         salirButton.addActionListener(new ActionListener() {
             @Override
@@ -63,14 +68,14 @@ public class VentanaAdmin {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int filaSeleccionada;
-                filaSeleccionada = ResultadosTemporada.getSelectedRow();
+                filaSeleccionada = ResultadosTemporada.getSelectedRow();//Esta es la línea del array calendario mostrado que ha seleccionado el usuario para escribir los resultados.
 
                 if (victoriaDerrotaRadioButton.isSelected()) {
-                    //CAMBIAR EN EL ARRAY TEMPORADA (El generado por el nucleo) EL VALOR RESULTADO DEL PARTIDO "filaSeleccionada" a 1 (Victoria / Derrota)
+                    //CAMBIAR EN EL ARRAY DEL CALENDARIO (El generado por el nucleo) EL VALOR RESULTADO DEL PARTIDO "filaSeleccionada" a 1 (Victoria / Derrota)
                 } else if (derrotaVictoriaRadioButton.isSelected()) {
-                    //CAMBIAR EN EL ARRAY TEMPORADA (El generado por el nucleo) EL VALOR RESULTADO DEL PARTIDO "filaSeleccionada" a 2 (Derrota / Victoria)
+                    //CAMBIAR EN EL ARRAY DEL CALENDARIO (El generado por el nucleo) EL VALOR RESULTADO DEL PARTIDO "filaSeleccionada" a 2 (Derrota / Victoria)
                 } else {
-                    //CAMBIAR EN EL ARRAY TEMPORADA (El generado por el nucleo) EL VALOR RESULTADO DEL PARTIDO "filaSeleccionada" a 0 (Empate)
+                    //CAMBIAR EN EL ARRAY DEL CALENDARIO (El generado por el nucleo) EL VALOR RESULTADO DEL PARTIDO "filaSeleccionada" a 0 (Empate)
                 }
             }
         });

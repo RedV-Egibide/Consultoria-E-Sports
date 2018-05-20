@@ -205,7 +205,7 @@ public class VentanaCrearEquipo {
         modificarDatosButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Set<Jugador> paraActualizar = null;
+                Set<Jugador> jugsParaActualizar = null;
                 Dueño d_para_actualizar;
                 //SE DEBE CONTROLAR QUE SE BUSQUE UN EQUIPO PRIMERO
                 if (buscado) {
@@ -219,11 +219,11 @@ public class VentanaCrearEquipo {
                         if (d_para_actualizar != null) {
                             //JUGADORES
                             if (jugsEquipo.size() < 6) {
-                                paraActualizar = jugadoresParaActualizar();
+                                jugsParaActualizar = jugadoresParaActualizar();
 
-                                if (paraActualizar != null) {
+                                if (jugsParaActualizar != null) {
                                     //llamada a BD para actualizar jugadores nuevos
-                                    for (Jugador j : paraActualizar) {
+                                    for (Jugador j : jugsParaActualizar) {
                                         equipoBD.confeccionarEquipo(j, nombreEquipo, true);
                                     }
                                 }
@@ -235,8 +235,9 @@ public class VentanaCrearEquipo {
                             if (!(d_para_actualizar == propietario)) {
                                 equipoBD.asignarDueño_a_Eq(null, propietario.getUsuario());
                                 equipoBD.asignarDueño_a_Eq(nombreEquipo, d_para_actualizar.getUsuario());
-                                frame.dispose();
                             }
+                            JOptionPane.showMessageDialog(VentanaCrearEquipo, "¡Equipo actualizado correctamente!", "Resultado", JOptionPane.INFORMATION_MESSAGE);
+                            frame.dispose();
 
                         } else {
                             TextoInformativo.setText("Debe especificar un dueño");
@@ -391,14 +392,14 @@ public class VentanaCrearEquipo {
             }
         }
         if (Jugador2.getSelectedIndex() > 0) {
-            int j2 = Jugador4.getSelectedIndex();
+            int j2 = Jugador2.getSelectedIndex();
             Jugador jug2 = jugadoresDisponibles.get(j2);
             if (!(jugsEquipo.contains(jug2))) {
                 noRep = actualizarNoRep.add(jug2);
             }
         }
         if (Jugador3.getSelectedIndex() > 0) {
-            int j3 = Jugador4.getSelectedIndex();
+            int j3 = Jugador3.getSelectedIndex();
             Jugador jug3 = jugadoresDisponibles.get(j3);
             if (!(jugsEquipo.contains(jug3))) {
                 noRep = actualizarNoRep.add(jug3);
@@ -412,14 +413,14 @@ public class VentanaCrearEquipo {
             }
         }
         if (Jugador5.getSelectedIndex() > 0) {
-            int j5 = Jugador4.getSelectedIndex();
+            int j5 = Jugador5.getSelectedIndex();
             Jugador jug5 = jugadoresDisponibles.get(j5);
             if (!(jugsEquipo.contains(jug5))) {
                 noRep = actualizarNoRep.add(jug5);
             }
         }
         if (Jugador6.getSelectedIndex() > 0) {
-            int j6 = Jugador4.getSelectedIndex();
+            int j6 = Jugador6.getSelectedIndex();
             Jugador jug6 = jugadoresDisponibles.get(j6);
             if (!(jugsEquipo.contains(jug6))) {
                 noRep = actualizarNoRep.add(jug6);

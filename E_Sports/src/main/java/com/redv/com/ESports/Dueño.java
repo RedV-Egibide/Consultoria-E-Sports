@@ -11,6 +11,11 @@ public class Dueño extends Usuario {
     public Dueño() {
     }
 
+    public Dueño(String nombre_dueño, String apellido_dueño) {
+        this.nombre_dueño = nombre_dueño;
+        this.apellido_dueño = apellido_dueño;
+    }
+
     public Dueño(String usuario, String contraseña, Rol rol, String nombre_dueño, String apellido_dueño, Equipo equipoDueño) {
         super(usuario, contraseña, rol);
         this.nombre_dueño = nombre_dueño;
@@ -56,11 +61,7 @@ public class Dueño extends Usuario {
 
     @Override
     public String toString() {
-        return "Dueño{" +
-                "nombre_dueño='" + nombre_dueño + '\'' +
-                ", apellido_dueño='" + apellido_dueño + '\'' +
-                ", equipoDueño=" + equipoDueño +
-                '}';
+        return nombre_dueño + " " + apellido_dueño;
     }
 
     @Override

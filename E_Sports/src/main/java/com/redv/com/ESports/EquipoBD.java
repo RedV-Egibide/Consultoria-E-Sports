@@ -58,6 +58,8 @@ public class EquipoBD {
                 st.setString(2, dueño);
                 st.executeUpdate();
 
+                st.close();
+                ConexionBD.desconectar(connection);
                 return true;
 
             } catch (SQLException e) {

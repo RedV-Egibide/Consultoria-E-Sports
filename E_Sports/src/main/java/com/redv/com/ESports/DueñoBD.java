@@ -2,12 +2,50 @@ package com.redv.com.ESports;
 
 import javax.swing.*;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DueñoBD {
 
     private Connection conexion = null;
 
     private String equipo = null;
+
+    public List<Dueño> cargarDueñosDisponibles() {
+
+        List<Dueño> dueñosDisp = new ArrayList<>();
+
+        conexion = ConexionBD.conectar();
+
+        if (conexion != null) {
+            // Consulta simple
+            try {
+                Statement stmt = conexion.createStatement();
+
+                ResultSet rset = stmt.executeQuery("SELECT USUARIO, NOMBRE, APELLIDO FROM DUEÑO WHERE EQUIPO IS NULL");
+
+                while (rset.next()) {
+                    String usuario = rset.getString("USUARIO");
+                    String nombre = rset.getString("NOMBRE");
+                    String apellido = rset.getString("APELLIDO");
+
+                    Dueño dueño = new Dueño(usuario, nombre, apellido);
+                    dueñosDisp.add(dueño);
+                    System.out.println(nombre + " añadido a lista disponibles");
+                }
+
+                rset.close();
+                stmt.close();
+                ConexionBD.desconectar(conexion);
+
+            } catch (SQLException e) {
+                System.out.println("ERROR: " + e.getMessage());
+            }
+        } else {
+            System.out.println(DueñoBD.class.getName() + " Sin conexión a BD en cargarDueñosDisponibles()");
+        }
+        return dueñosDisp;
+    }
 
     public boolean crearDueño(String usuario, String nombre, String apellido, JLabel textoInfo) {
         conexion = ConexionBD.conectar();

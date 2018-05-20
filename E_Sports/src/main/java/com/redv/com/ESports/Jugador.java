@@ -13,6 +13,15 @@ public class Jugador {
     public Jugador() {
     }
 
+    public Jugador(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public Jugador(String nickname, double salario) {
+        this.nickname = nickname;
+        this.salario = salario;
+    }
+
     public Jugador(String nickname, String nombre_jugador, String apellido_jugador, double salario) {
         this.nickname = nickname;
         this.nombre_jugador = nombre_jugador;

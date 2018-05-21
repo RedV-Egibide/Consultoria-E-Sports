@@ -17,21 +17,8 @@ public class VentanaCrearJugador {
     private JButton modificarDatosButton;
     private JButton eliminarButton;
 
-
-    public boolean ComprobarDisponibilidad(String nickname){
-        boolean datosCorrectos = false;//ESTA VARIABLE POR DEFECTO FALSE SERÁ LA RESPONSABLE DE ACTIVAR EL GUARDADO DE INFORMACION.
-        //SI SE DEVUELVE FALSE SE LE COMUNICARÁ AL USUARIO, QUE EL NICKNAME NO ESTÁ DISPONIBLE
-        //MIENTRAS QUE SI DEVUELVE TRUE, PROSEGUIRÁ EL CÓDIGO DE ACTIONLISENER "CREAREQUIPO" Y ALMACENARÁ LOS DEMÁS DATOS DE LA INTERFAZ
-
-
-        //AQUÍ COMPROBAR QUE EL NOMBRE NO ESTÁ REPETIDO
-
-
-
-
-        return  datosCorrectos;
-    }
-
+    private JugadorBD jugadorBD;
+    private Jugador jugador;
 
     public VentanaCrearJugador() {
         JFrame frame = new JFrame("VentanaCrearJugador");
@@ -42,8 +29,8 @@ public class VentanaCrearJugador {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
-
-
+        jugadorBD = new JugadorBD();
+        jugador = new Jugador();
 
         crearButton.addActionListener(new ActionListener() {
             @Override
@@ -52,41 +39,45 @@ public class VentanaCrearJugador {
                 String nombre = TextoNombre.getText().toUpperCase().trim();
                 String apellido = TextoApellido.getText().toUpperCase().trim();
                 String nickname = TextoNickname.getText().toUpperCase().trim();
-                int salario = Integer.parseInt(TextoSalario.getText());
 
-                if(ComprobarDisponibilidad(nickname)){//YA QUE EL ÚNICO ERROR POSIBLE ES LA DISPONIBILIDAD DEL NOMBRE
-                                                            // ESTA FUNCION (UBICADA ARRIBA) SE ENCARGARÁ DE COMPROBAR QUE ESTÁ CORRECTO
+                if (TextoSalario.getText().trim().equalsIgnoreCase("")) {
+                    TextoInformativo.setText("Error: Obligatorio salario, superior a SMI (10302.60)");
+                } else {
+                    double salario = Double.parseDouble(TextoSalario.getText());
 
-                    Jugador nuevoJugador = new Jugador(nickname, nombre, apellido, salario);//ESTE ES EL OBJETO A GUARDAR
-                    TextoInformativo.setText("Jugador registrado correctamente");
-                }else{
-                    TextoInformativo.setText("El nickname introducido ya está en uso");
-                    TextoNickname.setText("");
+                    if (nickname.equalsIgnoreCase("")) {
+                        TextoInformativo.setText("Error: Obligatorio nick");
+                    } else {
+                        boolean creado = jugadorBD.registrarJugador(nickname, nombre, apellido, salario, TextoInformativo);
+
+                        if (creado) {
+                            TextoInformativo.setText("Jugador registrado correctamente");
+                            TextoNombre.setText("");
+                            TextoApellido.setText("");
+                            TextoNickname.setText("");
+                            TextoSalario.setText("");
+                        }
+                    }
                 }
-
 
             }
         });
-
-
-
-
 
         BotonBuscar.addActionListener(new ActionListener() {//BOTON PARA BUSCAR DATOS DE JUGADOR YA REGISTRADO
             @Override
             public void actionPerformed(ActionEvent e) {
-                String nickname = TextoNickname.getText();//NICKNAME DE JUGADOR A MOSTRAR DATOS
+                String nickname = TextoNickname.getText().toUpperCase().trim();//NICKNAME DE JUGADOR A MOSTRAR DATOS
 
+                jugador = jugadorBD.buscarJugador(nickname, TextoInformativo);
+                //DATOS A RELLENAR DESDE LA BASE DE DATOS
 
-                /*DATOS A RELLENAR DESDE LA BASE DE DATOS
-                TextoNombre.setText();
-                TextoApellido.setText();
-                TextoSalario.setText();
-                */
-
+                if (!(jugador.getSalario() < 10302.60)) {
+                    TextoSalario.setText(String.valueOf(jugador.getSalario()));
+                    TextoNombre.setText(jugador.getNombre_jugador());
+                    TextoApellido.setText(jugador.getApellido_jugador());
+                }
             }
         });
-
 
         cancelarButton.addActionListener(new ActionListener() {
             @Override
@@ -95,20 +86,54 @@ public class VentanaCrearJugador {
             }
         });
 
-
-
-        //LOS NOMBRES DE LOS JTEXT SON LOS SIGUIENTES
-        //TextoNombre
-        //TextoApellido
-        //TextoNickname (PK: LA BUSQUEDA DE DATOS SE HARÁ EN BASE A ESTE TEXTO)
-        //TextoSalario
-
-        //AQUI ESTÁN LAS TRES POSIBILIDADES
-
         modificarDatosButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //MODIFICAR (ACTUALIZAR LOS CAMPOS CON LA NUEVA INFO DE LOS JTEXT)
+                String nuevoNick = TextoNickname.getText().toUpperCase().trim();
+                String nombre = TextoNombre.getText().toUpperCase().trim();
+                String apellido = TextoApellido.getText().toUpperCase().trim();
+
+                boolean nickModificado = false;
+
+                if (!(TextoSalario.getText().trim().equalsIgnoreCase(""))) {
+                    double salario = Double.parseDouble(TextoSalario.getText().trim());
+                    if (salario < 10302.60) {
+                        TextoInformativo.setText("Error: Obligatorio salario, superior a SMI (10302.60)");
+                    } else if (nuevoNick.equalsIgnoreCase(jugador.getNickname()) &&
+                            nombre.equalsIgnoreCase(jugador.getNombre_jugador()) &&
+                            apellido.equalsIgnoreCase(jugador.getApellido_jugador()) &&
+                            salario == jugador.getSalario()) {
+                        TextoInformativo.setText("Nada que modificar");
+                    } else {
+
+                        if (nuevoNick.equalsIgnoreCase("") || nuevoNick.equalsIgnoreCase(jugador.getNickname())) {
+                            nuevoNick = null;
+                        } else if (!(nuevoNick.equalsIgnoreCase(jugador.getNickname()))) {
+                            nickModificado = true;
+                        }
+
+                        if (nombre.equalsIgnoreCase("")) {
+                            nombre = " ";
+                        }
+
+                        if (apellido.equalsIgnoreCase("")) {
+                            apellido = " ";
+                        }
+
+                        boolean modificado = jugadorBD.actualizarJugador(jugador.getNickname(), nuevoNick, nombre, apellido, salario);
+
+                        if (modificado) {
+                            TextoInformativo.setText("Jugador modificado correctamente");
+                            if (nickModificado) {
+                                jugador.setNickname(nuevoNick);
+                            }
+                        } else {
+                            TextoInformativo.setText("Error: Jugador no modificado");
+                        }
+                    }
+                } else {
+                    TextoInformativo.setText("Error: Obligatorio salario, superior a SMI (10302.60)");
+                }
 
             }
         });
@@ -116,24 +141,23 @@ public class VentanaCrearJugador {
         eliminarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //ELIMINAR (ELIMINAR EL JUGADOR SELECCIONADO ("TextoNickname"))
+                String nick = TextoNickname.getText().toUpperCase().trim();
 
-            }
-        });
+                boolean elminado = jugadorBD.eliminarJugador(nick);
 
-
-
-        BotonBuscar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //RELLENAR LOS CAMPOS DEl "JUGADOR" ESCRITO EN EL JTEXT "TextoNickname"
+                if (elminado) {
+                    TextoInformativo.setText("Jugador eliminado correctamente");
+                    TextoNickname.setText("");
+                    TextoNombre.setText("");
+                    TextoApellido.setText("");
+                    TextoSalario.setText("");
+                } else {
+                    TextoInformativo.setText("Error: Jugador NO eliminado");
+                }
 
             }
         });
     }
-
-
-
 
 }
 

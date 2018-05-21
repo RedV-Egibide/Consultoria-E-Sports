@@ -245,7 +245,7 @@ public class UsuarioBD {
             }
 
         } else {
-            System.out.println(UsuarioBD.class.getName() + " sin conexión a BD en .eliminarUsuario()");
+            System.out.println(UsuarioBD.class.getName() + " sin conexión a BD en .actualizarUsuario()");
         }
         return false;
     }

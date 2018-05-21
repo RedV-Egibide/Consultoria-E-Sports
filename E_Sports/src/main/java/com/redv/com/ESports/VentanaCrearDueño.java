@@ -3,12 +3,9 @@ package com.redv.com.ESports;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-
 
 public class VentanaCrearDueño {
     private JPanel VentanaCrearDueño;
-    private JTextField TextoContraseña;
     private JTextField TextoNombre;
     private JButton cancelarButton;
     private JButton crearButton;
@@ -18,23 +15,10 @@ public class VentanaCrearDueño {
     private JButton BotonBuscar;
     private JButton modificarDatosButton;
     private JButton eliminarButton;
+    private JTextField textoNuevoDueño;
 
-
-    public boolean ComprobarDisponibilidad(String nombreUsuario){
-        boolean datosCorrectos = false;//ESTA VARIABLE POR DEFECTO FALSE SERÁ LA RESPONSABLE DE ACTIVAR EL GUARDADO DE INFORMACION.
-        //SI SE DEVUELVE FALSE SE LE COMUNICARÁ AL USUARIO, QUE EL USUARIO NO ESTÁ DISPONIBLE
-        //MIENTRAS QUE SI DEVUELVE TRUE, PROSEGUIRÁ EL CÓDIGO DE ACTIONLISENER "CREAREQUIPO" Y ALMACENARÁ LOS DEMÁS DATOS DE LA INTERFAZ
-
-
-        //AQUÍ COMPROBAR QUE EL NOMBRE NO ESTÁ REPETIDO
-
-
-        return  datosCorrectos;
-    }
-
-
-
-
+    private DueñoBD dueñoBD;
+    private Dueño dueño;
 
     public VentanaCrearDueño() {
         JFrame frame = new JFrame("VentanaCrearDueño");
@@ -45,8 +29,7 @@ public class VentanaCrearDueño {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
-
-
+        dueñoBD = new DueñoBD();
 
         crearButton.addActionListener(new ActionListener() {
             @Override
@@ -55,51 +38,36 @@ public class VentanaCrearDueño {
                 String nombre = TextoNombre.getText().toUpperCase().trim();
                 String apellido = TextoApellido.getText().toUpperCase().trim();
                 String usuario = TextoUsuario.getText().toUpperCase().trim();
-                String contraseña = TextoContraseña.getText().trim();
 
+                boolean creado = dueñoBD.crearDueño(usuario, nombre, apellido, TextoInformativo);
 
-
-                if(ComprobarDisponibilidad(usuario)){//YA QUE EL ÚNICO ERROR POSIBLE ES LA DISPONIBILIDAD DEL NOMBRE
-                                  // ESTA FUNCION (UBICADA ARRIBA) SE ENCARGARÁ DE COMPROBAR QUE ESTÁ CORRECTO
-
-                    Dueño dueño = new Dueño(usuario, contraseña, nombre, apellido);//ESTE ES EL OBJETO A ALMACENAR EN LA BASE DE DATOS
-
-
+                if (creado) {
 
                     TextoInformativo.setText("Dueño registrado correctamente");
                     TextoNombre.setText("");
                     TextoApellido.setText("");
                     TextoUsuario.setText("");
-                    TextoContraseña.setText("");
 
-                }else{
-                    TextoInformativo.setText("El nickname introducido ya está en uso");//LOS DATOS NO HAN PODIDO SER GUARDADOS EN LA BASE DE DATOS
+                } else {
+                    System.out.println("Error: Dueño no creado");
                 }
-
-
 
             }
         });
-
-
-
-
-
 
         BotonBuscar.addActionListener(new ActionListener() {//BOTON PARA BUSCAR DATOS DE DUEÑO YA REGISTRADO
             @Override
             public void actionPerformed(ActionEvent e) {
-                String usuario = TextoUsuario.getText();//USUARIO DEL DUEÑO A MOSTRAR DATOS
+                String usuario = TextoUsuario.getText().toUpperCase().trim();//USUARIO DEL DUEÑO A MOSTRAR DATOS
 
-               /* DATOS A RELLENAR DESDE LA BASE DE DATOS
-                TextoNombre.setText();
-                TextoApellido.setText();
-                TextoContraseña.setText();
-                */
+                dueño = dueñoBD.buscarDueño(usuario, TextoInformativo);
+
+                //DATOS A RELLENAR DESDE LA BASE DE DATOS
+                TextoNombre.setText(dueño.getNombre_dueño());
+                TextoApellido.setText(dueño.getApellido_dueño());
+
             }
         });
-
-
 
         cancelarButton.addActionListener(new ActionListener() {
             @Override
@@ -108,40 +76,67 @@ public class VentanaCrearDueño {
             }
         });
 
-
-
-
-        //LOS NOMBRES DE LOS JTEXT SON LOS SIGUIENTES
-        //TextoNombre
-        //TextoApellido
-        //TextoUsuario (PK: LA BUSQUEDA DE DATOS SE HARÁ EN BASE A ESTE TEXTO)
-        //TextoContraseña
-
         modificarDatosButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //RELLENAR LOS CAMPOS DEl "Dueño" ESCRITO EN EL JTEXT ("TextoUsuario")
+                String nombre = TextoNombre.getText().toUpperCase().trim();
+                String apellido = TextoApellido.getText().toUpperCase().trim();
 
+                String usuario = TextoUsuario.getText().toUpperCase().trim();
+
+                if (usuario.equalsIgnoreCase(dueño.getUsuario())) {
+                    if (!(nombre.equalsIgnoreCase(dueño.getNombre_dueño()) && apellido.equalsIgnoreCase(dueño.getApellido_dueño()))) {
+
+                        if (!(nombre.equalsIgnoreCase("") && apellido.equalsIgnoreCase(""))) {
+                            boolean modificado = dueñoBD.actualizarDueño(dueño.getUsuario(), nombre, apellido);
+                            if (modificado) {
+                                TextoInformativo.setText("Dueño modificado correctamente: " + dueño.getUsuario());
+                            } else {
+                                TextoInformativo.setText("Error: dueño no modificado: " + dueño.getUsuario());
+                            }
+                        } else {
+                            TextoInformativo.setText("Error: Campo/s vacío/s");
+                        }
+                    } else {
+                        TextoInformativo.setText("Debe cambiar algún campo para modificar");
+                    }
+                } else {
+                    TextoInformativo.setText("Cambio usuario sólo en Crear/Modificar Usuario");
+                }
             }
         });
-
 
         eliminarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //ELIMINAR (ELIMINAR EL DUEÑO SELECCIONADO ("TextoUsuario"))
+
+                String nuevoDueño = textoNuevoDueño.getText().trim().toUpperCase();
+                if (nuevoDueño.equalsIgnoreCase("")) {
+                    nuevoDueño = null;
+                }
+
+                boolean eliminado = dueñoBD.eliminarDueño(dueño.getUsuario(), nuevoDueño);
+
+                if (eliminado) {
+                    TextoInformativo.setText("Dueño eliminado correctamente: " + dueño.getUsuario());
+                    TextoUsuario.setText("");
+                    TextoNombre.setText("");
+                    textoNuevoDueño.setText("");
+                    TextoApellido.setText("");
+                } else {
+                    TextoInformativo.setText("Error: dueño no eliminado: " + dueño.getUsuario());
+                }
 
             }
         });
 
-        BotonBuscar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //RELLENAR LOS CAMPOS DEl "DUEÑO" ESCRITO EN EL JTEXT ("TextoUsuario")
-
-            }
-        });
     }
 
+    public JLabel getTextoInformativo() {
+        return TextoInformativo;
+    }
 
+    public void setTextoInformativo(JLabel textoInformativo) {
+        TextoInformativo = textoInformativo;
+    }
 }

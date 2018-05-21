@@ -193,7 +193,7 @@ public class EquipoBD {
                 // Ejecutamos la llamada
                 csa1.execute();
 
-                System.out.println("INFO: Procedimiento CRUD_JUGADOR.ACTUALIZAR_JUGADOR ejecutado");
+                System.out.println("INFO: Procedimiento CRUD_JUGADOR.ASIGNAR_EQUIPO ejecutado");
                 csa1.close();
                 ConexionBD.desconectar(connection);
 

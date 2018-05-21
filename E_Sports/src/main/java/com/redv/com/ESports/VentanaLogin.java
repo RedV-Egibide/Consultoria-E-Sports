@@ -27,7 +27,6 @@ public class VentanaLogin {
                 //Borrar
 
 
-                
                 //VentanaSignUp ventanaSignUp = new VentanaSignUp();
             }
         });

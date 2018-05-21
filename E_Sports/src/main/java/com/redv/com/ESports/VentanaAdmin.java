@@ -15,7 +15,7 @@ public class VentanaAdmin {
     private JButton BotonModificar;
     private JButton salirButton;
     private JTable ResultadosTemporada;
-    private JTable table2;
+    private JTable TablaGenerarTemporada;
     private JButton insertarButton;
 
     public VentanaAdmin() {
@@ -27,9 +27,16 @@ public class VentanaAdmin {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
+
+
+
+
         //BASE DE DATOS
         ArrayList<Calendario> calendarioTemporada = new ArrayList<>();//ÚLTIMA TEMPORADA GENERADA POR EL NÚCLEO
+        ArrayList<Equipo> equiposParticipantes = new ArrayList<>();
         //BASE DE DATOS
+
+        TablaGenerarTemporada.setModel(new TablaResultadosUsuario(Nucleo.OrdenarEnfrentamientos(equiposParticipantes)));
 
         ResultadosTemporada.setModel(new TablaResultadosUsuario(calendarioTemporada));//CREACION DE LA TABLA
 

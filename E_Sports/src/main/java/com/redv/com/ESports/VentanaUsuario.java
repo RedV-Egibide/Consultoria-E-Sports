@@ -30,32 +30,7 @@ public class VentanaUsuario {
 
 
 
-
-        //Esto hay que borrarlo hasta el próximo "BORRAR" (Provisional para el error de las JTable)
-        ArrayList<Equipo> equipos = new ArrayList<>();
-
-        equipos.add(new Equipo("A"));
-        equipos.add(new Equipo("B"));
-        equipos.add(new Equipo("C"));
-        equipos.add(new Equipo("D"));
-        equipos.add(new Equipo("E"));
-        equipos.add(new Equipo("F"));
-        equipos.add(new Equipo("G"));
-
-        ArrayList<Calendario> TemporadaDePrueba;
-        TemporadaDePrueba = Nucleo.OrdenarEnfrentamientos(equipos);
-
-        TablaResultadosTemporada.setModel(new TablaResultadosUsuario(TemporadaDePrueba));
-        //BORRAR
-
-
-
-
-
-
-
-                    //Esto hay que quitarlo de modo texto (Provisional para el error de las JTable)
-        //TablaResultadosTemporada.setModel(new TablaResultadosUsuario(calendarioTemporada));//CREACION DE LA TABLA
+        TablaResultadosTemporada.setModel(new TablaResultadosUsuario(calendarioTemporada));//CREACION DE LA TABLA
         TablaClasificacion.setModel(new TablaClasificacionUsuario(calendarioTemporada, equiposParticipantes));//CREACION DE LA TABLA
 
 

@@ -20,7 +20,7 @@ public class TablaResultadosUsuario extends AbstractTableModel {
 
     @Override
     public int getRowCount() {
-        return 0;
+        return partidosTemporada.size();
     }
 
     @Override

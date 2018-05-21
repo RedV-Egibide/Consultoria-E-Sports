@@ -37,18 +37,7 @@ public class VentanaAdmin {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
-        calendarioBD = new CalendarioBD();
-        calendario = calendarioBD.cargarTemporada();
-        equiposTemporada = calendarioBD.cargarEquiposTemporada();
-
-        //comprobamos si se ha jugado algún partido de la temporada para deshabilitar el boton de generarTemporada
-        for (int i = 0; i < calendario.size(); i++) {
-            Calendario cal = (Calendario) calendario.get(i);
-            if (cal.getResultado() == 0 || cal.getResultado() == 1 || cal.getResultado() == 2) {
-                generarButton.setEnabled(false);
-            }
-        }
-        ResultadosTemporada.setModel(new TablaResultadosUsuario(calendario));//CREACION DE LA TABLA
+        cargarDatos();
 
         salirButton.addActionListener(new ActionListener() {
             @Override
@@ -133,6 +122,13 @@ public class VentanaAdmin {
                 //POR ÚLTIMO ALMACENAMOS LOS RESULTADOS EN BD (LLAMADA A MÉTODO almacenarResultados() en CalendarioBD)
                 boolean res = calendarioBD.almacenarResultados(partidoUpdateRes);
 
+                if (punt1_Ok && punt2_Ok && res) {
+                    JOptionPane.showMessageDialog(VentanaAdmin, "¡Resultado insertado correctamente!", "Resultado", JOptionPane.INFORMATION_MESSAGE);
+                    cargarDatos();
+                } else {
+                    cargarDatos();
+                }
+
             }
         });
         generarButton.addActionListener(new ActionListener() {
@@ -151,10 +147,26 @@ public class VentanaAdmin {
                 tablaResultadosUsuario = new TablaResultadosUsuario(calendario);
                 ResultadosTemporada.setModel(tablaResultadosUsuario);
 
-                /*JOptionPane.showMessageDialog(VentanaAdmin, "¡Temporada generada correctamente!", "Resultado", JOptionPane.INFORMATION_MESSAGE);
-                frame.dispose();*/
+                JOptionPane.showMessageDialog(VentanaAdmin, "¡Temporada generada correctamente!", "Resultado", JOptionPane.INFORMATION_MESSAGE);
+                cargarDatos();
+
             }
         });
+    }
+
+    private void cargarDatos() {
+        calendarioBD = new CalendarioBD();
+        calendario = calendarioBD.cargarTemporada();
+        equiposTemporada = calendarioBD.cargarEquiposTemporada();
+
+        //comprobamos si se ha jugado algún partido de la temporada para deshabilitar el boton de generarTemporada
+        for (int i = 0; i < calendario.size(); i++) {
+            Calendario cal = (Calendario) calendario.get(i);
+            if (cal.getResultado() == 0 || cal.getResultado() == 1 || cal.getResultado() == 2) {
+                generarButton.setEnabled(false);
+            }
+        }
+        ResultadosTemporada.setModel(new TablaResultadosUsuario(calendario));//CREACION DE LA TABLA
     }
 
 }

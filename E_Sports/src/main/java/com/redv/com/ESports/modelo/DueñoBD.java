@@ -11,6 +11,11 @@ public class DueñoBD {
 
     private String equipo = null;
 
+    /**
+     * Llama a BD y toma todos los dueños que encuentra sin equipo asignado
+     *
+     * @return devuelve un objeto Dueño con los parámetros USUARIO, NOMBRE, APELLIDO cargados
+     */
     public List<Dueño> cargarDueñosDisponibles() {
 
         List<Dueño> dueñosDisp = new ArrayList<>();
@@ -47,6 +52,15 @@ public class DueñoBD {
         return dueñosDisp;
     }
 
+    /**
+     * Llama a BD e inserta un Dueño en la respectiva tabla
+     *
+     * @param usuario   nombre de usuario
+     * @param nombre    nombre del suejeto
+     * @param apellido  apellido del sujeto
+     * @param textoInfo recibe un Jlabel para informar de cualquier error producido en el proceso
+     * @return devuelve true si no ha habido problemas la ejecutar la sentencia
+     */
     public boolean crearDueño(String usuario, String nombre, String apellido, JLabel textoInfo) {
         conexion = ConexionBD.conectar();
 
@@ -90,6 +104,13 @@ public class DueñoBD {
         return false;
     }
 
+    /**
+     * Busca en BD un Dueño que se corresponda con el nombre de usuario pasado
+     *
+     * @param usuario   nombre de usuario que recibe
+     * @param textoInfo Jlabel que recibe para informar en ventana de cualquier fallo o ejecución satisfactoria
+     * @return devuelve un objeto Dueño
+     */
     public Dueño buscarDueño(String usuario, JLabel textoInfo) {
         conexion = ConexionBD.conectar();
 
@@ -130,6 +151,15 @@ public class DueñoBD {
         return new Dueño(usuario, nombre, apellido);
     }
 
+    /**
+     * Elimina de BD un Dueño que coincida con el nombre de usuario pasado
+     * y puede recibir el nombre de usuario de un dueño existente en BD para hacerse cargo del equipo del dueño a eliminar
+     * si lo tiene.
+     *
+     * @param nombre      dueño a eliminar
+     * @param nuevo_Dueño dueño que se haría cargo de equipo
+     * @return devuelve true si se ha ejecutado la sentencia correctamente
+     */
     public boolean eliminarDueño(String nombre, String nuevo_Dueño) {
         conexion = ConexionBD.conectar();
 
@@ -165,6 +195,14 @@ public class DueñoBD {
         return false;
     }
 
+    /**
+     * Actualiza Dueño en BD.
+     *
+     * @param usuario  nombre de usuario de dueño a actualizar
+     * @param nombre   nombre del sujeto
+     * @param apellido apellido del suejto
+     * @return devuelve true si ha realizado correctamente el proceso
+     */
     public boolean actualizarDueño(String usuario, String nombre, String apellido) {
         conexion = ConexionBD.conectar();
 

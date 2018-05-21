@@ -8,6 +8,11 @@ public class CalendarioBD {
 
     private Connection conexion;
 
+    /**
+     * Llama a BD para coger todos los equipos introducidos
+     *
+     * @return devuelve ArrayList<Equipo> con todos los que encuentra
+     */
     public ArrayList<Equipo> cargarEquiposTemporada() {
         ArrayList<Equipo> equipos = new ArrayList<>();
 
@@ -23,7 +28,6 @@ public class CalendarioBD {
                 while (rset.next()) {
                     String nombre = rset.getString("NOMBRE");
                     int puntuacion = rset.getInt("PUNTUACION");
-                    System.out.println(nombre + " " + puntuacion);
 
                     Equipo equipo = new Equipo(nombre, puntuacion);
 
@@ -43,6 +47,11 @@ public class CalendarioBD {
         return equipos;
     }
 
+    /**
+     * Llama a BD para cargar los partidos (previamente generados)
+     *
+     * @return devuelve ArrayList<Calendario> con todos los partidos que encuentra.
+     */
     public ArrayList cargarTemporada() {
         ArrayList temporada = new ArrayList();
 
@@ -84,6 +93,12 @@ public class CalendarioBD {
         return temporada;
     }
 
+    /**
+     * Almacena en BD la temporada generada o modificada
+     *
+     * @param temporada recibe una lista con los partidos (cargados previamente)
+     * @return devuelve true si no ha habido ningún problema al almacenar en BD
+     */
     public boolean almacenarTemporada(List<Calendario> temporada) {
         conexion = ConexionBD.conectar();
 
@@ -119,6 +134,12 @@ public class CalendarioBD {
         return false;
     }
 
+    /**
+     * Almacena en BD los resultados introducidos por el administrador de cada partido
+     *
+     * @param partido recibe el partido del que se desea introducir en BD el resultado
+     * @return devuelve true si no ha habido ningún problema al almacenar en BD
+     */
     public boolean almacenarResultados(Calendario partido) {
         conexion = ConexionBD.conectar();
         //update
@@ -144,6 +165,12 @@ public class CalendarioBD {
         return false;
     }
 
+    /**
+     * Almacena en BD la puntuación actualizada de cada equipo tras un encuentro disputado
+     *
+     * @param equipo recibe el equipo en cuestión
+     * @return devuelve true si no ha habido ningún problema al almacenar en BD
+     */
     public boolean almacenarPuntuacion(Equipo equipo) {
         conexion = ConexionBD.conectar();
 

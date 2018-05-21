@@ -39,24 +39,8 @@ public class Dueño extends Usuario {
         return nombre_dueño;
     }
 
-    public void setNombre_dueño(String nombre_dueño) {
-        this.nombre_dueño = nombre_dueño;
-    }
-
     public String getApellido_dueño() {
         return apellido_dueño;
-    }
-
-    public void setApellido_dueño(String apellido_dueño) {
-        this.apellido_dueño = apellido_dueño;
-    }
-
-    public Equipo getEquipoDueño() {
-        return equipoDueño;
-    }
-
-    public void setEquipoDueño(Equipo equipoDueño) {
-        this.equipoDueño = equipoDueño;
     }
 
     @Override

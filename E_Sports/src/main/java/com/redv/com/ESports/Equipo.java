@@ -14,6 +14,11 @@ public class Equipo {
     public Equipo() {
     }
 
+    public Equipo(String nombre_equipo, int puntuación) {
+        this.nombre_equipo = nombre_equipo;
+        this.puntuación = puntuación;
+    }
+
     public Equipo(String nombre_equipo) {
         this.nombre_equipo = nombre_equipo;
     }

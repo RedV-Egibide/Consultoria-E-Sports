@@ -1,12 +1,11 @@
 package com.redv.com.ESports;
 
-import java.util.Date;
 import java.util.Objects;
 
 public class Calendario {
 
     private int jornada;
-    private Date fecha;
+    private java.sql.Date fecha;
     private Equipo equipo1;
     private Equipo equipo2;
     private int resultado;//ESTE RESULTADO LO DEJASTE UNIDO A LA CLASE "RESULTADO", LO CAMBIÉ POR LAS FUNCIONES DEL NÚCLEO.
@@ -19,7 +18,7 @@ public class Calendario {
         this.equipo2 = equipo2;
     }
 
-    public Calendario(int jornada, Date fecha, Equipo equipo1, Equipo equipo2, int resultado) {
+    public Calendario(int jornada, java.sql.Date fecha, Equipo equipo1, Equipo equipo2, int resultado) {
         this.jornada = jornada;
         this.fecha = fecha;
         this.equipo1 = equipo1;
@@ -27,7 +26,7 @@ public class Calendario {
         this.resultado = resultado;
     }
 
-    public Calendario(int jornada, Date fecha, Equipo equipo1, Equipo equipo2) {
+    public Calendario(int jornada, java.sql.Date fecha, Equipo equipo1, Equipo equipo2) {
         this.jornada = jornada;
         this.fecha = fecha;
         this.equipo1 = equipo1;
@@ -67,11 +66,11 @@ public class Calendario {
         this.jornada = jornada;
     }
 
-    public Date getFecha() {
+    public java.sql.Date getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(java.sql.Date fecha) {
         this.fecha = fecha;
     }
 

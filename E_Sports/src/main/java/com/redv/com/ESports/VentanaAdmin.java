@@ -35,6 +35,14 @@ public class VentanaAdmin {
         calendario = calendarioBD.cargarTemporada();
         equiposTemporada = calendarioBD.cargarEquiposTemporada();
 
+        //comprobamos si se ha jugado algún partido de la temporada para deshabilitar el boton de generarTemporada
+        for (int i = 0; i < calendario.size(); i++) {
+            Calendario cal = (Calendario) calendario.get(i);
+            if (cal.getResultado() == 0 || cal.getResultado() == 1 || cal.getResultado() == 2) {
+                generarButton.setEnabled(false);
+            }
+        }
+
         ResultadosTemporada.setModel(new TablaResultadosUsuario(calendario));//CREACION DE LA TABLA
 
         salirButton.addActionListener(new ActionListener() {
@@ -113,12 +121,13 @@ public class VentanaAdmin {
 
                 //llamada a BD para almacenar puntuación
                 //EQ1
-                calendarioBD.almacenarPuntuacion(((Calendario) calendario.get(filaSeleccionada)).getEquipo1());
+                boolean punt1_Ok = calendarioBD.almacenarPuntuacion(((Calendario) calendario.get(filaSeleccionada)).getEquipo1());
                 //EQ2
-                calendarioBD.almacenarPuntuacion(((Calendario) calendario.get(filaSeleccionada)).getEquipo2());
+                boolean punt2_Ok = calendarioBD.almacenarPuntuacion(((Calendario) calendario.get(filaSeleccionada)).getEquipo2());
 
                 //POR ÚLTIMO ALMACENAMOS LOS RESULTADOS EN BD (LLAMADA A MÉTODO almacenarResultados() en CalendarioBD)
-                calendarioBD.almacenarResultados(partidoUpdateRes);
+                boolean res = calendarioBD.almacenarResultados(partidoUpdateRes);
+
             }
         });
         generarButton.addActionListener(new ActionListener() {
@@ -132,13 +141,6 @@ public class VentanaAdmin {
 
                 //llamamos a método almacenarTemporada en CalendarioBD y pasamos arraylist partidos (temporada)
                 calendarioBD.almacenarTemporada(calendario);
-
-                /*
-                    NO HACE FALTA EN LA VENTANA DE ADMIN -> GUARDADO PARA COPIAR EN LAS DEMÁS VENTANAS
-                //cargamos arrays temporada y equipos en TablaClasifUsuario(temporada, equipos)
-                tablaClasificacionUsuario = new TablaClasificacionUsuario(temporada, equiposTemporada);
-
-                */
 
                 //cargamos array temporada en TablaResultadosUsuario(temporada) (le pasamos el array de partidos -temporada- para que se visualice)
                 tablaResultadosUsuario = new TablaResultadosUsuario(calendario);

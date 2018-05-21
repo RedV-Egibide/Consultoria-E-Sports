@@ -1,5 +1,8 @@
 package com.redv.com.ESports;
 
+import com.redv.com.ESports.modelo.Calendario;
+import com.redv.com.ESports.modelo.Equipo;
+
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;

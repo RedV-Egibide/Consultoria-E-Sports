@@ -1,5 +1,7 @@
 package com.redv.com.ESports;
 
+import com.redv.com.ESports.modelo.Calendario;
+
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 
@@ -7,16 +9,11 @@ public class TablaResultadosUsuario extends AbstractTableModel {
 
     private String[] columnas = {"Equipo 1", "Equipo 2", "Resultado"};
 
-
-
     public TablaResultadosUsuario(ArrayList<Calendario> partidosTemporada) {
         this.partidosTemporada = partidosTemporada;
-        System.out.println("ME EJECUTO: CONSTRUCTOR");;
     }
 
-
     private ArrayList<Calendario> partidosTemporada;
-
 
     @Override
     public int getRowCount() {
@@ -30,11 +27,10 @@ public class TablaResultadosUsuario extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        System.out.println("ME EJECUTO: MOSTRAR LINEAS");
-
         Calendario calendario = partidosTemporada.get(rowIndex);
+        String resultado = "";
 
-        switch (columnIndex){
+        switch (columnIndex) {
 
             case 0:
                 return calendario.getEquipo1();
@@ -42,18 +38,22 @@ public class TablaResultadosUsuario extends AbstractTableModel {
             case 1:
                 return calendario.getEquipo2();
             case 2:
-                switch (calendario.getResultado()){
+                switch (calendario.getResultado()) {
                     case 0:
-                        return "Empate";
+                        resultado = "Empate";
+                        break;
                     case 1:
-                        return "V - D";
+                        resultado = "V - D";
+                        break;
                     case 2:
-                        return "D - V";
+                        resultado = "D - V";
+                        break;
                     default:
-                        return "No jugado";
+                        resultado = "No jugado";
+                        break;
 
                 }
-
+                return resultado;
 
         }
 

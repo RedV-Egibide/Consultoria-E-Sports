@@ -25,7 +25,7 @@ public class TablaClasificacionUsuario extends AbstractTableModel {
 
     @Override
     public int getRowCount() {
-        return equiposEnOrden.size();
+        return equiposPuntuados.size();
     }
 
     @Override

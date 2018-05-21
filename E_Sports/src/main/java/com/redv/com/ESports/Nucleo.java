@@ -10,7 +10,7 @@ public class Nucleo {
      * author: Eric Mtz
      *
      * @param equipos
-     * @return ArrayList<Calendario></> //Devuelve un array con todos los partidos que se jugarán en la temporada (En el orden en el que serán jugados)
+     * @return ArrayList<Calendario></> //Devuelve un array con todos los partidos que se jugarán en la temporada (Y en el orden en el que serán jugados)
      */
     public static ArrayList<Calendario> OrdenarEnfrentamientos(ArrayList<Equipo> equipos) {
 
@@ -93,7 +93,13 @@ public class Nucleo {
     RETURN: ArrayList<Equipos> Devolverá un ArrayList de equipos como el introducido al llamar a la función, pero con los datos de puntuación guardados.
      */
 
-    public static ArrayList<Equipo> PuntuarEquipos(ArrayList<Calendario> enfrentamientos, ArrayList<Equipo> equiposParticipantes) {
+    /**
+     *
+     * @param enfrentamientos
+     * @param equiposParticipantes
+     * @return ArrayList<Equipo></> //Devuelve un ArrayList de Equipos con las puntuaciones recalculadas en base a los resultados de la última temporada.
+     */
+    public static ArrayList<Equipo> PuntuarEquipos (ArrayList<Calendario> enfrentamientos, ArrayList<Equipo> equiposParticipantes){
 
         for (int i = 0; i < enfrentamientos.size(); i++) {
 

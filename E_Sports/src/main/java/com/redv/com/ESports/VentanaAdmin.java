@@ -15,6 +15,9 @@ public class VentanaAdmin {
     private JButton BotonModificar;
     private JButton salirButton;
     private JTable ResultadosTemporada;
+
+    private JTable TablaGenerarTemporada;
+
     private JButton insertarButton;
 
     private CalendarioBD calendarioBD;

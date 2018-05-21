@@ -68,10 +68,7 @@ public class Equipo {
 
     @Override
     public String toString() {
-        return "Equipo{" +
-                "nombre_equipo='" + nombre_equipo + '\'' +
-                ", dueñoEquipo=" + dueñoEquipo +
-                '}';
+        return nombre_equipo;
     }
 
     @Override

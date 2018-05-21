@@ -18,11 +18,12 @@ public class CalendarioBD {
             try {
                 Statement stmt = conexion.createStatement();
 
-                ResultSet rset = stmt.executeQuery("SELECT NOMBRE, PUNTUACIÓN FROM EQUIPO");
+                ResultSet rset = stmt.executeQuery("SELECT NOMBRE, PUNTUACION FROM EQUIPO");
 
                 while (rset.next()) {
                     String nombre = rset.getString("NOMBRE");
                     int puntuacion = rset.getInt("PUNTUACION");
+                    System.out.println(nombre + " " + puntuacion);
 
                     Equipo equipo = new Equipo(nombre, puntuacion);
 
@@ -91,13 +92,16 @@ public class CalendarioBD {
 
             for (Calendario c : temporada) {
 
+                System.out.println(c);
+
                 try {
-                    PreparedStatement st = conexion.prepareStatement("INSERT INTO CALENDARIO VALUES (?,?,?,?)");
+                    PreparedStatement st = conexion.prepareStatement("INSERT INTO CALENDARIO VALUES (?,?,?,?,?)");
 
                     st.setInt(1, c.getJornada());
                     st.setDate(2, c.getFecha());
                     st.setString(3, c.getEquipo1().getNombre_equipo());
                     st.setString(4, c.getEquipo2().getNombre_equipo());
+                    st.setInt(5, -1);
 
                     st.executeUpdate();
 

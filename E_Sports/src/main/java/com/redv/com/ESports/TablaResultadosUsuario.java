@@ -11,14 +11,13 @@ public class TablaResultadosUsuario extends AbstractTableModel {
 
     public TablaResultadosUsuario(ArrayList<Calendario> partidosTemporada) {
         this.partidosTemporada = partidosTemporada;
-        System.out.println("ME EJECUTO: CONSTRUCTOR");
     }
 
     private ArrayList<Calendario> partidosTemporada;
 
     @Override
     public int getRowCount() {
-        return 0;
+        return partidosTemporada.size();
     }
 
     @Override
@@ -28,9 +27,8 @@ public class TablaResultadosUsuario extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        System.out.println("ME EJECUTO: MOSTRAR LINEAS");
-
         Calendario calendario = partidosTemporada.get(rowIndex);
+        String resultado = "";
 
         switch (columnIndex) {
 
@@ -42,15 +40,20 @@ public class TablaResultadosUsuario extends AbstractTableModel {
             case 2:
                 switch (calendario.getResultado()) {
                     case 0:
-                        return "Empate";
+                        resultado = "Empate";
+                        break;
                     case 1:
-                        return "V - D";
+                        resultado = "V - D";
+                        break;
                     case 2:
-                        return "D - V";
+                        resultado = "D - V";
+                        break;
                     default:
-                        return "No jugado";
+                        resultado = "No jugado";
+                        break;
 
                 }
+                return resultado;
 
         }
 

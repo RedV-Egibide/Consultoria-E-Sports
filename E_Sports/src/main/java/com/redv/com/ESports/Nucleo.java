@@ -83,9 +83,6 @@ public class Nucleo {
         return calendario;
     }//Genera la temporada.
 
-
-
-
     /*
     Analisis de PuntuarEquipos
     Utilidad: Una vez guardadas las victorias/derrotas en el Array de Partidos, si llamamos a esta funcion actualizará el Array de Equipos añadiendole los puntos.

@@ -12,6 +12,7 @@ public class VentanaDueño {
     private JTable ResultadosUltimaTemporada;
     private JTable Clasificacion;
 
+    private CalendarioBD calendarioBD;
 
     public VentanaDueño() {
         JFrame frame = new JFrame("VentanaDueño");
@@ -22,15 +23,14 @@ public class VentanaDueño {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
-
         //BASE DE DATOS
-        ArrayList<Calendario> calendarioTemporada = new ArrayList<>();//ÚLTIMA TEMPORADA GENERADA POR EL NÚCLEO
-        ArrayList<Equipo> equiposParticipantes = new ArrayList<>();//EQUIPOS QUE PARTICIPAN EN LA TEMPORADA
+        calendarioBD = new CalendarioBD();
+        ArrayList<Calendario> calendarioTemporada = calendarioBD.cargarTemporada();//ÚLTIMA TEMPORADA GENERADA POR EL NÚCLEO
+        ArrayList<Equipo> equiposParticipantes = calendarioBD.cargarEquiposTemporada();//EQUIPOS QUE PARTICIPAN EN LA TEMPORADA
         //BASE DE DATOS
 
         ResultadosUltimaTemporada.setModel(new TablaResultadosUsuario(calendarioTemporada));//CREACION DE LA TABLA
         Clasificacion.setModel(new TablaClasificacionUsuario(calendarioTemporada, equiposParticipantes));//CREACION DE LA TABLA
-
 
         confeccionarEquipoButton.addActionListener(new ActionListener() {
             @Override
@@ -41,7 +41,6 @@ public class VentanaDueño {
             }
         });
 
-
         salirButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -51,8 +50,5 @@ public class VentanaDueño {
             }
         });
     }
-
-
-
 
 }

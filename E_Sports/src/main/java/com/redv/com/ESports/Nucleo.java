@@ -1,5 +1,6 @@
 package com.redv.com.ESports;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -7,6 +8,7 @@ import java.util.Random;
 public class Nucleo {
     /**
      * author: Eric Mtz
+     *
      * @param equipos
      * @return ArrayList<Calendario></> //Devuelve un array con todos los partidos que se jugarán en la temporada (En el orden en el que serán jugados)
      */
@@ -58,11 +60,19 @@ public class Nucleo {
             tamañoArrays++;
         }
 
+        //fecha temporal (se debe hacer un cálculo aleatorio)
+        Date fecha;
+
         //AL IGUAL QUE AL DESORDENAR EQUIPOS, TRANSFERIMOS LOS DATOS DE CALENDARIOSINALEATORIZAR A CALENDARIO, EN DESORDEN TOTAL.
         for (int i = 0; i < tamañoArrays; i++) {
+            if (i % 2 == 0) {
+                fecha = new Date(118, i, 9);
+            } else {
+                fecha = new Date(118, i, 18);
+            }
             int aleatorio = r.nextInt(calendarioSinAleatorizar.size());
-            calendarioSinAleatorizar.get(aleatorio).setJornada(i+1);
-            //calendarioSinAleatorizar.get(aleatorio).setFecha();DE AÑADIR LA FECHA SE AÑADIRÁ EN ESTA LÍNEA Y BAJO EL VALOR ALEATORIO COMO ESTÁ ESCRITO
+            calendarioSinAleatorizar.get(aleatorio).setJornada(i + 1);
+            calendarioSinAleatorizar.get(aleatorio).setFecha(fecha);//DE AÑADIR LA FECHA SE AÑADIRÁ EN ESTA LÍNEA Y BAJO EL VALOR ALEATORIO COMO ESTÁ ESCRITO
             calendario.add(calendarioSinAleatorizar.get(aleatorio));
             calendarioSinAleatorizar.remove(aleatorio);
         }
@@ -83,19 +93,18 @@ public class Nucleo {
     RETURN: ArrayList<Equipos> Devolverá un ArrayList de equipos como el introducido al llamar a la función, pero con los datos de puntuación guardados.
      */
 
-    public static ArrayList<Equipo> PuntuarEquipos (ArrayList<Calendario> enfrentamientos, ArrayList<Equipo> equiposParticipantes){
-
+    public static ArrayList<Equipo> PuntuarEquipos(ArrayList<Calendario> enfrentamientos, ArrayList<Equipo> equiposParticipantes) {
 
         for (int i = 0; i < enfrentamientos.size(); i++) {
 
-            switch (enfrentamientos.get(i).getResultado()){
+            switch (enfrentamientos.get(i).getResultado()) {
                 case 1:
 
                     for (int j = 0; j < equiposParticipantes.size(); j++) {
 
-                        if (equiposParticipantes.get(j).getNombre_equipo().equalsIgnoreCase(enfrentamientos.get(i).getEquipo1().getNombre_equipo())){
+                        if (equiposParticipantes.get(j).getNombre_equipo().equalsIgnoreCase(enfrentamientos.get(i).getEquipo1().getNombre_equipo())) {
                             equiposParticipantes.get(j).setPuntuación(+1);
-                        }else if(equiposParticipantes.get(j).getNombre_equipo().equalsIgnoreCase(enfrentamientos.get(i).getEquipo2().getNombre_equipo())){
+                        } else if (equiposParticipantes.get(j).getNombre_equipo().equalsIgnoreCase(enfrentamientos.get(i).getEquipo2().getNombre_equipo())) {
                             equiposParticipantes.get(j).setPuntuación(-1);
                         }
                     }
@@ -103,9 +112,9 @@ public class Nucleo {
                 case 2:
                     for (int j = 0; j < equiposParticipantes.size(); j++) {
 
-                        if (equiposParticipantes.get(j).getNombre_equipo().equalsIgnoreCase(enfrentamientos.get(i).getEquipo1().getNombre_equipo())){
+                        if (equiposParticipantes.get(j).getNombre_equipo().equalsIgnoreCase(enfrentamientos.get(i).getEquipo1().getNombre_equipo())) {
                             equiposParticipantes.get(j).setPuntuación(-1);
-                        }else if(equiposParticipantes.get(j).getNombre_equipo().equalsIgnoreCase(enfrentamientos.get(i).getEquipo2().getNombre_equipo())){
+                        } else if (equiposParticipantes.get(j).getNombre_equipo().equalsIgnoreCase(enfrentamientos.get(i).getEquipo2().getNombre_equipo())) {
                             equiposParticipantes.get(j).setPuntuación(+1);
                         }
                     }
@@ -113,6 +122,6 @@ public class Nucleo {
 
         }
 
-        return  equiposParticipantes;
+        return equiposParticipantes;
     }
 }

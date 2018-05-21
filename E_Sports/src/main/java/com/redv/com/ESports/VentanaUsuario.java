@@ -12,6 +12,7 @@ public class VentanaUsuario {
     private JTable TablaClasificacion;
     private JScrollPane JScrollPane2;
 
+    private CalendarioBD calendarioBD;
 
     public VentanaUsuario() {
         JFrame frame = new JFrame("VentanaUsuario");
@@ -23,10 +24,10 @@ public class VentanaUsuario {
         frame.setVisible(true);
 
         //BASE DE DATOS
-       ArrayList<Calendario> calendarioTemporada = new ArrayList<>();//ÚLTIMA TEMPORADA GENERADA POR EL NÚCLEO
-       ArrayList<Equipo> equiposParticipantes = new ArrayList<>(); //EQUIPOS QUE PARTICIPAN EN LA TEMPORADA
+        calendarioBD = new CalendarioBD();
+        ArrayList<Calendario> calendarioTemporada = calendarioBD.cargarTemporada();//ÚLTIMA TEMPORADA GENERADA POR EL NÚCLEO
+        ArrayList<Equipo> equiposParticipantes = calendarioBD.cargarEquiposTemporada(); //EQUIPOS QUE PARTICIPAN EN LA TEMPORADA
         //BASE DE DATOS
-
 
         //Esto hay que borrarlo hasta el próximo "BORRAR" (Provisional para el error de las JTable)
         ArrayList<Equipo> equipos = new ArrayList<>();
@@ -45,17 +46,9 @@ public class VentanaUsuario {
         TablaResultadosTemporada.setModel(new TablaResultadosUsuario(TemporadaDePrueba));
         //BORRAR
 
-
-
-
-
-
-
         //Esto hay que quitarlo de texto (Provisional para el error de las JTable)
         //TablaResultadosTemporada.setModel(new TablaResultadosUsuario(calendarioTemporada));//CREACION DE LA TABLA
         TablaClasificacion.setModel(new TablaClasificacionUsuario(calendarioTemporada, equiposParticipantes));//CREACION DE LA TABLA
-
-
 
         salirButton.addActionListener(new ActionListener() {
             @Override

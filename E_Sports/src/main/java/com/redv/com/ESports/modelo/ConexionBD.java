@@ -6,6 +6,11 @@ import java.sql.SQLException;
 
 public class ConexionBD {
 
+    /**
+     * Se encarga de establecer la conexión con la BD oracle
+     *
+     * @return devuelve la conexión establecida
+     */
     public static Connection conectar() {
 
         Connection conn = null;
@@ -28,6 +33,11 @@ public class ConexionBD {
         return conn;
     }
 
+    /**
+     * Cierra una conexión previamente abierta
+     *
+     * @param conn recibe la conexión que se desea cerrar
+     */
     public static void desconectar(Connection conn) {
 
         // Cerrar la conexión

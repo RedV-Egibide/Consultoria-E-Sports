@@ -48,7 +48,6 @@ public class VentanaAdmin {
                 generarButton.setEnabled(false);
             }
         }
-
         ResultadosTemporada.setModel(new TablaResultadosUsuario(calendario));//CREACION DE LA TABLA
 
         salirButton.addActionListener(new ActionListener() {
@@ -151,6 +150,9 @@ public class VentanaAdmin {
                 //cargamos array temporada en TablaResultadosUsuario(temporada) (le pasamos el array de partidos -temporada- para que se visualice)
                 tablaResultadosUsuario = new TablaResultadosUsuario(calendario);
                 ResultadosTemporada.setModel(tablaResultadosUsuario);
+
+                /*JOptionPane.showMessageDialog(VentanaAdmin, "¡Temporada generada correctamente!", "Resultado", JOptionPane.INFORMATION_MESSAGE);
+                frame.dispose();*/
             }
         });
     }
